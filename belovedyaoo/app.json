@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/toloveyaoo/toloveyaoo",
+    "pages/loveyaoo/loveyaoo",
+    "pages/tureloveyaoo/tureloveyaoo",
+    "pages/belovedyaoo/belovedyaoo",
+    "pages/youandyaoo/youandyaoo"
+  ],
+  "window": {
+    "backgroundColor": "#f0e9ef",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "BelovedYaoo",
+    "navigationBarBackgroundColor": "#f0e9ef"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/belovedyaoo/belovedyaoo",
+        "iconPath": "/src/images/qianceng.png",
+        "selectedIconPath": "/src/images/qianceng.png",
+        "text": "想对你说"
+      },
+      {
+        "pagePath": "pages/loveyaoo/loveyaoo",
+        "iconPath": "/src/images/musi.png",
+        "selectedIconPath": "/src/images/musi.png",
+        "text": "唐诗"
+      },
+      {
+        "pagePath": "pages/toloveyaoo/toloveyaoo",
+        "iconPath": "/src/images/musi.png",
+        "selectedIconPath": "/src/images/musi.png",
+        "text": "关于我们"
+      },
+      {
+        "pagePath": "pages/tureloveyaoo/tureloveyaoo",
+        "iconPath": "/src/images/dangao.png",
+        "selectedIconPath": "/src/images/dangao.png",
+        "text": "个人"
+      },
+      {
+        "pagePath": "pages/youandyaoo/youandyaoo",
+        "iconPath": "/src/images/mianbao.png",
+        "selectedIconPath": "/src/images/mianbao.png",
+        "text": "嘻嘻"
+      }
+    ]
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "lazyCodeLoading": "requiredComponents"
+}
