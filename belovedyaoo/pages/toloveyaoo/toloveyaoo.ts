@@ -66,7 +66,7 @@ Page({
     wx.request({
       url: 'https://api.vvhan.com/api/text/love',
       method: 'GET',
-      success: (requestRes: any) => {
+      success: (requestRes: any): void => {
         if (requestRes.data.length > 20) {
           this.updateYiyan();
           return;
@@ -84,10 +84,11 @@ Page({
         }, 500);
         setTimeout(this.updateYiyan, 5000);
       },
-      fail: function (err): void {
+      fail: (err): void => {
         console.log(err);
+        this.updateYiyan();
       },
-      complete: () => {
+      complete: (): void => {
       }
     });
 
