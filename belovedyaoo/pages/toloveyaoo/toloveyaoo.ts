@@ -15,7 +15,8 @@ Page({
       seconds: 16
     } as TimeDiff,
     yiyanOpacity: 1 as number,
-    yiyan: "我不说想你，月亮会带给你" as string
+    yiyan: "我不说想你，月亮会带给你" as string,
+    yiyanUpdateErrorCount: 0 as number
   },
 
   onLoad: function (): void {
@@ -85,8 +86,13 @@ Page({
         setTimeout(this.updateYiyan, 5000);
       },
       fail: (err): void => {
-        console.log(err);
-        this.updateYiyan();
+        this.data.yiyanUpdateErrorCount++;
+        if (this.data.yiyanUpdateErrorCount <= 5) {
+          setTimeout(this.updateYiyan, 5000);
+        } else {
+          console.error('一言更新错误次数过多，请检查');
+        }
+        console.error(err);
       },
       complete: (): void => {
       }
