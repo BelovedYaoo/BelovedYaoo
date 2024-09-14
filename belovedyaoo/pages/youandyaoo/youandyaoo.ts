@@ -186,7 +186,7 @@ Page({
     isShow: false,
     current: {},
   },
-  getDetail(e) {
+  getDetail(e:any) {
     let {
       item
     } = e.currentTarget.dataset;
@@ -204,12 +204,12 @@ Page({
   onShow() {
     if (typeof this.getTabBar == 'function' && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: 3
+        selected: 4
       });
     }
     let time = new Date(),
       list = getCurrWeekList(time),
-      weekList = []
+      weekList = [] as any
     list.forEach(item => {
       weekList.push({
         day: [item.split('-')[1], item.split('-')[2]].join('-'),
@@ -222,7 +222,7 @@ Page({
     })
   },
   onLoad: function (): void {
-    var diffInMs = Math.abs(new Date() - this.data.startTime);
+    var diffInMs = Math.abs(new Date().getTime() - this.data.startTime);
     var diffInWeeks = diffInMs / (1000 * 60 * 60 * 24 * 7);
     this.setData({
       currentWeek: Math.ceil(diffInWeeks)

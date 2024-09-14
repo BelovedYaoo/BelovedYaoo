@@ -41,7 +41,7 @@ Component({
         "pagePath": "/pages/youandyaoo/youandyaoo",
         "iconPath": "/src/images/mianbao.png",
         "selectedIconPath": "/src/images/mianbao.png",
-        "text": "嘻嘻"
+        "text": "课程表"
       }
     ] as TabbarList
   },
