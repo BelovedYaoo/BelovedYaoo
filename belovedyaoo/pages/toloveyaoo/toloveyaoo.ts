@@ -77,7 +77,7 @@ Page({
     clearInterval(this.timer);
   },
 
-  timer: 0,
+  timer: 0 as number,
 
   init: function (): void {
     this.updateTimer();
@@ -146,6 +146,8 @@ Page({
     return num.toString().padStart(2, '0');
   },
 
+  autoSwiper: 0 as number,
+
   touchSwiperInit: function (): void {
     let list = this.data.swiperList;
     for (let i = 0; i < list.length; i++) {
@@ -155,18 +157,25 @@ Page({
     this.setData({
       swiperList: list
     })
+    this.autoSwiper = setTimeout(() => {
+      this.touchEnd();
+    }, 5000);
   },
+
   touchStart: function (e: any): void {
     this.setData({
       touchStart: e.touches[0].pageX
     })
   },
+
   touchMove: function (e: any): void {
     this.setData({
       direction: e.touches[0].pageX - this.data.touchStart > 0 ? 'right' : 'left'
     })
   },
+
   touchEnd: function (): void {
+    clearInterval(this.autoSwiper);
     let direction = this.data.direction;
     let list = this.data.swiperList;
     if (direction == 'right') {
@@ -178,9 +187,6 @@ Page({
       }
       list[list.length - 1].mLeft = mLeft;
       list[list.length - 1].zIndex = zIndex;
-      this.setData({
-        swiperList: list
-      })
     } else {
       let mLeft = list[list.length - 1].mLeft;
       let zIndex = list[list.length - 1].zIndex;
@@ -190,10 +196,11 @@ Page({
       }
       list[0].mLeft = mLeft;
       list[0].zIndex = zIndex;
-      this.setData({
-        swiperList: list
-      })
     }
+    this.setData({
+      swiperList: list
+    })
+    this.autoSwiper = setInterval(this.touchEnd, 5000);
   }
 
 });
