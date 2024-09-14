@@ -4,6 +4,15 @@ type TimeDiff = {
   seconds: number | string;
 };
 
+type swiperInfo = {
+  type: string,
+  url: string,
+  zIndex?: number,
+  mLeft?: number
+};
+
+type swiperList = Array<swiperInfo>;
+
 Page({
   data: {
     babyName: "佳瑶" as string,
@@ -16,11 +25,44 @@ Page({
     } as TimeDiff,
     yiyanOpacity: 1 as number,
     yiyan: "我不说想你，月亮会带给你" as string,
-    yiyanUpdateErrorCount: 0 as number
+    yiyanUpdateErrorCount: 0 as number,
+    touchStart: 0 as number,
+    direction: 'left' as string,
+    swiperList: [
+      {
+        type: 'image',
+        url: './photos/1.jpg'
+      }, {
+        type: 'image',
+        url: './photos/2.jpg'
+      }, {
+        type: 'image',
+        url: './photos/3.jpg',
+      }, {
+        type: 'image',
+        url: './photos/4.jpg'
+      }, {
+        type: 'image',
+        url: './photos/5.jpg'
+      }, {
+        type: 'image',
+        url: './photos/6.jpg'
+      }, {
+        type: 'image',
+        url: './photos/7.jpg'
+      }, {
+        type: 'image',
+        url: './photos/8.jpg'
+      }, {
+        type: 'image',
+        url: './photos/9.jpg'
+      },
+    ] as swiperList
   },
 
   onLoad: function (): void {
     this.init();
+    this.touchSwiperInit();
   },
 
   onShow: function (): void {
@@ -103,5 +145,55 @@ Page({
   padZero(num: number): string {
     return num.toString().padStart(2, '0');
   },
+
+  touchSwiperInit: function (): void {
+    let list = this.data.swiperList;
+    for (let i = 0; i < list.length; i++) {
+      list[i].zIndex = parseInt((list.length / 2).toString()) + 1 - Math.abs(i - parseInt((list.length / 2).toString()))
+      list[i].mLeft = i - parseInt((list.length / 2).toString())
+    }
+    this.setData({
+      swiperList: list
+    })
+  },
+  touchStart: function (e: any): void {
+    this.setData({
+      touchStart: e.touches[0].pageX
+    })
+  },
+  touchMove: function (e: any): void {
+    this.setData({
+      direction: e.touches[0].pageX - this.data.touchStart > 0 ? 'right' : 'left'
+    })
+  },
+  touchEnd: function (): void {
+    let direction = this.data.direction;
+    let list = this.data.swiperList;
+    if (direction == 'right') {
+      let mLeft = list[0].mLeft;
+      let zIndex = list[0].zIndex;
+      for (let i = 1; i < list.length; i++) {
+        list[i - 1].mLeft = list[i].mLeft
+        list[i - 1].zIndex = list[i].zIndex
+      }
+      list[list.length - 1].mLeft = mLeft;
+      list[list.length - 1].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    } else {
+      let mLeft = list[list.length - 1].mLeft;
+      let zIndex = list[list.length - 1].zIndex;
+      for (let i = list.length - 1; i > 0; i--) {
+        list[i].mLeft = list[i - 1].mLeft
+        list[i].zIndex = list[i - 1].zIndex
+      }
+      list[0].mLeft = mLeft;
+      list[0].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    }
+  }
 
 });
