@@ -31,32 +31,26 @@ Page({
     swiperList: [
       {
         type: 'image',
-        url: './photos/1.jpg'
+        url: 'https://img.picui.cn/free/2024/09/14/66e5460419a90.jpg'
       }, {
         type: 'image',
-        url: './photos/2.jpg'
+        url: 'https://img.picui.cn/free/2024/09/14/66e5460450857.jpg'
       }, {
         type: 'image',
-        url: './photos/3.jpg',
+        url: 'https://img.picui.cn/free/2024/09/14/66e5460463c7f.jpg',
       }, {
         type: 'image',
-        url: './photos/4.jpg'
+        url: 'https://img.picui.cn/free/2024/09/14/66e5460450026.jpg'
       }, {
         type: 'image',
-        url: './photos/5.jpg'
+        url: 'https://img.picui.cn/free/2024/09/14/66e546043e1ca.jpg'
       }, {
         type: 'image',
-        url: './photos/6.jpg'
+        url: 'https://img.picui.cn/free/2024/09/14/66e5460b9c343.jpg'
       }, {
         type: 'image',
-        url: './photos/7.jpg'
-      }, {
-        type: 'image',
-        url: './photos/8.jpg'
-      }, {
-        type: 'image',
-        url: './photos/9.jpg'
-      },
+        url: 'https://img.picui.cn/free/2024/09/14/66e5460c64316.jpg'
+      }
     ] as swiperList
   },
 
