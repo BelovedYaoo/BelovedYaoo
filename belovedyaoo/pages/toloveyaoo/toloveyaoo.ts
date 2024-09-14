@@ -176,7 +176,7 @@ Page({
 
   touchEnd: function (): void {
     clearInterval(this.autoSwiper);
-    let direction = this.data.direction;
+    let direction = (this.data.direction !== undefined && this.data.direction !== null) ? this.data.direction : 'right';
     let list = this.data.swiperList;
     if (direction == 'right') {
       let mLeft = list[0].mLeft;
