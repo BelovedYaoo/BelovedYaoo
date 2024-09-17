@@ -168,16 +168,16 @@ image {
   font-weight: bold;
   font-size: 30rpx;
   font-style: italic;
-  /* 斜体 font-style:oblique;或者 font-style: italic;*/
+  /* 斜体 font-style:oblique;或者 font-style: italic; */
 }
 
 .head-left-text.one {
-  right: 2px;
+  left: 2px;
   top: 2px;
 }
 
 .head-left-text.two {
-  left: 2px;
+  right: 2px;
   bottom: 2px;
 }
 
@@ -196,7 +196,7 @@ image {
   width: 40rpx;
   height: 40rpx;
   top: -10rpx;
-  left: -10rpx;
+  right: -10rpx;
 }
 
 .head-right {

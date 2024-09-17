@@ -2,7 +2,7 @@
   <view class="full-screen-bg"></view>
   <view class="flex-row head">
     <view class="head-left flex-column j_c">
-      <image src="https://s3.bmp.ovh/imgs/2022/07/27/6289fe4ab016c74a.png" class="head-icon" />
+      <image src="../../src/images/sanmingzhi.png" class="head-icon" />
       <text class="head-left-text one">第</text>
       <text class="head-left-text two">周</text>
       <text class="head-curr-week">{{currentWeek}}</text>
@@ -39,7 +39,7 @@
           <text class="line_ellipsis">{{item.add}}</text>
         </view>
       </view>
-      <image src="https://s3.bmp.ovh/imgs/2022/07/27/85dabf1d5821a98b.png" class="con-icon" />
+      <image src="../../src/images/shabing.png" class="con-icon" />
     </view>
   </view>
   <view class="container flex-row mb20">
@@ -60,7 +60,7 @@
           <text class="line_ellipsis">{{item.add}}</text>
         </view>
       </view>
-      <image src="https://s3.bmp.ovh/imgs/2022/07/27/85dabf1d5821a98b.png" class="con-icon" />
+      <image src="../../src/images/shabing.png" class="con-icon" />
     </view>
   </view>
   <view class="container flex-row">
@@ -81,7 +81,7 @@
           <text class="line_ellipsis">{{item.add}}</text>
         </view>
       </view>
-      <image src="https://s3.bmp.ovh/imgs/2022/07/27/85dabf1d5821a98b.png" class="con-icon" />
+      <image src="../../src/images/shabing.png" class="con-icon" />
     </view>
   </view>
   <!-- 详情弹框 -->
