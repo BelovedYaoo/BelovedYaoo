@@ -7,7 +7,7 @@
     </view>
   </div>
   <div class="textContainer">
-    <view class="title">与{{babyName}}宝宝相恋已经这么久啦</view>
+    <view class="title">与佳瑶宝宝相恋已经这么久啦</view>
     <text class="showTime"> {{timeDiff.hours}} 小时 {{timeDiff.minutes}} 分钟 {{timeDiff.seconds}} 秒</text>
     <text class="yiyan" style="opacity: {{yiyanOpacity}};">{{yiyan}}</text>
   </div>

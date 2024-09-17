@@ -1,6 +1,5 @@
 Page({
   data: {
-    babyName: "佳瑶" as string,
     startTime: new Date('2024-07-15T00:00:00').getTime() as number,
     currentTime: new Date().getTime() as number,
     timeDiff: {
@@ -32,10 +31,7 @@ Page({
       }, {
         type: 'image',
         url: 'https://img.picui.cn/free/2024/09/14/66e5460b9c343.jpg'
-      }, {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460c64316.jpg'
-      }
+      },
     ] as swiperList
   },
 
@@ -47,16 +43,10 @@ Page({
   onShow: function (): void {
     if (typeof this.getTabBar == 'function' && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: 3
+        selected: 2
       });
     }
   },
-
-  onHide: function (): void {
-    clearInterval(this.timer);
-  },
-
-  timer: 0 as number,
 
   init: function (): void {
     this.updateTimer();
@@ -64,8 +54,7 @@ Page({
   },
 
   updateTimer: function (): void {
-    this.timer = setInterval(() => {
-      const now = new Date().getTime() as number;
+    const now = new Date().getTime() as number;
       const diff = now - this.data.startTime as number;
 
       const hours = Math.floor(diff / (1000 * 60 * 60)) as number;
@@ -81,6 +70,8 @@ Page({
       this.setData({
         timeDiff: formattedTime,
       });
+    setTimeout(() => {
+      this.updateTimer();
     }, 1000);
   },
 
