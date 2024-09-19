@@ -23,25 +23,25 @@ Component({
         "pagePath": "/pages/loveyaoo/loveyaoo",
         "iconPath": "/src/images/musi.png",
         "selectedIconPath": "/src/images/musi.png",
-        "text": "唐诗"
+        "text": "今日天气"
       },
       {
         "pagePath": "/pages/toloveyaoo/toloveyaoo",
         "iconPath": "/src/images/musi.png",
         "selectedIconPath": "/src/images/musi.png",
-        "text": "关于我们"
+        "text": "课程表"
       },
       {
         "pagePath": "/pages/tureloveyaoo/tureloveyaoo",
         "iconPath": "/src/images/dangao.png",
         "selectedIconPath": "/src/images/dangao.png",
-        "text": "个人"
+        "text": "数据管理"
       },
       {
         "pagePath": "/pages/youandyaoo/youandyaoo",
         "iconPath": "/src/images/mianbao.png",
         "selectedIconPath": "/src/images/mianbao.png",
-        "text": "课程表"
+        "text": "关于我们"
       }
     ] as TabbarList
   },

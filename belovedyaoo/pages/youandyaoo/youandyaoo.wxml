@@ -1,94 +1,22 @@
 <div class="app">
   <view class="full-screen-bg"></view>
-  <view class="flex-row head">
-    <view class="head-left flex-column j_c">
-      <image src="../../src/images/sanmingzhi.png" class="head-icon" />
-      <text class="head-left-text one">第</text>
-      <text class="head-left-text two">周</text>
-      <text class="head-curr-week">{{currentWeek}}</text>
+  <div class="container">
+    <view class="avatar">
+      <image class="circle" src="../../src/images/you.jpg" />
+      <image class="circle" src="../../src/images/yao.jpg" />
     </view>
-    <view class="head-right flex-row j_b">
-      <view class="flex-column j_c" wx:for="{{weekList}}" wx:key="list">
-        <text class="head-week {{item.isCurr && 'head-right-curr'}}">{{item.week}}</text>
-        <text class=" {{item.isCurr && 'head-right-curr'}}">{{item.isCurr?'今天':item.day}}</text>
+  </div>
+  <div class="textContainer">
+    <view class="title">与佳瑶宝宝相恋已经这么久啦</view>
+    <text class="showTime"> {{timeDiff.hours}} 小时 {{timeDiff.minutes}} 分钟 {{timeDiff.seconds}} 秒</text>
+    <text class="yiyan" style="opacity: {{yiyanOpacity}};">{{yiyan}}</text>
+  </div>
+  <view class="swiper-box" bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd">
+    <view class="item-box {{item.zIndex==1?'none':''}}" wx:for="{{swiperList}}" wx:key="index" style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
+      <view class="swiper-item">
+        <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+        <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
       </view>
     </view>
-  </view>
-  <view class="container flex-row mb20">
-    <view class="container-left flex-column j_b">
-      <block wx:for="{{time.one}}" wx:key="list">
-        <view class="flex-column j_c">
-          <text class="con-title">{{item.index}}</text>
-          <text>{{item.timeStart}}</text>
-          <text>{{item.timeEnd}}</text>
-        </view>
-      </block>
-    </view>
-    <view class="container-right  flex col j_c">
-      <view class="flex-row mb10">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.one}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type ? 'getDetail':''}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
-        </view>
-      </view>
-      <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.two}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type ? 'getDetail':''}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
-        </view>
-      </view>
-      <image src="../../src/images/shabing.png" class="con-icon" />
-    </view>
-  </view>
-  <view class="container flex-row mb20">
-    <view class="container-left left1">
-      <block wx:for="{{time.two}}" wx:key="list">
-        <view class="flex-column j_c">
-          <text class="con-title">{{item.index}}</text>
-          <text>{{item.timeStart}}</text>
-          <text>{{item.timeEnd}}</text>
-        </view>
-      </block>
-    </view>
-    <view class="container-right right1  flex col j_c">
-      <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.three}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type ? 'getDetail':''}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
-        </view>
-      </view>
-      <image src="../../src/images/shabing.png" class="con-icon" />
-    </view>
-  </view>
-  <view class="container flex-row">
-    <view class="container-left left1">
-      <block wx:for="{{time.three}}" wx:key="list">
-        <view class="flex-column j_c">
-          <text class="con-title">{{item.index}}</text>
-          <text>{{item.timeStart}}</text>
-          <text>{{item.timeEnd}}</text>
-        </view>
-      </block>
-    </view>
-    <view class="container-right right1 flex col j_c">
-      <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.four}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type && 'getDetail'}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
-        </view>
-      </view>
-      <image src="../../src/images/shabing.png" class="con-icon" />
-    </view>
-  </view>
-  <!-- 详情弹框 -->
-  <view class="mask" hidden="{{!isShow}}" catchtap="close"></view>
-  <view class="modal flex-column j_c {{isShow ? 'show':'noShow'}}" style="background: {{current.color}};">
-    <view>{{current.sub}}</view>
-    <view>{{current.add}}</view>
-    <view>{{current.tec}}</view>
   </view>
 </div>

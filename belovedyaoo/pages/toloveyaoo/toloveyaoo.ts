@@ -1,191 +1,231 @@
-type TimeDiff = {
-  hours: number | string;
-  minutes: number | string;
-  seconds: number | string;
-};
-
-type swiperInfo = {
-  type: string,
-  url: string,
-  zIndex?: number,
-  mLeft?: number
-};
-
-type swiperList = Array<swiperInfo>;
-
+import {
+  getCurrWeekList,
+  formateDate
+} from './util'
 Page({
   data: {
-    startTime: new Date('2024-07-15T00:00:00').getTime() as number,
-    currentTime: new Date().getTime() as number,
-    timeDiff: {
-      hours: 1292,
-      minutes: 56,
-      seconds: 16
-    } as TimeDiff,
-    yiyanOpacity: 1 as number,
-    yiyan: "我不说想你，月亮会带给你" as string,
-    yiyanUpdateErrorCount: 0 as number,
-    touchStart: 0 as number,
-    direction: 'left' as string,
-    swiperList: [
-      {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460419a90.jpg'
-      }, {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460450857.jpg'
-      }, {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460463c7f.jpg',
-      }, {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460450026.jpg'
-      }, {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e546043e1ca.jpg'
-      }, {
-        type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460b9c343.jpg'
+    startTime: new Date('2024-09-02T00:00:00').getTime() as number,
+    currentWeek: 1 as number,
+    time: {
+      one: [{
+        index: 1,
+        timeStart: '08:00',
+        timeEnd: '08:45'
       },
-    ] as swiperList
+      {
+        index: 2,
+        timeStart: '08:55',
+        timeEnd: '09:40'
+      },
+      {
+        index: 3,
+        timeStart: '10:00',
+        timeEnd: '10:45'
+      },
+      {
+        index: 4,
+        timeStart: '10:55',
+        timeEnd: '11:40'
+      }
+      ],
+      two: [{
+        index: 5,
+        timeStart: '14:30',
+        timeEnd: '15:15'
+      },
+      {
+        index: 6,
+        timeStart: '15:25',
+        timeEnd: '16:10'
+      },
+      ],
+      three: [{
+        index: 7,
+        timeStart: '16:30',
+        timeEnd: '17:15'
+      },
+      {
+        index: 8,
+        timeStart: '17:25',
+        timeEnd: '18:10'
+      },
+      ]
+    },
+    schedule: {
+      one: [{
+        sub: '软件项目管理',
+        add: '6-13',
+        tec: "T2-D101",
+        color: '#fad0c4',
+        type: 1,
+      }, {
+        sub: 'UML\n建模',
+        add: '6-13',
+        tec: "T2-D101",
+        color: '#c1cbd7',
+        type: 1,
+      }, {
+        sub: '软件项目管理',
+        add: '6-13',
+        tec: "T2-D101",
+        color: '#965454',
+        type: 1,
+      }, {
+        sub: '',
+        add: '',
+        tec: "",
+        color: '',
+        type: 0,
+      },
+      {
+        sub: 'UML\n建模实验',
+        add: '9-13',
+        tec: "P-D706",
+        color: '#C9C0D3',
+        type: 0,
+      },
+      ],
+      two: [{
+        sub: 'UML\n建模',
+        add: '6-13',
+        tec: "T2-D101",
+        color: '#A29988',
+        type: 1,
+      },
+      {
+        sub: '软件质量保证与测试',
+        add: '2-13',
+        tec: "T2-D101",
+        color: '#fda085',
+        type: 1,
+      },
+      {
+        sub: '软件项目管理实验',
+        add: '7-14',
+        tec: "P-D706",
+        color: '#fbc2eb',
+        type: 1,
+      }, {
+        sub: '软件质量保证与测试',
+        add: '1-12',
+        tec: "T2-D101",
+        color: '#6B5152',
+        type: 1,
+      },
+      {
+        sub: '算法分析与设计',
+        add: '6-13',
+        tec: "T2-D101",
+        color: 'pink',
+        type: 1, //0-无  1-有
+      },
+      ],
+      three: [{
+        sub: '移动开发技术基础',
+        add: '2-4',
+        tec: "T2-D101",
+        color: '#7b8b6f',
+        type: 0,
+      }, {
+        sub: '移动开发技术基础',
+        add: '2-4',
+        tec: "T2-D101",
+        color: '#7b8b6f',
+        type: 0,
+      }, {
+        sub: '算法分析与设计',
+        add: '6-13',
+        tec: "T2-D101",
+        color: 'pink',
+        type: 1, //0-无  1-有
+      },
+      {
+        sub: '移动开发技术基础',
+        add: '2-4',
+        tec: "T2-D101",
+        color: '#7b8b6f',
+        type: 0,
+      },
+      {
+        sub: '移动开发技术基础实验',
+        add: '等待排课',
+        tec: "P-D602",
+        color: '#7b8b6f',
+        type: 0,
+      },
+      ],
+      four: [{
+        sub: '移动开发技术基础',
+        add: '2-4',
+        tec: "T2-D101",
+        color: '#7b8b6f',
+        type: 0,
+      }, {
+        sub: '移动开发技术基础',
+        add: '2-4',
+        tec: "T2-D101",
+        color: '#7b8b6f',
+        type: 0,
+      }, {
+        sub: '',
+        add: '',
+        tec: "",
+        color: '',
+        type: 0,
+      },
+      {
+        sub: '移动开发技术基础',
+        add: '2-4',
+        tec: "T2-D101",
+        color: '#7b8b6f',
+        type: 0,
+      },
+      ]
+    },
+    weekList: [],
+    isShow: false,
+    current: {},
   },
-
-  onLoad: function (): void {
-    this.init();
-    this.touchSwiperInit();
+  getDetail(e: any) {
+    let {
+      item
+    } = e.currentTarget.dataset;
+    console.log(item)
+    this.setData({
+      current: item,
+      isShow: true
+    })
   },
-
-  onShow: function (): void {
+  close() {
+    this.setData({
+      isShow: false
+    })
+  },
+  onShow() {
     if (typeof this.getTabBar == 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 2
       });
     }
-  },
-
-  init: function (): void {
-    this.updateTimer();
-    this.updateYiyan();
-  },
-
-  updateTimer: function (): void {
-    const now = new Date().getTime() as number;
-      const diff = now - this.data.startTime as number;
-
-      const hours = Math.floor(diff / (1000 * 60 * 60)) as number;
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)) as number;
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000) as number;
-
-      const formattedTime = {
-        hours: this.padZero(hours),
-        minutes: this.padZero(minutes),
-        seconds: this.padZero(seconds),
-      } as TimeDiff;
-
-      this.setData({
-        timeDiff: formattedTime,
-      });
-    setTimeout(() => {
-      this.updateTimer();
-    }, 1000);
-  },
-
-  updateYiyan: function (): void {
-    wx.request({
-      url: 'https://api.vvhan.com/api/text/love',
-      method: 'GET',
-      success: (requestRes: any): void => {
-        if (requestRes.data.length > 20) {
-          this.updateYiyan();
-          return;
-        }
-        this.setData({
-          yiyanOpacity: 0
-        });
-        setTimeout(() => {
-          this.setData({
-            yiyan: requestRes.data,
-          });
-          this.setData({
-            yiyanOpacity: 1
-          });
-        }, 500);
-        setTimeout(this.updateYiyan, 5000);
-      },
-      fail: (err): void => {
-        this.data.yiyanUpdateErrorCount++;
-        if (this.data.yiyanUpdateErrorCount <= 5) {
-          setTimeout(this.updateYiyan, 5000);
-        } else {
-          console.error('一言更新错误次数过多，请检查');
-        }
-        console.error(err);
-      },
-      complete: (): void => {
-      }
+    let time = new Date(),
+      list = getCurrWeekList(time),
+      weekList = [] as any
+    list.forEach(item => {
+      weekList.push({
+        day: [item.split('-')[1], item.split('-')[2]].join('-'),
+        week: "星期" + "日一二三四五六".charAt((new Date(item)).getDay()),
+        isCurr: formateDate(time) == item
+      })
     });
-
-  },
-
-  padZero(num: number): string {
-    return num.toString().padStart(2, '0');
-  },
-
-  autoSwiper: 0 as number,
-
-  touchSwiperInit: function (): void {
-    let list = this.data.swiperList;
-    for (let i = 0; i < list.length; i++) {
-      list[i].zIndex = parseInt((list.length / 2).toString()) + 1 - Math.abs(i - parseInt((list.length / 2).toString()))
-      list[i].mLeft = i - parseInt((list.length / 2).toString())
-    }
     this.setData({
-      swiperList: list
-    })
-    this.autoSwiper = setTimeout(() => {
-      this.touchEnd();
-    }, 5000);
-  },
-
-  touchStart: function (e: any): void {
-    this.setData({
-      touchStart: e.touches[0].pageX
+      weekList,
     })
   },
-
-  touchMove: function (e: any): void {
+  onLoad: function (): void {
+    var diffInMs = Math.abs(new Date().getTime() - this.data.startTime);
+    var diffInWeeks = diffInMs / (1000 * 60 * 60 * 24 * 7);
     this.setData({
-      direction: e.touches[0].pageX - this.data.touchStart > 0 ? 'right' : 'left'
-    })
-  },
-
-  touchEnd: function (): void {
-    clearInterval(this.autoSwiper);
-    let direction = (this.data.direction !== undefined && this.data.direction !== null) ? this.data.direction : 'right';
-    let list = this.data.swiperList;
-    if (direction == 'right') {
-      let mLeft = list[0].mLeft;
-      let zIndex = list[0].zIndex;
-      for (let i = 1; i < list.length; i++) {
-        list[i - 1].mLeft = list[i].mLeft
-        list[i - 1].zIndex = list[i].zIndex
-      }
-      list[list.length - 1].mLeft = mLeft;
-      list[list.length - 1].zIndex = zIndex;
-    } else {
-      let mLeft = list[list.length - 1].mLeft;
-      let zIndex = list[list.length - 1].zIndex;
-      for (let i = list.length - 1; i > 0; i--) {
-        list[i].mLeft = list[i - 1].mLeft
-        list[i].zIndex = list[i - 1].zIndex
-      }
-      list[0].mLeft = mLeft;
-      list[0].zIndex = zIndex;
-    }
-    this.setData({
-      swiperList: list
-    })
-    this.autoSwiper = setInterval(this.touchEnd, 5000);
+      currentWeek: Math.ceil(diffInWeeks)
+    });
   }
-
-});
+})
