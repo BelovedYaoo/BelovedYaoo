@@ -149,6 +149,7 @@ image {
 .mb10 {
   margin-bottom: 10rpx;
 }
+
 .head {
   margin-bottom: 20rpx;
 }
@@ -266,15 +267,16 @@ image {
   box-sizing: border-box;
   padding: 10rpx;
   line-height: 28rpx;
-  animation: show 1.5s ease-in-out;
+  animation: show 1.2s ease-in-out;
 }
 
 @keyframes show {
   0% {
-    margin-left: 20rpx;
+    opacity: 0;
   }
+
   100% {
-    margin-left: 0;
+    opacity: 1;
   }
 }
 
