@@ -1,3 +1,4 @@
+// 课程表相关的类型定义 
 type classInfoType = {
   className: string,
   classPeriod: string,
