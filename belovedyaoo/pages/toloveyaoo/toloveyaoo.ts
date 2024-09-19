@@ -1,11 +1,19 @@
 import {
   getCurrWeekList,
   formateDate
-} from './util'
+} from './util';
+
+import {
+  classDataList,
+  scheduleData
+} from './staticData';
+
 Page({
   data: {
     startTime: new Date('2024-09-02T00:00:00').getTime() as number,
     currentWeek: 1 as number,
+    classDataList,
+    scheduleData,
     time: {
       one: [{
         index: 1,
@@ -48,137 +56,6 @@ Page({
         index: 8,
         timeStart: '17:25',
         timeEnd: '18:10'
-      },
-      ]
-    },
-    schedule: {
-      one: [{
-        sub: '软件项目管理',
-        add: '6-13',
-        tec: "T2-D101",
-        color: '#fad0c4',
-        type: 1,
-      }, {
-        sub: 'UML\n建模',
-        add: '6-13',
-        tec: "T2-D101",
-        color: '#c1cbd7',
-        type: 1,
-      }, {
-        sub: '软件项目管理',
-        add: '6-13',
-        tec: "T2-D101",
-        color: '#965454',
-        type: 1,
-      }, {
-        sub: '',
-        add: '',
-        tec: "",
-        color: '',
-        type: 0,
-      },
-      {
-        sub: 'UML\n建模实验',
-        add: '9-13',
-        tec: "P-D706",
-        color: '#C9C0D3',
-        type: 0,
-      },
-      ],
-      two: [{
-        sub: 'UML\n建模',
-        add: '6-13',
-        tec: "T2-D101",
-        color: '#A29988',
-        type: 1,
-      },
-      {
-        sub: '软件质量保证与测试',
-        add: '2-13',
-        tec: "T2-D101",
-        color: '#fda085',
-        type: 1,
-      },
-      {
-        sub: '软件项目管理实验',
-        add: '7-14',
-        tec: "P-D706",
-        color: '#fbc2eb',
-        type: 1,
-      }, {
-        sub: '软件质量保证与测试',
-        add: '1-12',
-        tec: "T2-D101",
-        color: '#6B5152',
-        type: 1,
-      },
-      {
-        sub: '算法分析与设计',
-        add: '6-13',
-        tec: "T2-D101",
-        color: 'pink',
-        type: 1, //0-无  1-有
-      },
-      ],
-      three: [{
-        sub: '移动开发技术基础',
-        add: '2-4',
-        tec: "T2-D101",
-        color: '#7b8b6f',
-        type: 0,
-      }, {
-        sub: '移动开发技术基础',
-        add: '2-4',
-        tec: "T2-D101",
-        color: '#7b8b6f',
-        type: 0,
-      }, {
-        sub: '算法分析与设计',
-        add: '6-13',
-        tec: "T2-D101",
-        color: 'pink',
-        type: 1, //0-无  1-有
-      },
-      {
-        sub: '移动开发技术基础',
-        add: '2-4',
-        tec: "T2-D101",
-        color: '#7b8b6f',
-        type: 0,
-      },
-      {
-        sub: '移动开发技术基础实验',
-        add: '等待排课',
-        tec: "P-D602",
-        color: '#7b8b6f',
-        type: 0,
-      },
-      ],
-      four: [{
-        sub: '移动开发技术基础',
-        add: '2-4',
-        tec: "T2-D101",
-        color: '#7b8b6f',
-        type: 0,
-      }, {
-        sub: '移动开发技术基础',
-        add: '2-4',
-        tec: "T2-D101",
-        color: '#7b8b6f',
-        type: 0,
-      }, {
-        sub: '',
-        add: '',
-        tec: "",
-        color: '',
-        type: 0,
-      },
-      {
-        sub: '移动开发技术基础',
-        add: '2-4',
-        tec: "T2-D101",
-        color: '#7b8b6f',
-        type: 0,
       },
       ]
     },

@@ -26,17 +26,17 @@
     </view>
     <view class="container-right  flex col j_c">
       <view class="flex-row mb10">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.one}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type ? 'getDetail':''}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
+        <view class="con-item flex-column j_c " wx:for="{{scheduleData.first}}" wx:key="list" style="background: {{item.displayColor}};" catchtap="getDetail" data-item="{{item}}">
+          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
+          <text class="line_ellipsis">{{item.classLocation}}</text>
+          <text class="line_ellipsis">{{item.classPeriod}}</text>
         </view>
       </view>
       <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.two}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type ? 'getDetail':''}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
+        <view class="con-item flex-column j_c " wx:for="{{scheduleData.second}}" wx:key="list" style="background: {{item.displayColor}};" catchtap="getDetail" data-item="{{item}}">
+          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
+          <text class="line_ellipsis">{{item.classLocation}}</text>
+          <text class="line_ellipsis">{{item.classPeriod}}</text>
         </view>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
@@ -52,12 +52,12 @@
         </view>
       </block>
     </view>
-    <view class="container-right right1  flex col j_c">
+    <view class="container-right right1 flex col j_c">
       <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.three}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type ? 'getDetail':''}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
+        <view class="con-item flex-column j_c " wx:for="{{scheduleData.third}}" wx:key="list" style="background: {{item.displayColor}};" catchtap="getDetail" data-item="{{item}}">
+          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
+          <text class="line_ellipsis">{{item.classLocation}}</text>
+          <text class="line_ellipsis">{{item.classPeriod}}</text>
         </view>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
@@ -75,10 +75,10 @@
     </view>
     <view class="container-right right1 flex col j_c">
       <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{schedule.four}}" wx:key="list" style="background: {{item.color}};" catchtap="{{item.type && 'getDetail'}}" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.sub}}</text>
-          <text class="line_ellipsis">{{item.tec}}</text>
-          <text class="line_ellipsis">{{item.add}}</text>
+        <view class="con-item flex-column j_c " wx:for="{{scheduleData.fourth}}" wx:key="list" style="background: {{item.displayColor}};" catchtap="getDetail" data-item="{{item}}">
+          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
+          <text class="line_ellipsis">{{item.classLocation}}</text>
+          <text class="line_ellipsis">{{item.classPeriod}}</text>
         </view>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
@@ -86,9 +86,10 @@
   </view>
   <!-- 详情弹框 -->
   <view class="mask" hidden="{{!isShow}}" catchtap="close"></view>
-  <view class="modal flex-column j_c {{isShow ? 'show':'noShow'}}" style="background: {{current.color}};">
-    <view>{{current.sub}}</view>
-    <view>{{current.add}}</view>
-    <view>{{current.tec}}</view>
+  <view class="modal flex-column j_c {{isShow ? 'show':'noShow'}}" style="background: {{current.displayColor}};">
+    <view>{{current.className}}</view>
+    <view>{{current.classLocation}}</view>
+    <view>{{current.classPeriod}}</view>
+    <view>{{current.classTeacher}}</view>
   </view>
 </div>
