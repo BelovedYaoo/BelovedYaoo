@@ -87,9 +87,9 @@
   <!-- 详情弹框 -->
   <view class="mask" hidden="{{!isShow}}" catchtap="close"></view>
   <view class="modal flex-column j_c {{isShow ? 'show':'noShow'}}" style="background: {{current.displayColor}};">
-    <view>{{current.className}}</view>
-    <view>{{current.classLocation}}</view>
-    <view>{{current.classPeriod}}</view>
-    <view>{{current.classTeacher}}</view>
+    <view class="maskCardText">课程名称：{{current.className}}</view>
+    <view class="maskCardText">上课地点：{{current.classLocation}}</view>
+    <view class="maskCardText">课程周期：{{current.classPeriod}}</view>
+    <view class="maskCardText">授课老师：{{current.classTeacher}}</view>
   </view>
 </div>

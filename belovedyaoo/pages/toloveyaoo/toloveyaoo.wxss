@@ -16,6 +16,10 @@ page {
   --darkGray: #666666;
 }
 
+.maskCardText {
+  color: var(--white);
+}
+
 /* 多行文字换行 */
 .line_ellipsis {
   width: 65rpx;
