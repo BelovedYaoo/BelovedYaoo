@@ -59,6 +59,7 @@ Page({
       },
       ]
     },
+    isShow67: false,
     weekList: [],
     isShow: false,
     current: {},
@@ -67,6 +68,9 @@ Page({
     let {
       item
     } = e.currentTarget.dataset;
+    if (this.isEmptyObject(item)) { 
+      return;
+    }
     console.log(item)
     this.setData({
       current: item,
@@ -78,6 +82,14 @@ Page({
       isShow: false
     })
   },
+  isEmptyObject: function (obj: {}) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
+  },
   onShow() {
     if (typeof this.getTabBar == 'function' && this.getTabBar()) {
       this.getTabBar().setData({
@@ -86,7 +98,24 @@ Page({
     }
     let time = new Date(),
       list = getCurrWeekList(time),
-      weekList = [] as any
+      weekList = [] as any;
+
+    const firstIsEmpty = (this.isEmptyObject(scheduleData.first[5]) && this.isEmptyObject(scheduleData.first[6]));
+    const secondIsEmpty = (this.isEmptyObject(scheduleData.second[5]) && this.isEmptyObject(scheduleData.second[6]));
+    const thirdIsEmpty = (this.isEmptyObject(scheduleData.third[5]) && this.isEmptyObject(scheduleData.third[6]));
+    const fourthIsEmpty = (this.isEmptyObject(scheduleData.fourth[5]) && this.isEmptyObject(scheduleData.fourth[6]));
+    const fifthIsEmpty = (this.isEmptyObject(scheduleData.fifth[5]) && this.isEmptyObject(scheduleData.fifth[6]));
+
+    const isPop = firstIsEmpty && secondIsEmpty && thirdIsEmpty && fourthIsEmpty && fifthIsEmpty;
+    if (isPop) {
+      list.pop();
+      list.pop();
+    }
+
+    this.setData({
+      isShow67: isPop
+    });
+
     list.forEach(item => {
       weekList.push({
         day: [item.split('-')[1], item.split('-')[2]].join('-'),

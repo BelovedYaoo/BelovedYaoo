@@ -211,7 +211,6 @@ image {
   width: 610rpx;
   font-size: 23rpx;
   box-sizing: border-box;
-  padding: 0 10rpx;
   color: #7e7a7a;
 }
 
@@ -259,7 +258,6 @@ image {
 }
 
 .con-item {
-  width: 80rpx;
   height: 225rpx;
   border-radius: 10rpx;
   margin-right: 7rpx;
