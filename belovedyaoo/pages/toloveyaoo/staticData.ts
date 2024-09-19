@@ -1,5 +1,3 @@
-import { classInfoType, scheduleDataType } from "../../src/typings/class";
-
 export const classDataList = [
   {
     className: '软件项目管理',

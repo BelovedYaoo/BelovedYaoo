@@ -8,8 +8,6 @@ import {
   scheduleData
 } from './staticData';
 
-import { classInfoType } from "../../src/typings/class";
-
 Page({
   data: {
     startTime: new Date('2024-09-02T00:00:00').getTime() as number,
