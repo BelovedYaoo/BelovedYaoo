@@ -10,7 +10,7 @@
     <view class="head-right flex-row j_b" style="padding: 0 {{!isShow67?'20rpx':'35rpx'}};">
       <view class="flex-column j_c" wx:for="{{weekList}}" wx:key="list">
         <text class="head-week {{item.isCurr && 'head-right-curr'}}">{{item.week}}</text>
-        <text class=" {{item.isCurr && 'head-right-curr'}}">{{item.isCurr?'今天':item.day}}</text>
+        <text class=" {{item.isCurr && 'head-right-curr'}}">{{item.isCurr ? (item.isHasClass ? "今天有课":"今天没课"):item.day}}</text>
       </view>
     </view>
   </view>

@@ -8,6 +8,8 @@ import {
   scheduleData
 } from './staticData';
 
+import { classInfoType } from "../../src/typings/class";
+
 Page({
   data: {
     startTime: new Date('2024-09-02T00:00:00').getTime() as number,
@@ -68,10 +70,9 @@ Page({
     let {
       item
     } = e.currentTarget.dataset;
-    if (this.isEmptyObject(item)) { 
+    if (this.isEmptyObject(item)) {
       return;
     }
-    console.log(item)
     this.setData({
       current: item,
       isShow: true
@@ -120,7 +121,8 @@ Page({
       weekList.push({
         day: [item.split('-')[1], item.split('-')[2]].join('-'),
         week: "星期" + "日一二三四五六".charAt((new Date(item)).getDay()),
-        isCurr: formateDate(time) == item
+        isCurr: formateDate(time) == item,
+        isHasClass: this.isHasClass()
       })
     });
     this.setData({
@@ -133,5 +135,36 @@ Page({
     this.setData({
       currentWeek: Math.ceil(diffInWeeks)
     });
+  },
+  splitWeek(str: string): number[] {
+    const parts = str.split('-');
+    const numbers = parts.map(part => parseInt(part, 10));
+    return numbers;
+  },
+  isHasClass(): boolean {
+    const week = new Date().getDay() - 1;
+    const classDataList: Array<classInfoType | {}> = [];
+
+    classDataList.push(this.data.scheduleData.first[week]);
+    classDataList.push(this.data.scheduleData.second[week]);
+    classDataList.push(this.data.scheduleData.third[week]);
+    classDataList.push(this.data.scheduleData.fourth[week]);
+    classDataList.push(this.data.scheduleData.fifth[week]);
+
+    let classPeriod: number[] | undefined;
+
+    for (const item of classDataList) {
+      if (item instanceof Object && 'classPeriod' in item) {
+        const periodStr = (item as classInfoType).classPeriod;
+        classPeriod = this.splitWeek(periodStr) as number[];
+
+        if (classPeriod && classPeriod.length === 2 &&
+          classPeriod[0] <= this.data.currentWeek && this.data.currentWeek <= classPeriod[1]) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 })
