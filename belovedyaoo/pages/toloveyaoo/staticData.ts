@@ -75,7 +75,7 @@ export const scheduleData = {
     classDataList[8],
     classDataList[4],
     {},
-    {}
+    classDataList[4],
   ],
   third: [
     classDataList[6],

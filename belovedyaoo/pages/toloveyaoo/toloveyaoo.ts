@@ -120,6 +120,7 @@ Page({
     list.forEach(item => {
       weekList.push({
         day: [item.split('-')[1], item.split('-')[2]].join('-'),
+        weekt: (new Date(item)).getDay(),
         week: "星期" + "日一二三四五六".charAt((new Date(item)).getDay()),
         isCurr: formateDate(time) == item,
         isHasClass: this.isHasClass()
@@ -141,8 +142,7 @@ Page({
     const numbers = parts.map(part => parseInt(part, 10));
     return numbers;
   },
-  isHasClass(): boolean {
-    const week = new Date().getDay() - 1;
+  isHasClass(week : number = new Date().getDay() - 1): boolean {
     const classDataList: Array<classInfoType | {}> = [];
 
     classDataList.push(this.data.scheduleData.first[week]);
@@ -166,5 +166,13 @@ Page({
     }
 
     return false;
+  },
+  queryHaveClass(e: any) {
+    console.log(e.currentTarget);
+    if (this.isHasClass(e.currentTarget.dataset.day)) {
+      console.log("有课");
+    } else {
+      console.log("没课");
+    }
   }
 })
