@@ -7,7 +7,7 @@
       <text class="head-left-text two">周</text>
       <text class="head-curr-week">{{currentWeek}}</text>
     </view>
-    <view class="head-right flex-row j_b" style="padding: 0 {{!isShow67?'10rpx':'35rpx'}};">
+    <view class="head-right flex-row j_b" style="padding: 0 {{!isShow67?'20rpx':'35rpx'}};">
       <view class="flex-column j_c" wx:for="{{weekList}}" wx:key="list">
         <text class="head-week {{item.isCurr && 'head-right-curr'}}">{{item.week}}</text>
         <text class=" {{item.isCurr && 'head-right-curr'}}">{{item.isCurr?'今天':item.day}}</text>
@@ -27,16 +27,16 @@
     <view class="container-right  flex col j_c">
       <view class="flex-row mb10">
         <view class="con-item flex-column j_c" wx:for="{{scheduleData.first}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
-          <text class="line_ellipsis">{{item.classLocation}}</text>
-          <text class="line_ellipsis">{{item.classPeriod}}</text>
+          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
         </view>
       </view>
       <view class="flex-row">
         <view class="con-item flex-column j_c " wx:for="{{scheduleData.second}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
-          <text class="line_ellipsis">{{item.classLocation}}</text>
-          <text class="line_ellipsis">{{item.classPeriod}}</text>
+          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
         </view>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
@@ -55,9 +55,9 @@
     <view class="container-right right1 flex col j_c">
       <view class="flex-row">
         <view class="con-item flex-column j_c " wx:for="{{scheduleData.third}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
-          <text class="line_ellipsis">{{item.classLocation}}</text>
-          <text class="line_ellipsis">{{item.classPeriod}}</text>
+          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
         </view>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
@@ -76,9 +76,9 @@
     <view class="container-right right1 flex col j_c">
       <view class="flex-row">
         <view class="con-item flex-column j_c " wx:for="{{scheduleData.fourth}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis">{{item.className}}</text>
-          <text class="line_ellipsis">{{item.classLocation}}</text>
-          <text class="line_ellipsis">{{item.classPeriod}}</text>
+          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
+          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
         </view>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />

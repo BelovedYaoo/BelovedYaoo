@@ -22,7 +22,6 @@ page {
 
 /* 多行文字换行 */
 .line_ellipsis {
-  width: 65rpx;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;

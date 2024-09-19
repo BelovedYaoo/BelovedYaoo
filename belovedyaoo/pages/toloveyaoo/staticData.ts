@@ -14,13 +14,13 @@ export const classDataList = [
     classLocation: 'P-D706',
     displayColor: '#995053'
   }, {
-    className: 'UML\n建模',
+    className: 'UML建模',
     classPeriod: '6-13',
     classTeacher: '刘波涛',
     classLocation: 'T2-D101',
     displayColor: '#694D52'
   }, {
-    className: 'UML\n建模实验',
+    className: 'UML建模实验',
     classPeriod: '9-13',
     classTeacher: '刘波涛',
     classLocation: 'P-D706',
@@ -66,7 +66,7 @@ export const scheduleData = {
     {},
     classDataList[3],
     {},
-    {}
+    classDataList[3],
   ],
   second: [
     classDataList[2],
