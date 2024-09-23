@@ -1,13 +1,17 @@
 import {
   getCurrWeekList,
-  formateDate
+  formateDate,
+  getCurrentPeriod
 } from './util';
 
 import {
   classDataList,
   scheduleData,
-  classTime
+  classTime,
+  scheduleTable
 } from './staticData';
+
+import ScheduleDataVo from './scheduleVo';
 
 Page({
   data: {
@@ -86,10 +90,10 @@ Page({
     })
   },
   onLoad: function (): void {
-    var diffInMs = Math.abs(new Date().getTime() - this.data.startTime);
-    var diffInWeeks = diffInMs / (1000 * 60 * 60 * 24 * 7);
+    const scheduleData = new ScheduleDataVo(scheduleTable);
+    console.log(scheduleData.getCoursesOfDay('Friday'));
     this.setData({
-      currentWeek: Math.ceil(diffInWeeks)
+      currentWeek: getCurrentPeriod(this.data.startTime)
     });
   },
   splitWeek(str: string): number[] {

@@ -140,3 +140,34 @@ export const classTime = {
     timeEnd: '18:10'
   }]
 } as classTime;
+
+export const scheduleTable = {
+  'Monday' : {
+    'First' : classDataList[0],
+    'Second': classDataList[2],
+    'Third': classDataList[6],
+    'Fourth': classDataList[6],
+  },
+  'Tuesday': {
+    'First':classDataList[2],
+    'Second':classDataList[8],
+    'Third': classDataList[6],
+    'Fourth': classDataList[6],
+  },
+  'Wednesday': {
+    'First':classDataList[0],
+    'Second':classDataList[1],
+    'Third': classDataList[4],
+  },
+  'Thursday': {
+    'First':classDataList[3],
+    'Second':classDataList[8],
+    'Third': classDataList[6],
+    'Fourth': classDataList[6],
+  },
+  'Friday': {
+    'First':classDataList[3],
+    'Second':classDataList[4],
+    'Third': classDataList[7],
+  }
+} as ScheduleTable;
