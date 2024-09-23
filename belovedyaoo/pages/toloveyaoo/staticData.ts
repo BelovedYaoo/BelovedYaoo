@@ -73,7 +73,7 @@ export const scheduleData = {
     classDataList[8],
     classDataList[4],
     {},
-    classDataList[4],
+    {}
   ],
   third: [
     classDataList[6],
@@ -103,3 +103,41 @@ export const scheduleData = {
     {}
   ],
 } as scheduleDataType;
+
+export const classTime = {
+  one: [{
+    index: 1,
+    timeStart: '08:00',
+    timeEnd: '08:45'
+  }, {
+    index: 2,
+    timeStart: '08:55',
+    timeEnd: '09:40'
+  }, {
+    index: 3,
+    timeStart: '10:00',
+    timeEnd: '10:45'
+  }, {
+    index: 4,
+    timeStart: '10:55',
+    timeEnd: '11:40'
+  }],
+  two: [{
+    index: 5,
+    timeStart: '14:30',
+    timeEnd: '15:15'
+  }, {
+    index: 6,
+    timeStart: '15:25',
+    timeEnd: '16:10'
+  },],
+  three: [{
+    index: 7,
+    timeStart: '16:30',
+    timeEnd: '17:15'
+  }, {
+    index: 8,
+    timeStart: '17:25',
+    timeEnd: '18:10'
+  },]
+} as classTime;

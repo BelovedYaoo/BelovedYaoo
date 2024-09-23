@@ -5,7 +5,8 @@ import {
 
 import {
   classDataList,
-  scheduleData
+  scheduleData,
+  classTime
 } from './staticData';
 
 Page({
@@ -14,51 +15,7 @@ Page({
     currentWeek: 1 as number,
     classDataList,
     scheduleData,
-    time: {
-      one: [{
-        index: 1,
-        timeStart: '08:00',
-        timeEnd: '08:45'
-      },
-      {
-        index: 2,
-        timeStart: '08:55',
-        timeEnd: '09:40'
-      },
-      {
-        index: 3,
-        timeStart: '10:00',
-        timeEnd: '10:45'
-      },
-      {
-        index: 4,
-        timeStart: '10:55',
-        timeEnd: '11:40'
-      }
-      ],
-      two: [{
-        index: 5,
-        timeStart: '14:30',
-        timeEnd: '15:15'
-      },
-      {
-        index: 6,
-        timeStart: '15:25',
-        timeEnd: '16:10'
-      },
-      ],
-      three: [{
-        index: 7,
-        timeStart: '16:30',
-        timeEnd: '17:15'
-      },
-      {
-        index: 8,
-        timeStart: '17:25',
-        timeEnd: '18:10'
-      },
-      ]
-    },
+    time: classTime,
     isShow67: false,
     weekList: [],
     isShow: false,
@@ -140,7 +97,7 @@ Page({
     const numbers = parts.map(part => parseInt(part, 10));
     return numbers;
   },
-  isHasClass(week : number = new Date().getDay() - 1): boolean {
+  isHasClass(week: number = new Date().getDay() - 1): boolean {
     const classDataList: Array<classInfoType | {}> = [];
 
     classDataList.push(this.data.scheduleData.first[week]);

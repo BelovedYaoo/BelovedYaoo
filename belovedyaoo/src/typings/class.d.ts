@@ -14,3 +14,15 @@ type scheduleDataType = {
   fourth: Array<classInfoType | Array<classInfoType> | {}>,
   fifth: Array<classInfoType | Array<classInfoType> | {}>,
 };
+
+type timeInfo = {
+  index: number,
+  timeStart: string,
+  timeEnd: string
+};
+
+type classTime = {
+  one: Array<timeInfo>,
+  two: Array<timeInfo>,
+  three: Array<timeInfo>
+};
