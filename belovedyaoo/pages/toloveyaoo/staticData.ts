@@ -130,8 +130,7 @@ export const classTime = {
     index: 6,
     timeStart: '15:25',
     timeEnd: '16:10'
-  },],
-  three: [{
+  },{
     index: 7,
     timeStart: '16:30',
     timeEnd: '17:15'
@@ -139,5 +138,5 @@ export const classTime = {
     index: 8,
     timeStart: '17:25',
     timeEnd: '18:10'
-  },]
+  }]
 } as classTime;

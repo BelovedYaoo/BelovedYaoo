@@ -23,6 +23,5 @@ type timeInfo = {
 
 type classTime = {
   one: Array<timeInfo>,
-  two: Array<timeInfo>,
-  three: Array<timeInfo>
+  two: Array<timeInfo>
 };
