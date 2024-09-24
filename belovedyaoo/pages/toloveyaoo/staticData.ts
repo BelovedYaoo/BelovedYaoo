@@ -93,6 +93,16 @@ export const classTime = {
   }]
 } as classTime;
 
+export const WeekConst = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+] as Week[];
+
 export const scheduleTable = {
   'Monday' : {
     'First' : classDataList[0],

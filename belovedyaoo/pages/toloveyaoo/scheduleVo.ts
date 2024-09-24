@@ -1,4 +1,4 @@
-import { getCurrentPeriod } from "./util";
+import { getCurrentPeriod } from './util';
 
 class ScheduleDataVo {
 
@@ -61,7 +61,7 @@ class ScheduleDataVo {
       Fifth: []
     };
 
-    const sections = ["First", "Second", "Third", "Fourth", "Fifth"];
+    const sections = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
     // 遍历所有可能的时间段
     for (const section of sections as Section[]) {

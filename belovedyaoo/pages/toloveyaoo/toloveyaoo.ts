@@ -77,7 +77,7 @@ Page({
       weekList.push({
         day: [item.split('-')[1], item.split('-')[2]].join('-'),
         weekt: (new Date(item)).getDay(),
-        week: "星期" + "日一二三四五六".charAt((new Date(item)).getDay()),
+        week: '星期' + '日一二三四五六'.charAt((new Date(item)).getDay()),
         isCurr: formateDate(time) == item,
         isHasClass: this.isHasClass()
       })
@@ -92,9 +92,6 @@ Page({
       currentWeek: getCurrentPeriod(this.data.startTime),
       scheduleDataTranspose: scheduleData.convertToArray()
     });
-    console.log(this.data.scheduleDataTranspose);
-    console.log(scheduleData);
-    
   },
   splitWeek(str: string): number[] {
     const parts = str.split('-');
@@ -102,28 +99,8 @@ Page({
     return numbers;
   },
   isHasClass(week: number = new Date().getDay() - 1): boolean {
-    const classDataList: Array<classInfoType | {}> = [];
-
-    classDataList.push(this.data.scheduleDataTranspose.First[week]);
-    classDataList.push(this.data.scheduleDataTranspose.Second[week]);
-    classDataList.push(this.data.scheduleDataTranspose.Third[week]);
-    classDataList.push(this.data.scheduleDataTranspose.Fourth[week]);
-    classDataList.push(this.data.scheduleDataTranspose.Fifth[week]);
-
-    let classPeriod: number[] | undefined;
-
-    for (const item of classDataList) {
-      if (item instanceof Object && 'classPeriod' in item) {
-        const periodStr = (item as classInfoType).classPeriod;
-        classPeriod = this.splitWeek(periodStr) as number[];
-
-        if (classPeriod && classPeriod.length === 2 &&
-          classPeriod[0] <= this.data.currentWeek && this.data.currentWeek <= classPeriod[1]) {
-          return true;
-        }
-      }
-    }
-
+    console.log(week);
+    
     return false;
   }
 })

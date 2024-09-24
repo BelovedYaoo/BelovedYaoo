@@ -14,34 +14,34 @@ Component({
     selected: 0 as number,
     list: [
       {
-        "pagePath": "/pages/belovedyaoo/belovedyaoo",
-        "iconPath": "/src/images/qianceng.png",
-        "selectedIconPath": "/src/images/qianceng.png",
-        "text": "想对你说"
+        'pagePath': '/pages/belovedyaoo/belovedyaoo',
+        'iconPath': '/src/images/qianceng.png',
+        'selectedIconPath': '/src/images/qianceng.png',
+        'text': '想对你说'
       },
       {
-        "pagePath": "/pages/loveyaoo/loveyaoo",
-        "iconPath": "/src/images/musi.png",
-        "selectedIconPath": "/src/images/musi.png",
-        "text": "今日天气"
+        'pagePath': '/pages/loveyaoo/loveyaoo',
+        'iconPath': '/src/images/musi.png',
+        'selectedIconPath': '/src/images/musi.png',
+        'text': '今日天气'
       },
       {
-        "pagePath": "/pages/toloveyaoo/toloveyaoo",
-        "iconPath": "/src/images/musi.png",
-        "selectedIconPath": "/src/images/musi.png",
-        "text": "课程表"
+        'pagePath': '/pages/toloveyaoo/toloveyaoo',
+        'iconPath': '/src/images/musi.png',
+        'selectedIconPath': '/src/images/musi.png',
+        'text': '课程表'
       },
       {
-        "pagePath": "/pages/tureloveyaoo/tureloveyaoo",
-        "iconPath": "/src/images/dangao.png",
-        "selectedIconPath": "/src/images/dangao.png",
-        "text": "数据管理"
+        'pagePath': '/pages/tureloveyaoo/tureloveyaoo',
+        'iconPath': '/src/images/dangao.png',
+        'selectedIconPath': '/src/images/dangao.png',
+        'text': '数据管理'
       },
       {
-        "pagePath": "/pages/youandyaoo/youandyaoo",
-        "iconPath": "/src/images/mianbao.png",
-        "selectedIconPath": "/src/images/mianbao.png",
-        "text": "关于我们"
+        'pagePath': '/pages/youandyaoo/youandyaoo',
+        'iconPath': '/src/images/mianbao.png',
+        'selectedIconPath': '/src/images/mianbao.png',
+        'text': '关于我们'
       }
     ] as TabbarList
   },

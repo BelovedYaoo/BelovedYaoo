@@ -8,7 +8,7 @@ Page({
       seconds: 16
     } as TimeDiff,
     yiyanOpacity: 1 as number,
-    yiyan: "我不说想你，月亮会带给你" as string,
+    yiyan: '我不说想你，月亮会带给你' as string,
     yiyanUpdateErrorCount: 0 as number,
     touchStart: 0 as number,
     direction: 'left' as string,

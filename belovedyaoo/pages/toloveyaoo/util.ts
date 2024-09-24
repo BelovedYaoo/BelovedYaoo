@@ -6,7 +6,6 @@ export const getCurrWeekList = (data: Date) => {
   date.setDate(date.getDay() == 0 ? date.getDate() - 6 : date.getDate() - date.getDay() + 1);
   // push周一数据
   weekList.push(formateDate(date));
-  console.log(weekList)
   //push周二以后日期
   for (var i = 0; i < 6; i++) {
     date.setDate(date.getDate() + 1);
