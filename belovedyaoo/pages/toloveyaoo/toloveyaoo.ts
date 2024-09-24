@@ -18,8 +18,7 @@ Page({
     startTime: new Date('2024-09-02T00:00:00').getTime() as number,
     currentWeek: 1 as number,
     classDataList,
-    scheduleData,
-    scheduleDataTranspose: new ScheduleDataVo(scheduleTable),
+    scheduleDataTranspose: {} as scheduleArray,
     time: classTime,
     isShow67: false,
     weekList: [],
@@ -92,10 +91,12 @@ Page({
   },
   onLoad: function (): void {
     const scheduleData = new ScheduleDataVo(scheduleTable);
-    console.log(scheduleData.convertScheduleToNewFormat());
     this.setData({
-      currentWeek: getCurrentPeriod(this.data.startTime)
+      currentWeek: getCurrentPeriod(this.data.startTime),
+      scheduleDataTranspose: scheduleData.convertScheduleToNewFormat()
     });
+    console.log(this.data.scheduleDataTranspose);
+    
   },
   splitWeek(str: string): number[] {
     const parts = str.split('-');
@@ -105,11 +106,11 @@ Page({
   isHasClass(week: number = new Date().getDay() - 1): boolean {
     const classDataList: Array<classInfoType | {}> = [];
 
-    classDataList.push(this.data.scheduleData.first[week]);
-    classDataList.push(this.data.scheduleData.second[week]);
-    classDataList.push(this.data.scheduleData.third[week]);
-    classDataList.push(this.data.scheduleData.fourth[week]);
-    classDataList.push(this.data.scheduleData.fifth[week]);
+    classDataList.push(this.data.scheduleDataTranspose.first[week]);
+    classDataList.push(this.data.scheduleDataTranspose.second[week]);
+    classDataList.push(this.data.scheduleDataTranspose.third[week]);
+    classDataList.push(this.data.scheduleDataTranspose.fourth[week]);
+    classDataList.push(this.data.scheduleDataTranspose.fifth[week]);
 
     let classPeriod: number[] | undefined;
 

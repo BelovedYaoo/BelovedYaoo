@@ -71,12 +71,8 @@ class ScheduleDataVo {
         if (courseInfo === undefined) {
           courseInfo = {};
         }
-          // 处理空值或null值
-          // const formattedData = this.handleEmpty(courseInfo);
-          console.log(courseInfo);
-          
-          newFormat[section.toLowerCase()].push(courseInfo as classInfoType | {});
-        // }
+
+        newFormat[section.toLowerCase()].push(courseInfo as classInfoType | {});
       }
     }
 

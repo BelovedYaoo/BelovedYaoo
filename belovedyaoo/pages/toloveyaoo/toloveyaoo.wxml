@@ -28,7 +28,7 @@
     <view class="container-right  flex col j_c">
       <!-- 第1大节课程 -->
       <view class="flex-row mb10">
-        <view class="con-item flex-column j_c" wx:for="{{scheduleData.first}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
+        <view class="con-item flex-column j_c" wx:for="{{scheduleDataTranspose.first}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
           <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
@@ -36,7 +36,7 @@
       </view>
       <!-- 第2大节课程 -->
       <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{scheduleData.second}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
+        <view class="con-item flex-column j_c " wx:for="{{scheduleDataTranspose.second}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
           <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
@@ -59,7 +59,7 @@
     <!-- 第3大节课程 -->
     <view class="container-right  flex col j_c">
       <view class="flex-row mb10">
-        <view class="con-item flex-column j_c" wx:for="{{scheduleData.third}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
+        <view class="con-item flex-column j_c" wx:for="{{scheduleDataTranspose.third}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
           <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
@@ -67,7 +67,7 @@
       </view>
       <!-- 第4大节课程 -->
       <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{scheduleData.fourth}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
+        <view class="con-item flex-column j_c " wx:for="{{scheduleDataTranspose.fourth}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
           <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
           <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
