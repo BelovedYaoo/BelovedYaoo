@@ -52,7 +52,7 @@ class ScheduleDataVo {
     return this.scheduleTable[week] || {};
   }
 
-  convertScheduleToNewFormat(): scheduleArray {
+  convertToArray(): scheduleArray {
     const newFormat: scheduleArray = {
       First: [],
       Second: [],
@@ -77,17 +77,6 @@ class ScheduleDataVo {
     }
 
     return newFormat;
-  }
-
-  // 辅助函数处理空值或null值
-  handleEmpty(dataItem: classInfoType | Array<classInfoType> | null): classInfoType | {} {
-    if (!dataItem) {
-      return {};
-    } else if (Array.isArray(dataItem)) {
-      return dataItem.length > 0 ? dataItem[0] : {};
-    } else {
-      return dataItem;
-    }
   }
 
 }

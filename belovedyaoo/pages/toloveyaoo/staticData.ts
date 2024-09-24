@@ -56,54 +56,6 @@ export const classDataList = [
   },
 ] as Array<classInfoType>;
 
-export const scheduleData = {
-  first: [
-    classDataList[0],
-    classDataList[2],
-    classDataList[0],
-    {},
-    classDataList[3],
-    {},
-    {}
-  ],
-  second: [
-    classDataList[2],
-    classDataList[8],
-    classDataList[1],
-    classDataList[8],
-    classDataList[4],
-    {},
-    {}
-  ],
-  third: [
-    classDataList[6],
-    classDataList[6],
-    classDataList[4],
-    classDataList[6],
-    classDataList[7],
-    {},
-    {}
-  ],
-  fourth: [
-    classDataList[6],
-    classDataList[6],
-    {},
-    classDataList[6],
-    {},
-    {},
-    {}
-  ],
-  fifth: [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {}
-  ],
-} as scheduleDataType;
-
 export const classTime = {
   one: [{
     index: 1,

@@ -6,7 +6,6 @@ import {
 
 import {
   classDataList,
-  scheduleData,
   classTime,
   scheduleTable
 } from './staticData';
@@ -91,9 +90,10 @@ Page({
     const scheduleData = new ScheduleDataVo(scheduleTable);
     this.setData({
       currentWeek: getCurrentPeriod(this.data.startTime),
-      scheduleDataTranspose: scheduleData.convertScheduleToNewFormat()
+      scheduleDataTranspose: scheduleData.convertToArray()
     });
     console.log(this.data.scheduleDataTranspose);
+    console.log(scheduleData);
     
   },
   splitWeek(str: string): number[] {
