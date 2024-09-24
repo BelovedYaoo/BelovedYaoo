@@ -19,20 +19,8 @@ type classInfoType = {
   displayColor: string
 };
 
-type e = {
-  first: Array<classInfoType | Array<classInfoType> | {}>,
-  second: Array<classInfoType | Array<classInfoType> | {}>,
-  third: Array<classInfoType | Array<classInfoType> | {}>,
-  fourth: Array<classInfoType | Array<classInfoType> | {}>,
-  fifth: Array<classInfoType | Array<classInfoType> | {}>,
-};
-
 type scheduleArray = {
-  first: Array<classInfoType | Array<classInfoType> | {}>,
-  second: Array<classInfoType | Array<classInfoType> | {}>,
-  third: Array<classInfoType | Array<classInfoType> | {}>,
-  fourth: Array<classInfoType | Array<classInfoType> | {}>,
-  fifth: Array<classInfoType | Array<classInfoType> | {}>,
+  [section in Section]: Array<classInfoType | Array<classInfoType> | {}>
 };
 
 type timeInfo = {

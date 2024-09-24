@@ -18,6 +18,7 @@ Page({
     startTime: new Date('2024-09-02T00:00:00').getTime() as number,
     currentWeek: 1 as number,
     classDataList,
+    scheduleData: scheduleTable,
     scheduleDataTranspose: {} as scheduleArray,
     time: classTime,
     isShow67: false,
@@ -60,13 +61,10 @@ Page({
       list = getCurrWeekList(time),
       weekList = [] as any;
 
-    const firstIsEmpty = (this.isEmptyObject(scheduleData.first[5]) && this.isEmptyObject(scheduleData.first[6]));
-    const secondIsEmpty = (this.isEmptyObject(scheduleData.second[5]) && this.isEmptyObject(scheduleData.second[6]));
-    const thirdIsEmpty = (this.isEmptyObject(scheduleData.third[5]) && this.isEmptyObject(scheduleData.third[6]));
-    const fourthIsEmpty = (this.isEmptyObject(scheduleData.fourth[5]) && this.isEmptyObject(scheduleData.fourth[6]));
-    const fifthIsEmpty = (this.isEmptyObject(scheduleData.fifth[5]) && this.isEmptyObject(scheduleData.fifth[6]));
+    const firstIsEmpty = this.isEmptyObject(this.data.scheduleData.Saturday);
+    const secondIsEmpty = this.isEmptyObject(this.data.scheduleData.Sunday);
 
-    const isPop = firstIsEmpty && secondIsEmpty && thirdIsEmpty && fourthIsEmpty && fifthIsEmpty;
+    const isPop = firstIsEmpty && secondIsEmpty;
     if (isPop) {
       list.pop();
       list.pop();
@@ -106,11 +104,11 @@ Page({
   isHasClass(week: number = new Date().getDay() - 1): boolean {
     const classDataList: Array<classInfoType | {}> = [];
 
-    classDataList.push(this.data.scheduleDataTranspose.first[week]);
-    classDataList.push(this.data.scheduleDataTranspose.second[week]);
-    classDataList.push(this.data.scheduleDataTranspose.third[week]);
-    classDataList.push(this.data.scheduleDataTranspose.fourth[week]);
-    classDataList.push(this.data.scheduleDataTranspose.fifth[week]);
+    classDataList.push(this.data.scheduleDataTranspose.First[week]);
+    classDataList.push(this.data.scheduleDataTranspose.Second[week]);
+    classDataList.push(this.data.scheduleDataTranspose.Third[week]);
+    classDataList.push(this.data.scheduleDataTranspose.Fourth[week]);
+    classDataList.push(this.data.scheduleDataTranspose.Fifth[week]);
 
     let classPeriod: number[] | undefined;
 

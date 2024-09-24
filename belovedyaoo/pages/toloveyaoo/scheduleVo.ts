@@ -54,25 +54,25 @@ class ScheduleDataVo {
 
   convertScheduleToNewFormat(): scheduleArray {
     const newFormat: scheduleArray = {
-      first: [],
-      second: [],
-      third: [],
-      fourth: [],
-      fifth: []
+      First: [],
+      Second: [],
+      Third: [],
+      Fourth: [],
+      Fifth: []
     };
 
     const sections = ["First", "Second", "Third", "Fourth", "Fifth"];
 
     // 遍历所有可能的时间段
-    for (const section of sections) {
+    for (const section of sections as Section[]) {
       // 遍历一周中的每一天
       for (const day of Object.values(this.scheduleTable)) {
         let courseInfo = day[section];
         if (courseInfo === undefined) {
-          courseInfo = {};
+          courseInfo = {} as classInfoType;
         }
 
-        newFormat[section.toLowerCase()].push(courseInfo as classInfoType | {});
+        newFormat[section].push(courseInfo as classInfoType | {});
       }
     }
 
