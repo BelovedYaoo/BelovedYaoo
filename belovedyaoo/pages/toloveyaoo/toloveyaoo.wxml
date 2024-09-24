@@ -27,25 +27,29 @@
     </view>
     <view class="container-right  flex col j_c">
       <!-- 第1大节课程 -->
-      <view class="flex-row mb10">
-        <view class="con-item flex-column j_c" wx:for="{{scheduleDataTranspose.First}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
-        </view>
+      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
+        <block wx:for="{{scheduleDataTranspose.First}}" wx:key="list">
+          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
+            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
+          </view>
+        </block>
       </view>
       <!-- 第2大节课程 -->
-      <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{scheduleDataTranspose.Second}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
-        </view>
+      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
+        <block wx:for="{{scheduleDataTranspose.Second}}" wx:key="list">
+          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
+            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
+          </view>
+        </block>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
     </view>
   </view>
-  <view class="container flex-row mb20">
+  <view class="container flex-row mb20 mb-safe">
     <!-- 第3、4大节课程时间 -->
     <view class="container-left flex-column j_b">
       <block wx:for="{{time.two}}" wx:key="list">
@@ -58,21 +62,24 @@
     </view>
     <!-- 第3大节课程 -->
     <view class="container-right  flex col j_c">
-      <view class="flex-row mb10">
-        <view class="con-item flex-column j_c" wx:for="{{scheduleDataTranspose.Third}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
-        </view>
+      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
+        <block wx:for="{{scheduleDataTranspose.Third}}" wx:key="list">
+          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
+            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
+          </view>
+        </block>
       </view>
       <!-- 第4大节课程 -->
-      <view class="flex-row">
-        <view class="con-item flex-column j_c " wx:for="{{scheduleDataTranspose.Fourth}}" wx:key="list" style="background: {{item.displayColor}};width: {{!isShow67?'80rpx':'115rpx'}};" catchtap="getDetail" data-item="{{item}}">
-          <text class="con-item-subj line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.className}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classLocation}}</text>
-          <text class="line_ellipsis" style="width: {{!isShow67?'65rpx':'85rpx'}};">{{item.classPeriod}}</text>
-        </view>
-        <image src="../../src/images/shabing.png" class="con-icon" />
+      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
+        <block wx:for="{{scheduleDataTranspose.Fourth}}" wx:key="list">
+          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
+            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
+          </view>
+        </block>
       </view>
     </view>
   </view>

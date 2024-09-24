@@ -150,6 +150,10 @@ image {
   margin-bottom: 10rpx;
 }
 
+.mb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 170rpx);
+}
+
 .head {
   margin-bottom: 20rpx;
 }
@@ -257,15 +261,17 @@ image {
   height: 250rpx;
 }
 
+.con-itme-block {
+  gap: 10rpx;
+}
+
 .con-item {
   height: 225rpx;
   border-radius: 10rpx;
-  margin-right: 7rpx;
   flex-shrink: 0;
   font-size: 17rpx;
   color: #fff;
   box-sizing: border-box;
-  padding: 10rpx;
   line-height: 28rpx;
   animation: show 1.2s ease-in-out;
 }

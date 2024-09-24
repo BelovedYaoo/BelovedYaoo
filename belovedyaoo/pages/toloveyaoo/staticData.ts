@@ -138,5 +138,11 @@ export const scheduleTable = {
     'First':classDataList[3],
     'Second':classDataList[4],
     'Third': classDataList[7],
-  }
+  },
+  // 'Sunday': {
+  //   'First':classDataList[3],
+  // },
+  // 'Saturday': {
+  //   'First':classDataList[3],
+  // }
 } as ScheduleTable;
