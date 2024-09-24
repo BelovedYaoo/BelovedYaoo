@@ -15,19 +15,18 @@ class ScheduleDataVo {
   // 获取特定星期与节次的课程
   getCourse(week: Week, section: Section): classInfoType | null {
     // 检查 scheduleTable 中是否存在该星期的每日课程数据
-    if (!(week in this.scheduleTable)) {
+    if (!(week in this.scheduleTable)) {      
       return null;
     }
     // 取出该星期的每日课程数据
     const daySchedule = this.scheduleTable[week];
-    // 检查每日课程数据中是否存在该节次的课程数据
-    if (!(section in daySchedule)) {
+    if (!(section in daySchedule)) {      
       return null;
     }
     // 取出该节次的课程数据
     const courseOrCourses = daySchedule[section];
-    if (courseOrCourses === null) {
-      return null;
+    if (courseOrCourses !== null && !Array.isArray(courseOrCourses)) {
+      return courseOrCourses as classInfoType;
     }
     // 如果是数组，代表该星期该节次下存在多个课程数据，需要进行周次判断
     if (Array.isArray(courseOrCourses)) {

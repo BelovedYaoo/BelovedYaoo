@@ -7,7 +7,9 @@ import {
 import {
   classDataList,
   classTime,
-  scheduleTable
+  scheduleTable,
+  WeekConst,
+  SectionConst
 } from './staticData';
 
 import ScheduleDataVo from './scheduleVo';
@@ -17,7 +19,8 @@ Page({
     startTime: new Date('2024-09-02T00:00:00').getTime() as number,
     currentWeek: 1 as number,
     classDataList,
-    scheduleData: scheduleTable,
+    scheduleData: {} as ScheduleDataVo,
+    scheduleTable,
     scheduleDataTranspose: {} as scheduleArray,
     time: classTime,
     isShow67: false,
@@ -60,8 +63,8 @@ Page({
       list = getCurrWeekList(time),
       weekList = [] as any;
 
-    const firstIsEmpty = this.isEmptyObject(this.data.scheduleData.Saturday);
-    const secondIsEmpty = this.isEmptyObject(this.data.scheduleData.Sunday);
+    const firstIsEmpty = this.isEmptyObject(this.data.scheduleTable.Saturday);
+    const secondIsEmpty = this.isEmptyObject(this.data.scheduleTable.Sunday);
 
     const isPop = firstIsEmpty && secondIsEmpty;
     if (isPop) {
@@ -76,10 +79,9 @@ Page({
     list.forEach(item => {
       weekList.push({
         day: [item.split('-')[1], item.split('-')[2]].join('-'),
-        weekt: (new Date(item)).getDay(),
         week: '星期' + '日一二三四五六'.charAt((new Date(item)).getDay()),
         isCurr: formateDate(time) == item,
-        isHasClass: this.isHasClass()
+        isHasClass: this.isHasClass((new Date(item)).getDay())
       })
     });
     this.setData({
@@ -87,10 +89,10 @@ Page({
     })
   },
   onLoad: function (): void {
-    const scheduleData = new ScheduleDataVo(scheduleTable);
     this.setData({
       currentWeek: getCurrentPeriod(this.data.startTime),
-      scheduleDataTranspose: scheduleData.convertToArray()
+      scheduleData: new ScheduleDataVo(scheduleTable),
+      scheduleDataTranspose: new ScheduleDataVo(scheduleTable).convertToArray()
     });
   },
   splitWeek(str: string): number[] {
@@ -98,9 +100,20 @@ Page({
     const numbers = parts.map(part => parseInt(part, 10));
     return numbers;
   },
-  isHasClass(week: number = new Date().getDay() - 1): boolean {
-    console.log(week);
-    
+  isHasClass(week: number = new Date().getDay()): boolean {
+    for (const section of SectionConst) {
+      const classInfo = this.data.scheduleData.getCourse(WeekConst[week], section) as classInfoType;
+      if (classInfo !== null) {
+        const periodStr = classInfo.classPeriod;
+        const classPeriod = this.splitWeek(periodStr) as number[];
+        if (classPeriod && classPeriod.length === 2 &&
+          classPeriod[0] <= this.data.currentWeek && this.data.currentWeek <= classPeriod[1]) {
+          console.log('have');
+          return true;
+        }
+      }
+    }
+    console.log('not have');
     return false;
   }
 })

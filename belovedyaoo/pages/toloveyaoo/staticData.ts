@@ -103,6 +103,14 @@ export const WeekConst = [
   'Saturday'
 ] as Week[];
 
+export const SectionConst = [
+  'First',
+  'Second',
+  'Third',
+  'Fourth',
+  'Fifth'
+] as Section[];
+
 export const scheduleTable = {
   'Monday' : {
     'First' : classDataList[0],
