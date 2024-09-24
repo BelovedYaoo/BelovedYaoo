@@ -19,6 +19,7 @@ Page({
     currentWeek: 1 as number,
     classDataList,
     scheduleData,
+    scheduleDataTranspose: new ScheduleDataVo(scheduleTable),
     time: classTime,
     isShow67: false,
     weekList: [],
@@ -91,7 +92,7 @@ Page({
   },
   onLoad: function (): void {
     const scheduleData = new ScheduleDataVo(scheduleTable);
-    console.log(scheduleData.getCoursesOfDay('Friday'));
+    console.log(scheduleData.convertScheduleToNewFormat());
     this.setData({
       currentWeek: getCurrentPeriod(this.data.startTime)
     });
@@ -125,13 +126,5 @@ Page({
     }
 
     return false;
-  },
-  queryHaveClass(e: any) {
-    console.log(e.currentTarget);
-    if (this.isHasClass(e.currentTarget.dataset.day)) {
-      console.log("有课");
-    } else {
-      console.log("没课");
-    }
   }
 })

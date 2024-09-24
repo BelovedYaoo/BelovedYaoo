@@ -52,6 +52,48 @@ class ScheduleDataVo {
     return this.scheduleTable[week] || {};
   }
 
+  convertScheduleToNewFormat(): scheduleArray {
+    const newFormat: scheduleArray = {
+      first: [],
+      second: [],
+      third: [],
+      fourth: [],
+      fifth: []
+    };
+
+    const sections = ["First", "Second", "Third", "Fourth", "Fifth"];
+
+    // 遍历所有可能的时间段
+    for (const section of sections) {
+      // 遍历一周中的每一天
+      for (const day of Object.values(this.scheduleTable)) {
+        let courseInfo = day[section];
+        if (courseInfo === undefined) {
+          courseInfo = {};
+        }
+          // 处理空值或null值
+          // const formattedData = this.handleEmpty(courseInfo);
+          console.log(courseInfo);
+          
+          newFormat[section.toLowerCase()].push(courseInfo as classInfoType | {});
+        // }
+      }
+    }
+
+    return newFormat;
+  }
+
+  // 辅助函数处理空值或null值
+  handleEmpty(dataItem: classInfoType | Array<classInfoType> | null): classInfoType | {} {
+    if (!dataItem) {
+      return {};
+    } else if (Array.isArray(dataItem)) {
+      return dataItem.length > 0 ? dataItem[0] : {};
+    } else {
+      return dataItem;
+    }
+  }
+
 }
 
 // 构造一个空的ScheduleTable类型数据

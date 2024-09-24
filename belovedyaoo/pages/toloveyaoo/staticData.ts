@@ -160,7 +160,6 @@ export const scheduleTable = {
     'Third': classDataList[4],
   },
   'Thursday': {
-    'First':classDataList[3],
     'Second':classDataList[8],
     'Third': classDataList[6],
     'Fourth': classDataList[6],

@@ -35,3 +35,27 @@ export const getCurrentPeriod = (startTime: number): number => {
   const diffInWeeks = diffInMs / (1000 * 60 * 60 * 24 * 7);
   return Math.ceil(diffInWeeks);
 };
+
+export const transpose = (matrix: number[][]): number[][] => {
+  // 获取矩阵的行数和列数
+  const rowCount = matrix.length;
+  const colCount = matrix[0].length;
+
+  // 创建一个新数组用于存储转置的结果
+  const transposedMatrix: number[][] = [];
+
+  // 遍历原矩阵的列
+  for (let i = 0; i < colCount; i++) {
+    // 创建新行
+    const newRow: number[] = [];
+    // 遍历原矩阵的行
+    for (let j = 0; j < rowCount; j++) {
+      // 添加元素到新行中
+      newRow.push(matrix[j][i]);
+    }
+    // 将新行添加到转置矩阵中
+    transposedMatrix.push(newRow);
+  }
+
+  return transposedMatrix;
+}
