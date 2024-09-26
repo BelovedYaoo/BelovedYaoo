@@ -10,7 +10,7 @@
     <view class="head-right flex-row j_b">
       <view class="flex-column j_c" style="width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" wx:for="{{weekList}}" wx:key="week" id="{{item.weekt}}">
         <text class="head-week {{item.isCurr && 'head-right-curr'}}">{{item.week}}</text>
-        <text class=" {{item.isCurr && 'head-right-curr'}}">{{item.isCurr ? (item.isHasClass ? "今天有课":"今天没课"):item.day}}</text>
+        <text class="{{item.isCurr && 'head-right-curr'}}" style="font-size: {{isShow67?'normal':'smaller'}};;">{{item.isCurr ? (item.isHasClass ? "今天有课":"今天没课"):item.day}}</text>
       </view>
     </view>
   </view>

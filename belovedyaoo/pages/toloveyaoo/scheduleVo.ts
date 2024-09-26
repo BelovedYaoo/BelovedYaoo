@@ -15,12 +15,12 @@ class ScheduleDataVo {
   // 获取特定星期与节次的课程
   getCourse(week: Week, section: Section): classInfoType | null {
     // 检查 scheduleTable 中是否存在该星期的每日课程数据
-    if (!(week in this.scheduleTable)) {      
+    if (!(week in this.scheduleTable)) {
       return null;
     }
     // 取出该星期的每日课程数据
     const daySchedule = this.scheduleTable[week];
-    if (!(section in daySchedule)) {      
+    if (!(section in daySchedule)) {
       return null;
     }
     // 取出该节次的课程数据
@@ -70,8 +70,21 @@ class ScheduleDataVo {
         if (courseInfo === undefined) {
           courseInfo = {} as classInfoType;
         }
-
-        newFormat[section].push(courseInfo as classInfoType | {});
+        // 如果是数组，代表该星期该节次下存在多个课程数据，需要进行周次判断
+        if (Array.isArray(courseInfo)) {
+          let classPeriod: number[] | undefined;
+          const currentPeriod = getCurrentPeriod(new Date('2024-09-02T00:00:00').getTime());
+          for (const course of courseInfo) {
+            const periodStr = (course as classInfoType).classPeriod;
+            classPeriod = this.splitWeek(periodStr) as number[];
+            if (classPeriod && classPeriod.length === 2 &&
+              classPeriod[0] <= currentPeriod && currentPeriod <= classPeriod[1]) {
+                newFormat[section].push(course as classInfoType | {});
+            }
+          }
+        } else {
+          newFormat[section].push(courseInfo as classInfoType | {});
+        }
       }
     }
 

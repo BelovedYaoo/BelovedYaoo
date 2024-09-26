@@ -115,7 +115,7 @@ export const scheduleTable = {
   'Monday' : {
     'First' : classDataList[0],
     'Second': classDataList[2],
-    'Third': classDataList[6],
+    'Third': [classDataList[6],classDataList[5]],
     'Fourth': classDataList[6],
   },
   'Tuesday': {
