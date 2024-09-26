@@ -1,5 +1,5 @@
-<div class="app">
-  <full-screen-bg/>
+<div class="app mb-safe">
+  <full-screen-bg />
   <view class="flex-row head">
     <view class="head-left flex-column j_c">
       <image src="../../src/images/sanmingzhi.png" class="head-icon" />
@@ -14,10 +14,10 @@
       </view>
     </view>
   </view>
-  <view class="container flex-row mb20">
+  <view wx:for="{{displayData}}" wx:key="displayData" wx:for-item="displayDataItem" class="container flex-row mb20">
     <!-- 第1、2大节课程时间 -->
     <view class="container-left flex-column j_b">
-      <block wx:for="{{time.one}}" wx:key="list">
+      <block wx:for="{{displayDataItem.timeDisplay}}" wx:key="list">
         <view class="flex-column j_c">
           <text class="con-title">{{item.index}}</text>
           <text>{{item.timeStart}}</text>
@@ -25,62 +25,18 @@
         </view>
       </block>
     </view>
-    <view class="container-right  flex col j_c">
+    <view class="container-right flex col j_c">
       <!-- 第1大节课程 -->
-      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
-        <block wx:for="{{scheduleDataTranspose.First}}" wx:key="list">
-          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
-            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
+      <view wx:for="{{displayDataItem.courseDataDisplay}}" wx:for-item="courseDataDisplayItem" wx:key="list" class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
+        <block wx:for="{{courseDataDisplayItem}}" wx:for-item="courseDataDisplayItem2" wx:key="list">
+          <view class="con-item flex-column j_c" style="background: {{courseDataDisplayItem2.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{courseDataDisplayItem2}}">
+            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{courseDataDisplayItem2.className}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{courseDataDisplayItem2.classLocation}}</text>
+            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{courseDataDisplayItem2.classPeriod}}</text>
           </view>
-        </block>
-      </view>
-      <!-- 第2大节课程 -->
-      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
-        <block wx:for="{{scheduleDataTranspose.Second}}" wx:key="list">
-          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
-            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
-          </view>
-        </block>
+          </block>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
-    </view>
-  </view>
-  <view class="container flex-row mb20 mb-safe">
-    <!-- 第3、4大节课程时间 -->
-    <view class="container-left flex-column j_b">
-      <block wx:for="{{time.two}}" wx:key="list">
-        <view class="flex-column j_c">
-          <text class="con-title">{{item.index}}</text>
-          <text>{{item.timeStart}}</text>
-          <text>{{item.timeEnd}}</text>
-        </view>
-      </block>
-    </view>
-    <!-- 第3大节课程 -->
-    <view class="container-right  flex col j_c">
-      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
-        <block wx:for="{{scheduleDataTranspose.Third}}" wx:key="list">
-          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
-            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
-          </view>
-        </block>
-      </view>
-      <!-- 第4大节课程 -->
-      <view class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
-        <block wx:for="{{scheduleDataTranspose.Fourth}}" wx:key="list">
-          <view class="con-item flex-column j_c" style="background: {{item.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{item}}">
-            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{item.className}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classLocation}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{item.classPeriod}}</text>
-          </view>
-        </block>
-      </view>
     </view>
   </view>
   <!-- 详情弹框 -->

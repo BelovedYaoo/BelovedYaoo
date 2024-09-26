@@ -16,6 +16,15 @@ type scheduleArray = {
   [section in Section]: Array<classInfoType | Array<classInfoType> | {}>
 };
 
+type timeDisplay = Array<timeInfo>
+
+type courseDataDisplay = Array<classInfoType | Array<classInfoType> | {}>
+
+type shecduleDataDisplay = {
+  timeDisplay: timeDisplay,
+  courseDataDisplay: courseDataDisplay
+}
+
 type classInfoType = {
   className: string,
   classPeriod: string,

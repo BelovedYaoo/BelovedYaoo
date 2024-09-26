@@ -21,12 +21,13 @@ Page({
     classDataList,
     scheduleData: {} as ScheduleDataVo,
     scheduleTable,
-    scheduleDataTranspose: {} as scheduleArray,
+    scheduleDataTranspose: new ScheduleDataVo(scheduleTable).convertToArray() as scheduleArray,
     time: classTime,
     isShow67: false,
     weekList: [],
     isShow: false,
     current: {},
+    displayData: [] as Array<shecduleDataDisplay>
   },
   getDetail(e: any) {
     let {
@@ -54,6 +55,7 @@ Page({
     return true;
   },
   onShow() {
+    this.initDisplayData()
     if (typeof this.getTabBar == 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 2
@@ -92,7 +94,6 @@ Page({
     this.setData({
       currentWeek: getCurrentPeriod(this.data.startTime),
       scheduleData: new ScheduleDataVo(scheduleTable),
-      scheduleDataTranspose: new ScheduleDataVo(scheduleTable).convertToArray()
     });
   },
   splitWeek(str: string): number[] {
@@ -108,12 +109,40 @@ Page({
         const classPeriod = this.splitWeek(periodStr) as number[];
         if (classPeriod && classPeriod.length === 2 &&
           classPeriod[0] <= this.data.currentWeek && this.data.currentWeek <= classPeriod[1]) {
-          console.log('have');
           return true;
         }
       }
     }
-    console.log('not have');
     return false;
+  },
+  initDisplayData() {
+    let displayDataTemp = [] as Array<shecduleDataDisplay>;
+    let cycleCount = 0;
+
+    const getCourseDataForCycleCount = (cycleCount: number): Array<courseDataDisplay> => {
+      if (cycleCount === 0) {
+        return [
+          this.data.scheduleDataTranspose.First,
+          this.data.scheduleDataTranspose.Second
+        ]
+      } else {
+        return [
+          this.data.scheduleDataTranspose.Third,
+          this.data.scheduleDataTranspose.Fourth
+        ]
+      }
+    }
+
+    for (const key of Object.keys(this.data.time) as (keyof classTime)[]) {
+      displayDataTemp.push({
+        timeDisplay: this.data.time[key],
+        courseDataDisplay: getCourseDataForCycleCount(cycleCount)
+      });
+      cycleCount++;
+    }
+    cycleCount = 0;
+    this.setData({
+      displayData: displayDataTemp
+    });
   }
 })
