@@ -55,9 +55,9 @@ page {
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
+  background: #302e2f46;
+  -webkit-transition-duration: 1.2s;
+  transition-duration: 1.2s;
 }
 
 /* 单行文字换行  */
@@ -328,11 +328,11 @@ image {
 .modal.noShow {
   top: -0%;
   opacity: 0;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 .modal.show {
   top: 50%;
-  transition: all 1s;
+  transition: all 0.5s;
   opacity: 1;
 }
