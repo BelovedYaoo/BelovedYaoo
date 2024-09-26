@@ -1,5 +1,5 @@
 <div class="app">
-  <view class="full-screen-bg"></view>
+  <full-screen-bg/>
   <div class="container">
     <view class="avatar">
       <image class="circle" src="../../src/images/you.jpg" />

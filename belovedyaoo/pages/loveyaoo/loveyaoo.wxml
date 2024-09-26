@@ -1,22 +1,3 @@
 <div class="app">
-  <view class="full-screen-bg"></view>
-  <div class="container">
-    <view class="avatar">
-      <image class="circle" src="../../src/images/you.jpg" />
-      <image class="circle" src="../../src/images/yao.jpg" />
-    </view>
-  </div>
-  <div class="textContainer">
-    <view class="title">与佳瑶宝宝相恋已经这么久啦</view>
-    <text class="showTime"> {{timeDiff.hours}} 小时 {{timeDiff.minutes}} 分钟 {{timeDiff.seconds}} 秒</text>
-    <text class="yiyan" style="opacity: {{yiyanOpacity}};">{{yiyan}}</text>
-  </div>
-  <view class="swiper-box" bindtouchmove="touchMove" bindtouchstart="touchStart" bindtouchend="touchEnd">
-    <view class="item-box {{item.zIndex==1?'none':''}}" wx:for="{{swiperList}}" wx:key="index" style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
-      <view class="swiper-item">
-        <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
-        <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
-      </view>
-    </view>
-  </view>
+  <full-screen-bg/>
 </div>

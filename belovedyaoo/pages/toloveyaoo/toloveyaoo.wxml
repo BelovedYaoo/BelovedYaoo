@@ -1,5 +1,5 @@
 <div class="app">
-  <view class="full-screen-bg"></view>
+  <full-screen-bg/>
   <view class="flex-row head">
     <view class="head-left flex-column j_c">
       <image src="../../src/images/sanmingzhi.png" class="head-icon" />
