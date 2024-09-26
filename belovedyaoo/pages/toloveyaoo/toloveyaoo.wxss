@@ -22,6 +22,7 @@ page {
 
 /* 多行文字换行 */
 .line_ellipsis {
+  width: calc(100% - 20rpx);
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -216,6 +217,7 @@ image {
   font-size: 23rpx;
   box-sizing: border-box;
   color: #7e7a7a;
+  padding: 20rpx 10rpx;
 }
 
 .con-title {
@@ -246,6 +248,7 @@ image {
   position: relative;
   box-sizing: border-box;
   padding: 20rpx 10rpx;
+  gap: 15rpx;
 }
 
 .con-icon {

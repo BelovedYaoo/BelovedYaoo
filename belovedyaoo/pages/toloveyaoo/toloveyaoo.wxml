@@ -7,15 +7,15 @@
       <text class="head-left-text two">周</text>
       <text class="head-curr-week">{{currentWeek}}</text>
     </view>
-    <view class="head-right flex-row j_b" style="padding: 0 {{!isShow67?'20rpx':'35rpx'}};">
-      <view class="flex-column j_c" wx:for="{{weekList}}" wx:key="week" id="{{item.weekt}}">
+    <view class="head-right flex-row j_b">
+      <view class="flex-column j_c" style="width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" wx:for="{{weekList}}" wx:key="week" id="{{item.weekt}}">
         <text class="head-week {{item.isCurr && 'head-right-curr'}}">{{item.week}}</text>
         <text class=" {{item.isCurr && 'head-right-curr'}}">{{item.isCurr ? (item.isHasClass ? "今天有课":"今天没课"):item.day}}</text>
       </view>
     </view>
   </view>
   <view wx:for="{{displayData}}" wx:key="displayData" wx:for-item="displayDataItem" class="container flex-row mb20">
-    <!-- 第1、2大节课程时间 -->
+    <!-- 时间 -->
     <view class="container-left flex-column j_b">
       <block wx:for="{{displayDataItem.timeDisplay}}" wx:key="list">
         <view class="flex-column j_c">
@@ -26,15 +26,15 @@
       </block>
     </view>
     <view class="container-right flex col j_c">
-      <!-- 第1大节课程 -->
-      <view wx:for="{{displayDataItem.courseDataDisplay}}" wx:for-item="courseDataDisplayItem" wx:key="list" class="flex-row mb10 con-itme-block" bindtap="getDetail" style="width: 100%;">
+      <!-- 课程 -->
+      <view wx:for="{{displayDataItem.courseDataDisplay}}" wx:for-item="courseDataDisplayItem" wx:key="list" class="flex-row con-itme-block" bindtap="getDetail" style="width: 100%;">
         <block wx:for="{{courseDataDisplayItem}}" wx:for-item="courseDataDisplayItem2" wx:key="list">
           <view class="con-item flex-column j_c" style="background: {{courseDataDisplayItem2.displayColor}};width: calc((100% - 10rpx - ({{isShow67?'3':'5'}} * 10rpx)) / {{isShow67?'5':'7'}})" catchtap="getDetail" data-item="{{courseDataDisplayItem2}}">
-            <text class="con-item-subj line_ellipsis" style="width: calc(100% - 20rpx);">{{courseDataDisplayItem2.className}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{courseDataDisplayItem2.classLocation}}</text>
-            <text class="line_ellipsis" style="width: calc(100% - 20rpx);">{{courseDataDisplayItem2.classPeriod}}</text>
+            <text class="con-item-subj line_ellipsis">{{courseDataDisplayItem2.className}}</text>
+            <text class="line_ellipsis">{{courseDataDisplayItem2.classLocation}}</text>
+            <text class="line_ellipsis">{{courseDataDisplayItem2.classPeriod}}</text>
           </view>
-          </block>
+        </block>
       </view>
       <image src="../../src/images/shabing.png" class="con-icon" />
     </view>
