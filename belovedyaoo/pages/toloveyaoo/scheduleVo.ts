@@ -72,6 +72,7 @@ class ScheduleDataVo {
         }
         // 如果是数组，代表该星期该节次下存在多个课程数据，需要进行周次判断
         if (Array.isArray(courseInfo)) {
+          let alerdayAdd = false as boolean;
           let classPeriod: number[] | undefined;
           const currentPeriod = getCurrentPeriod(new Date('2024-09-02T00:00:00').getTime());
           for (const course of courseInfo) {
@@ -80,7 +81,11 @@ class ScheduleDataVo {
             if (classPeriod && classPeriod.length === 2 &&
               classPeriod[0] <= currentPeriod && currentPeriod <= classPeriod[1]) {
                 newFormat[section].push(course as classInfoType | {});
+                alerdayAdd = true
             }
+          }
+          if (!alerdayAdd) {
+            newFormat[section].push({});
           }
         } else {
           newFormat[section].push(courseInfo as classInfoType | {});
