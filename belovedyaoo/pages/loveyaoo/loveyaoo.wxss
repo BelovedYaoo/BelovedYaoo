@@ -1,0 +1,15 @@
+.campusMapView {
+  width: 90vw;
+  height: 900rpx;
+  align-self: center;
+  border-radius: 20rpx;
+  border: 10rpx;
+  border-color: #FDFBFD;
+  border-style: solid;
+  overflow: hidden;
+}
+
+.campusMap {
+  width: 100%;
+  height: 100%;
+}

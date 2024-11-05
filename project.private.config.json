@@ -4,5 +4,18 @@
   "setting": {
     "compileHotReLoad": true,
     "bigPackageSizeSupport": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/loveyaoo/loveyaoo",
+          "pathName": "pages/loveyaoo/loveyaoo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
   }
 }

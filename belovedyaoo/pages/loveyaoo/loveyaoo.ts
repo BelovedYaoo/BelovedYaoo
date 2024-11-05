@@ -1,5 +1,13 @@
+import {
+  markers
+} from './markers';
+
 Page({
   data: {
+    longitude: 111.672373 as number,
+    latitude: 29.046068 as number,
+    scale: 17 as number,
+    markers: markers as Array<any>
   },
 
   onShow: function (): void {
@@ -9,5 +17,9 @@ Page({
       });
     }
   },
+
+  mapP(e:any) {
+    console.log(e.detail)
+  }
 
 });

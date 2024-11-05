@@ -1,3 +1,14 @@
 <div class="app">
-  <full-screen-bg/>
+  <full-screen-bg />
+  <view class="campusMapView">
+    <map class="campusMap"
+    longitude="{{longitude}}"
+    latitude="{{latitude}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    enable-satellite="{{false}}"
+    enable-poi="{{false}}"
+    bind:tap="mapP">
+    </map>
+  </view>
 </div>
