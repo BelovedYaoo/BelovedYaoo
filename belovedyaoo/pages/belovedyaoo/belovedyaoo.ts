@@ -15,22 +15,43 @@ Page({
     swiperList: [
       {
         type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460419a90.jpg'
+        url: 'http://60.204.170.165:3200/s/ej9dsf'
       }, {
         type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460450857.jpg'
+        url: 'http://60.204.170.165:3200/s/9gbpgg'
       }, {
         type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460463c7f.jpg',
+        url: 'http://60.204.170.165:3200/s/jhopjo',
       }, {
         type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460450026.jpg'
+        url: 'http://60.204.170.165:3200/s/9ixf0u'
       }, {
         type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e546043e1ca.jpg'
+        url: 'http://60.204.170.165:3200/s/cdty44'
       }, {
         type: 'image',
-        url: 'https://img.picui.cn/free/2024/09/14/66e5460b9c343.jpg'
+        url: 'http://60.204.170.165:3200/s/3sboj2'
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/0r3xz1'
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/1upl0u'
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/0xq73e'
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/hzzjlz',
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/agm2il'
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/ptk67o'
+      }, {
+        type: 'image',
+        url: 'http://60.204.170.165:3200/s/80cnlo'
       },
     ] as swiperList
   },

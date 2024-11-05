@@ -72,12 +72,12 @@ image {
 }
 
 .swiper-box {
-  height: 550rpx;
+  height: 650rpx;
   position: relative;
   max-width: 750rpx;
   overflow: hidden;
   box-sizing: border-box;
-  margin-top: 50rpx;
+  margin-top: 0rpx;
 }
 
 .swiper-box .item-box {
