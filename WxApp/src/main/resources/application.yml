@@ -1,0 +1,54 @@
+spring:
+    main:
+        # 是否输出banner
+        banner-mode: off
+    application:
+        # 应用名称
+        name: WxApp
+    # 全局序列化配置
+    jackson:
+        # ALWAYS         默认策略，任何情况都执行序列化
+        # NON_NULL       属性为NULL 不序列化
+        # NON_ABSENT     null的不会序列化，但如果类型是AtomicReference，依然会被序列化
+        # NON_EMPTY      null、集合数组等没有内容、空字符串等，都不会被序列化
+        # NON_DEFAULT    如果字段是默认值，就不会被序列化
+        # CUSTOM         此时要指定valueFilter属性，该属性对应一个类，用来自定义判断被JsonInclude修饰的字段是否序列化
+        # USE_DEFAULTS   当JsonInclude在类和属性上都有时，优先使用属性上的注解，此时如果在序列化的get方法上使用了JsonInclude，并设置为USE_DEFAULTS，就会使用类注解的设置
+        default-property-inclusion: non_empty
+        # 设置日期格式
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+
+# MyBatis-Flex
+mybatis-flex:
+    datasource:
+        # 数据数据库
+        primary:
+            # 数据源类型
+            type: com.mysql.cj.jdbc.MysqlDataSource
+            # 数据库连接地址
+            url: jdbc:mysql://localhost:3307/belovedyaoo_wx
+            # 数据库用户名 & 密码
+            user: root
+            password: root
+    global-config:
+        print-banner: false
+
+auto-table:
+    # 是否开启自动建表功能
+    enable: true
+    # 是否输出banner
+    show-banner: false
+    # 是否开启严格继承模式
+    strict-extends: false
+
+mybatis-flex-ext:
+    enable-auto-fill: false
+
+sa-token:
+    is-print: false
+
+
+server:
+    # 应用服务 WEB 访问端口
+    port: 8099
