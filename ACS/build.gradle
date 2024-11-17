@@ -1,0 +1,6 @@
+dependencies {
+	implementation project(":AgilityCore")
+
+	// OK HTTPS
+    implementation 'com.ejlchina:okhttps:3.1.1'
+}
