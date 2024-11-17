@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.enums;
+package top.belovedyaoo.openiam.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

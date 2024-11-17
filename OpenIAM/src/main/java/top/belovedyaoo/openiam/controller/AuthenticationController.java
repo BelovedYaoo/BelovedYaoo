@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.controller;
+package top.belovedyaoo.openiam.controller;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.context.model.SaRequest;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.agcore.log.InterfaceLog;
 import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.openiam.generateMapper.AccountMapper;
-import top.belovedyaoo.openiam.permission.entity.Account;
-import top.belovedyaoo.openiam.permission.service.impl.AuthenticationServiceImpl;
-import top.belovedyaoo.openiam.permission.toolkit.AuthenticationUtil;
+import top.belovedyaoo.openiam.entity.po.Account;
+import top.belovedyaoo.openiam.service.impl.AuthenticationServiceImpl;
+import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
 
-import static top.belovedyaoo.openiam.permission.service.impl.AuthenticationServiceImpl.VERIFY_CODE_PREFIX;
+import static top.belovedyaoo.openiam.service.impl.AuthenticationServiceImpl.VERIFY_CODE_PREFIX;
 
 /**
  * 认证控制层

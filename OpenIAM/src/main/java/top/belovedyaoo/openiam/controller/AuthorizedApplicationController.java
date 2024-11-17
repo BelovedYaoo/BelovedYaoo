@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.controller;
+package top.belovedyaoo.openiam.controller;
 
 import com.mybatisflex.core.BaseMapper;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.agcore.base.BaseController;
 import top.belovedyaoo.agcore.result.Result;
-import top.belovedyaoo.openiam.permission.entity.AuthorizedApplication;
+import top.belovedyaoo.openiam.entity.po.AuthorizedApplication;
 
 import java.util.ArrayList;
 import java.util.List;

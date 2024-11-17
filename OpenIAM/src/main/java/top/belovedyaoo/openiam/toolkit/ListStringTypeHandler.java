@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.toolkit;
+package top.belovedyaoo.openiam.toolkit;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;

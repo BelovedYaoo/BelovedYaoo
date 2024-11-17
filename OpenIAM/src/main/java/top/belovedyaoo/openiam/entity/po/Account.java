@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.entity;
+package top.belovedyaoo.openiam.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;

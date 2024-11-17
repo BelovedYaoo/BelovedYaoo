@@ -11,10 +11,10 @@ import top.belovedyaoo.openiam.oauth2.enums.OpenAuthResultEnum;
 import top.belovedyaoo.openiam.oauth2.function.ConfirmFunction;
 import top.belovedyaoo.openiam.oauth2.function.DoLoginFunction;
 import top.belovedyaoo.openiam.oauth2.function.NotLoginFunction;
-import top.belovedyaoo.openiam.permission.entity.AuthorizedApplication;
-import top.belovedyaoo.openiam.permission.service.impl.AuthenticationServiceImpl;
+import top.belovedyaoo.openiam.entity.po.AuthorizedApplication;
+import top.belovedyaoo.openiam.service.impl.AuthenticationServiceImpl;
 
-import static top.belovedyaoo.openiam.permission.entity.table.AuthorizedApplicationTableDef.AUTHORIZED_APPLICATION;
+import static top.belovedyaoo.openiam.entity.po.table.AuthorizedApplicationTableDef.AUTHORIZED_APPLICATION;
 
 /**
  * Sa-Token OAuth2：自定义数据加载器

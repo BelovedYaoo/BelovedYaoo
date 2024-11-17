@@ -57,6 +57,8 @@ mybatis-flex:
     global-config:
         print-banner: false
 
+mybatis-flex-ext:
+    enable-auto-fill: false
 
 server:
     # 应用服务 WEB 访问端口

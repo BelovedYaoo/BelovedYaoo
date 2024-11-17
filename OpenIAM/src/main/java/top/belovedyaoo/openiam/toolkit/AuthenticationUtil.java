@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.toolkit;
+package top.belovedyaoo.openiam.toolkit;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.openiam.common.toolkit.JedisOperateUtil;
 import top.belovedyaoo.openiam.common.toolkit.LogUtil;
-import top.belovedyaoo.openiam.permission.enums.AuthenticationResultEnum;
+import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

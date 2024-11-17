@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.entity;
+package top.belovedyaoo.openiam.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Column;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import top.belovedyaoo.agcore.base.BaseFiled;
 import top.belovedyaoo.openiam.oauth2.data.model.loader.OpenAuthClientModel;
-import top.belovedyaoo.openiam.permission.toolkit.ListStringTypeHandler;
+import top.belovedyaoo.openiam.toolkit.ListStringTypeHandler;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.permission.service.impl;
+package top.belovedyaoo.openiam.service.impl;
 
 import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.StpUtil;
@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.openiam.generateMapper.AccountMapper;
-import top.belovedyaoo.openiam.permission.entity.Account;
-import top.belovedyaoo.openiam.permission.toolkit.AuthenticationUtil;
-import top.belovedyaoo.openiam.permission.enums.AuthenticationResultEnum;
+import top.belovedyaoo.openiam.entity.po.Account;
+import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
+import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 import top.belovedyaoo.openiam.common.toolkit.JedisOperateUtil;
-import top.belovedyaoo.openiam.permission.service.AuthenticationService;
+import top.belovedyaoo.openiam.service.AuthenticationService;
 
 import static cn.hutool.core.util.ObjectUtil.isNull;
 
