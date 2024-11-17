@@ -34,7 +34,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "account", dataSource = "primary")
-public class Account extends BaseFiled implements Serializable {
+public class User extends BaseFiled implements Serializable {
 
     /**
      * 登录ID，该ID为用户登录使用

@@ -5,7 +5,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.agcore.base.BaseController;
-import top.belovedyaoo.openiam.entity.po.Account;
+import top.belovedyaoo.openiam.entity.po.User;
 
 /**
  * Account控制器
@@ -15,8 +15,8 @@ import top.belovedyaoo.openiam.entity.po.Account;
  */
 @RestController
 @RequestMapping("/acc")
-public class AccountController extends BaseController<Account> {
-     public AccountController(BaseMapper<Account> baseMapper, PlatformTransactionManager platformTransactionManager) {
+public class UserController extends BaseController<User> {
+     public UserController(BaseMapper<User> baseMapper, PlatformTransactionManager platformTransactionManager) {
         super(baseMapper, platformTransactionManager);
     }
 }
