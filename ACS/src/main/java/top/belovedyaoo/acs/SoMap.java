@@ -187,7 +187,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	/** 获取集合(逗号分隔式)，(指定类型) */
 	public <T> List<T> getListByComma(String key, Class<T> cs) {
 		String listStr = getString(key);
-		if(listStr == null || listStr.equals("")) {
+		if(listStr == null || listStr.isEmpty()) {
 			return new ArrayList<>();
 		}
 		// 开始转化

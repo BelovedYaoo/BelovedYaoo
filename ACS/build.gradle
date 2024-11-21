@@ -1,6 +1,13 @@
 dependencies {
 	implementation project(":AgilityCore")
 
+    // 企业微信配置依赖
+    implementation 'com.github.binarywang:weixin-java-cp:4.4.9.B'
+
 	// OK HTTPS
     implementation 'com.ejlchina:okhttps:3.1.1'
+
+    // Alibaba Fastjson
+    implementation 'com.alibaba:fastjson:2.0.32'
+
 }
