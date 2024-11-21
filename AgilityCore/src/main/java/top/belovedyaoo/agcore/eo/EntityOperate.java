@@ -132,11 +132,11 @@ public class EntityOperate {
      * @param field      要搜索的字段
      * @param findGetter 是否查找getter方法
      *
-     * @return 返回找到的方法对象，如果没有找到则返回null
+     * @return 返回找到的方法对象,如果没有找到则返回null
      */
     public static Method getGetterOrSetterByField(Class<?> clazz, Field field, boolean findGetter) {
         try {
-            // 此处必须显式声明方法的参数类型，若直接缺省可能会导致getter为空
+            // 此处必须显式声明方法的参数类型,若直接缺省可能会导致getter为空
             Class<?>[] parameterTypes = findGetter ? new Class<?>[0] : new Class<?>[]{field.getType()};
             return clazz.getMethod(field.getName(), parameterTypes);
         } catch (NoSuchMethodException e) {
@@ -196,7 +196,7 @@ public class EntityOperate {
         FillData fillData = AnnotatedElementUtils.getMergedAnnotation(field, FillData.class);
         if (fillData != null) {
             PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
-            // 判断原来值为null，或者覆盖选项为true
+            // 判断原来值为null,或者覆盖选项为true
             boolean canSet = fillData.override() || ReflectionUtils.invokeMethod(propertyDescriptor.getReadMethod(), object) == null;
             if (canSet) {
                 Object userInfo = null;
@@ -204,7 +204,7 @@ public class EntityOperate {
                 if (instance != null) {
                     userInfo = instance.getVal(object, clazz, field);
                 }
-                // 如果当前未取到信息，不设置
+                // 如果当前未取到信息,不设置
                 if (userInfo != null) {
                     // 先校验类型是否一致
                     if (!this.checkTypeConsistency(userInfo.getClass(), field.getType())) {
@@ -219,7 +219,7 @@ public class EntityOperate {
     }
 
     /**
-     * 校验两个类型是否一致，涵盖了8大基本类型的自动转换
+     * 校验两个类型是否一致,涵盖了8大基本类型的自动转换
      */
     private boolean checkTypeConsistency(Class<?> aClass, Class<?> bClass) {
         return aClass == bClass ||
@@ -228,18 +228,18 @@ public class EntityOperate {
     }
 
     /**
-     * 缓存AutoFillHandler，同时寻找
+     * 缓存AutoFillHandler,同时寻找
      */
     private AutoFillHandler<?> getAutoFillHandler(Class<? extends AutoFillHandler> autoFillHandler) {
         try {
             return SpringContextUtil.getBeanOfType(autoFillHandler);
         } catch (NoUniqueBeanDefinitionException ignore) {
-            throw new RuntimeException("发现了多个" + autoFillHandler.getName() + "的实现，请保持Spring中只有一个实例。");
+            throw new RuntimeException("发现了多个" + autoFillHandler.getName() + "的实现,请保持Spring中只有一个实例。");
         } catch (NoSuchBeanDefinitionException ignore) {
             if (autoFillHandler.isInterface()) {
-                LOGGER.warn("没有找到{}的实现，操作数据无法自动填充。", autoFillHandler.getName());
+                LOGGER.warn("没有找到{}的实现,操作数据无法自动填充。", autoFillHandler.getName());
             } else {
-                LOGGER.warn("{}需要注册到spring，否则操作数据无法自动填充。", autoFillHandler.getName());
+                LOGGER.warn("{}需要注册到spring,否则操作数据无法自动填充。", autoFillHandler.getName());
             }
         }
         return null;
@@ -323,7 +323,7 @@ public class EntityOperate {
     }
 
     /**
-     * 框架内部使用，定义当前时间的时间对象
+     * 框架内部使用,定义当前时间的时间对象
      */
     private static class Now {
 

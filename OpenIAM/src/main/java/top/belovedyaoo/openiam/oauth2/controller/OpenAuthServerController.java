@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * OpenAuth Server端 Controller
+ * OpenAuth 服务端控制器
  *
  * @author BelovedYaoo
  * @version 1.0

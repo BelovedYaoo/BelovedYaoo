@@ -130,7 +130,7 @@ public class OpenAuthServerProcessor {
         }
 
         // 7、判断授权类型，重定向到不同地址
-        // 		如果是 授权码式，则：开始重定向授权，下放code
+        // 如果是 授权码式，则：开始重定向授权，下放code
         if (ResponseType.code.equals(ra.responseType)) {
             CodeModel codeModel = dataGenerate.generateCode(ra);
             String redirectUri = dataGenerate.buildRedirectUri(ra.redirectUri, codeModel.code, ra.state);
@@ -138,7 +138,7 @@ public class OpenAuthServerProcessor {
             return Result.success().singleData(redirectUri);
         }
 
-        // 		如果是 隐藏式，则：开始重定向授权，下放 token
+        // 如果是 隐藏式，则：开始重定向授权，下放 token
         if (ResponseType.token.equals(ra.responseType)) {
             AccessTokenModel at = dataGenerate.generateAccessToken(ra, false);
             String redirectUri = dataGenerate.buildImplicitRedirectUri(ra.redirectUri, at.accessToken, ra.state);

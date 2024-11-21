@@ -17,7 +17,7 @@ public class BaseIdAutoFillProcessor implements AutoFillHandler<String> {
 
     /**
      * 自动填充BaseID<p>
-     * 当BaseID不为空时，直接返回已存在的BaseID，否则自动生成一个UUID
+     * 当BaseID不为空时,直接返回已存在的BaseID,否则自动生成一个UUID
      *
      * @param object 需要填充的对象
      * @param clazz  对象的类型

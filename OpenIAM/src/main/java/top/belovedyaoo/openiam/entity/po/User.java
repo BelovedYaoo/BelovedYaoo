@@ -21,7 +21,7 @@ import top.belovedyaoo.agcore.sensitization.SensitizationType;
 import java.io.Serializable;
 
 /**
- * (Account)表持久化对象
+ * (User)表持久化对象
  *
  * @author BelovedYaoo
  * @version 1.1
@@ -33,11 +33,11 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "account", dataSource = "primary")
+@Table(value = "user", dataSource = "primary")
 public class User extends BaseFiled implements Serializable {
 
     /**
-     * 登录ID，该ID为用户登录使用
+     * 该ID为用户登录使用
      */
     @ColumnNotNull
     @ColumnComment("用户的登录ID")
@@ -45,7 +45,7 @@ public class User extends BaseFiled implements Serializable {
     private String openId;
 
     /**
-     * 登录密码，使用哈希散列加密存储
+     * 使用哈希散列加密存储
      */
     @ColumnNotNull
     @ColumnComment("用户的登录密码")
@@ -53,32 +53,20 @@ public class User extends BaseFiled implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    /**
-     * 手机号
-     */
     @ColumnComment("用户绑定的手机号")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 11)
     @Sensitization(type = SensitizationType.MOBILE_PHONE)
     private String phone;
 
-    /**
-     * 邮箱地址
-     */
     @ColumnComment("用户绑定的邮箱")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 50)
     @Sensitization(type = SensitizationType.EMAIL, prefixLen = 3, suffixLen = 2)
     private String email;
 
-    /**
-     * 昵称
-     */
     @ColumnComment("用户的昵称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
     private String nickname;
 
-    /**
-     * 头像地址
-     */
     @ColumnComment("用户的头像地址")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 50)
     private String avatarAddress;

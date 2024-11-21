@@ -26,10 +26,10 @@ import java.util.Date;
 /**
  * 基础字段<p>
  * Data注解用于提供各属性的Getter、Setter、equals、hashCode、canEqual、toString方法<p>
- * SuperBuilder注解用于协同构造派生类，缺失会导致构造派生类时无法同时设置基类与派生类属性<p>
- * Getter注解用于Jackson的反序列化，缺失会导致拿不到BaseFiled的属性<p>
- * NoArgsConstructor注解用于提供无参构造方法，缺失会导致派生类中报错<p>
- * Accessors用于去除Getter、Setter前缀并开启链式调用，使Getter、Setter返回当前对象
+ * SuperBuilder注解用于协同构造派生类,缺失会导致构造派生类时无法同时设置基类与派生类属性<p>
+ * Getter注解用于Jackson的反序列化,缺失会导致拿不到BaseFiled的属性<p>
+ * NoArgsConstructor注解用于提供无参构造方法,缺失会导致派生类中报错<p>
+ * Accessors用于去除Getter、Setter前缀并开启链式调用,使Getter、Setter返回当前对象
  *
  * @author BelovedYaoo
  * @version 1.8
@@ -45,9 +45,6 @@ public abstract class BaseFiled implements Serializable {
 
     public static final String ORDER_NUM = "order_num";
 
-    /**
-     * 基础ID
-     */
     @Id
     @ColumnNotNull
     @PrimaryKey(value = false)
@@ -57,43 +54,28 @@ public abstract class BaseFiled implements Serializable {
     @InsertFillData(BaseIdAutoFillProcessor.class)
     private String baseId;
 
-    /**
-     * 数据排序
-     */
     @Column()
-    @ColumnComment("数据序号，用于数据排序")
+    @ColumnComment("数据序号,用于数据排序")
     @ColumnType(value = MysqlTypeConstant.INT)
     private Integer orderNum;
 
-    /**
-     * 创建时间
-     */
     @ColumnComment("数据的创建时间")
     @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @InsertFillTime
     private Date createTime;
 
-    /**
-     * 更新时间
-     */
     @ColumnComment("数据最近一次的更新时间")
     @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @InsertUpdateFillTime
     private Date updateTime;
 
-    /**
-     * 禁用状态
-     */
     @ColumnComment("不为NULL的情况表示数据的禁用时间")
     @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date disabledAt;
 
-    /**
-     * 逻辑删除
-     */
     @Column(isLogicDelete = true)
     @ColumnComment("不为NULL的情况表示数据的删除时间")
     @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
@@ -114,7 +96,7 @@ public abstract class BaseFiled implements Serializable {
         if (clazz.isInstance(this)) {
             return clazz.cast(this);
         } else {
-            throw new IllegalArgumentException(clazz.getSimpleName() + "与预期的类型不一致，请检查");
+            throw new IllegalArgumentException(clazz.getSimpleName() + "与预期的类型不一致,请检查");
         }
     }
 
@@ -130,7 +112,7 @@ public abstract class BaseFiled implements Serializable {
         if (object instanceof BaseFiled) {
             return (BaseFiled) object;
         } else {
-            throw new IllegalArgumentException("传入的参数类型不是BaseFiled的基类，请检查");
+            throw new IllegalArgumentException("传入的参数类型不是BaseFiled的基类,请检查");
         }
     }
 

@@ -28,7 +28,7 @@ public enum SensitizationType {
     EMAIL,
     //密码
     PASSWORD,
-    //中国大陆车牌，包含普通车辆、新能源车辆
+    //中国大陆车牌,包含普通车辆、新能源车辆
     CAR_LICENSE,
     //银行卡
     BANK_CARD

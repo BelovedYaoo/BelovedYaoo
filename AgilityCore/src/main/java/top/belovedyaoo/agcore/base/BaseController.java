@@ -71,10 +71,10 @@ public abstract class BaseController<T extends BaseFiled> {
     }
 
     /**
-     * 确保传入的对象 entity 是 T 的实例，并且继承自 BaseFiled<p>
-     * 若满足条件，则会强制将 entity 转换为 T 类型<p>
-     * 否则，抛出 IllegalArgumentException<p>
-     * 除非能够保证输入完全符合预期，否则这一步检测都是必要的
+     * 确保传入的对象 entity 是 T 的实例,并且继承自 BaseFiled<p>
+     * 若满足条件,则会强制将 entity 转换为 T 类型<p>
+     * 否则,抛出 IllegalArgumentException<p>
+     * 除非能够保证输入完全符合预期,否则这一步检测都是必要的
      *
      * @param entity 要转换的对象
      * @param <R>    泛型类型
@@ -115,7 +115,7 @@ public abstract class BaseController<T extends BaseFiled> {
         String baseId = typedEntity.baseId();
         boolean updateResult = baseMapper.update(typedEntity) > 0;
         if (!updateResult) {
-            return Result.failed().message("数据更新失败").description("ID为" + baseId + "的数据更新失败，数据可能不存在");
+            return Result.failed().message("数据更新失败").description("ID为" + baseId + "的数据更新失败,数据可能不存在");
         }
         return Result.success().message("数据更新成功").description("ID为 " + baseId + " 的数据被更新");
     }
@@ -134,7 +134,7 @@ public abstract class BaseController<T extends BaseFiled> {
         boolean deleteResult = baseMapper.deleteBatchByIds(idList) == idList.size();
         if (!deleteResult) {
             platformTransactionManager.rollback(transactionStatus);
-            return Result.failed().message("数据删除失败").description("存在未能删除的数据，操作已回滚");
+            return Result.failed().message("数据删除失败").description("存在未能删除的数据,操作已回滚");
         }
         platformTransactionManager.commit(transactionStatus);
         return Result.success().message("数据删除成功").description(idList.size() + "条数据被删除");

@@ -33,7 +33,7 @@ public @interface InterfaceLog {
     /**
      * 接口唯一标识符<br>
      * 每一个接口都应有一串随机的唯一ID<br>
-     * 即使接口重构、重命名，也不会导致日志无法关联
+     * 即使接口重构、重命名,也不会导致日志无法关联
      */
     String identifierCode();
 

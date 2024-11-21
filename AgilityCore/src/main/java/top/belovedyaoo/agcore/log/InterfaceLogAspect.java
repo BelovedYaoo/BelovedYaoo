@@ -45,12 +45,12 @@ public class InterfaceLogAspect {
     private final ApplicationContext applicationContext;
 
     /**
-     * 线程局部变量，存储日志对象
+     * 线程局部变量,存储日志对象
      */
     private static final ThreadLocal<InterfaceLogPO> INTERFACE_LOG_PO_THREAD_LOCAL = new ThreadLocal<>();
 
     /***
-     * 拦截规则，拦截InterfaceLog注解的方法
+     * 拦截规则,拦截InterfaceLog注解的方法
      */
     @Pointcut("@annotation(top.belovedyaoo.agcore.log.InterfaceLog)")
     public void interfaceLogAspect() {
