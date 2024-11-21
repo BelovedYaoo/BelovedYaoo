@@ -1,4 +1,4 @@
-package top.belovedyaoo.acs;
+package top.belovedyaoo.acs.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
@@ -6,21 +6,31 @@ import cn.hutool.jwt.JWT;
 import com.ejlchina.okhttps.OkHttps;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import com.mybatisflex.core.query.QueryWrapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.belovedyaoo.acs.SoMap;
+import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
+import top.belovedyaoo.acs.generateMapper.EnterpriseConfigMapper;
+import top.belovedyaoo.agcore.base.BaseTenantFiled;
 
 /**
- * Sa-OAuth2 Client端 控制器 
- * @author click33 
+ * OpenAuth 客户端控制器
+ *
+ * @author BelovedYaoo
+ * @version 1.0
  */
 @RestController
-public class SaOAuthClientController {
+@RequestMapping("/openAuth")
+@RequiredArgsConstructor
+public class OpenAuthController {
 
-	// 相关参数配置 
-	private final String clientId = "1001";								// 应用id
-	private final String clientSecret = "aaaa-bbbb-cccc-dddd-eeee";		// 应用秘钥
-	private final String serverUrl = "http://openiam.top:8090";	// 服务端接口
+	private final String clientId = "1001";
+	private final String clientSecret = "aaaa-bbbb-cccc-dddd-eeee";
+	private final String serverUrl = "http://openiam.top:8090";
+
+	private final EnterpriseConfigMapper enterpriseConfigMapper;
 
 	/**
 	 * 根据Code码进行登录，获取 Access-Token 和 openid
@@ -30,7 +40,8 @@ public class SaOAuthClientController {
 	 */
 	@RequestMapping("/codeLogin")
 	public SaResult codeLogin(String code) throws JsonProcessingException {
-		// 调用Server端接口，获取 Access-Token 以及其他信息 
+        SaResult res;
+        // 调用Server端接口，获取 Access-Token 以及其他信息
 		String str = OkHttps.sync(serverUrl + "/oauth2/token")
 				.addBodyPara("grant_type", "authorization_code")
 				.addBodyPara("code", code)
@@ -40,22 +51,31 @@ public class SaOAuthClientController {
 				.getBody()
 				.toString();
 		SoMap so = SoMap.getSoMap().setJsonString(str);
-		System.out.println("返回结果: " + new ObjectMapper().writeValueAsString(so));
+		System.out.println("登录返回结果: " + new ObjectMapper().writeValueAsString(so));
 		SoMap result = new SoMap().setMap(JWT.of(so.getString("id_token")).getPayloads().getRaw());
 
 		// code不等于200  代表请求失败
 		if(so.getInt("code") != 200) {
-			return SaResult.error(so.getString("msg"));
-		}
+            res = SaResult.error(so.getString("msg"));
+        } else {
+            String open_id = result.getString("sub");
+            so.set("open_id", open_id);// 返回相关参数
+            StpUtil.login(open_id);
+			configInit(open_id);
+            so.set("tokenValue", StpUtil.getTokenValue());
+            System.out.println(so);
+            res = SaResult.data(so);
+        }
 
-		String open_id = result.getString("sub");
-		so.set("open_id", open_id);
-		
-		// 返回相关参数 
-		StpUtil.login(open_id);
-		so.set("tokenValue", StpUtil.getTokenValue());
-		System.out.println(so);
-		return SaResult.data(so);
+        return res;
+    }
+
+	private void configInit(String tenantId) {
+		EnterpriseConfig enterpriseConfig = enterpriseConfigMapper.selectOneByQuery(new QueryWrapper().where(BaseTenantFiled.TENANT_ID + "= '" + tenantId+"'"));
+		if (enterpriseConfig == null) {
+			enterpriseConfig = new EnterpriseConfig();
+			enterpriseConfigMapper.insert(enterpriseConfig);
+		}
 	}
 	
 	// 根据 Refresh-Token 去刷新 Access-Token 
@@ -71,7 +91,7 @@ public class SaOAuthClientController {
 				.getBody()
 				.toString();
 		SoMap so = SoMap.getSoMap().setJsonString(str);
-		System.out.println("返回结果: " + new ObjectMapper().writeValueAsString(so));
+		System.out.println("刷新返回结果: " + new ObjectMapper().writeValueAsString(so));
 		
 		// code不等于200  代表请求失败 
 		if(so.getInt("code") != 200) {
@@ -162,11 +182,4 @@ public class SaOAuthClientController {
 		return SaResult.data(so);
 	}
 	
-	// 全局异常拦截 
-	@ExceptionHandler
-	public SaResult handlerException(Exception e) {
-		e.printStackTrace(); 
-		return SaResult.error(e.getMessage());
-	}
-
 }
