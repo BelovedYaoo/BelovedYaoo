@@ -10,7 +10,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.acs.SoMap;
+import top.belovedyaoo.agcore.common.SoMap;
 import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
 import top.belovedyaoo.acs.generateMapper.EnterpriseConfigMapper;
 import top.belovedyaoo.agcore.base.BaseTenantFiled;
@@ -24,7 +24,7 @@ import top.belovedyaoo.agcore.base.BaseTenantFiled;
 @RestController
 @RequestMapping("/openAuth")
 @RequiredArgsConstructor
-public class OpenAuthController {
+public class OpenAuthClientController {
 
 	private final String clientId = "1001";
 	private final String clientSecret = "aaaa-bbbb-cccc-dddd-eeee";
@@ -53,7 +53,7 @@ public class OpenAuthController {
 		SoMap so = SoMap.getSoMap().setJsonString(str);
 		System.out.println("登录返回结果: " + new ObjectMapper().writeValueAsString(so));
 		SoMap result = new SoMap().setMap(JWT.of(so.getString("id_token")).getPayloads().getRaw());
-
+		System.out.println(result);
 		// code不等于200  代表请求失败
 		if(so.getInt("code") != 200) {
             res = SaResult.error(so.getString("msg"));

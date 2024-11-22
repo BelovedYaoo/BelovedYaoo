@@ -12,7 +12,7 @@ import top.belovedyaoo.openiam.oauth2.function.ConfirmFunction;
 import top.belovedyaoo.openiam.oauth2.function.DoLoginFunction;
 import top.belovedyaoo.openiam.oauth2.function.NotLoginFunction;
 import top.belovedyaoo.openiam.entity.po.AuthorizedApplication;
-import top.belovedyaoo.openiam.service.impl.AuthenticationServiceImpl;
+import top.belovedyaoo.openiam.service.AuthenticationService;
 
 import static top.belovedyaoo.openiam.entity.po.table.AuthorizedApplicationTableDef.AUTHORIZED_APPLICATION;
 
@@ -25,7 +25,7 @@ import static top.belovedyaoo.openiam.entity.po.table.AuthorizedApplicationTable
 @RequiredArgsConstructor
 public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
 
-    private final AuthenticationServiceImpl authenticationService;
+    private final AuthenticationService authenticationService;
 
     private final AuthorizedApplicationMapper authorizedApplicationMapper;
 

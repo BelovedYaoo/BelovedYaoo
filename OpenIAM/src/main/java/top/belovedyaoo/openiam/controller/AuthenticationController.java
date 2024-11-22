@@ -12,10 +12,10 @@ import top.belovedyaoo.agcore.log.InterfaceLog;
 import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.openiam.entity.po.User;
 import top.belovedyaoo.openiam.generateMapper.UserMapper;
-import top.belovedyaoo.openiam.service.impl.AuthenticationServiceImpl;
+import top.belovedyaoo.openiam.service.AuthenticationService;
 import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
 
-import static top.belovedyaoo.openiam.service.impl.AuthenticationServiceImpl.VERIFY_CODE_PREFIX;
+import static top.belovedyaoo.openiam.service.AuthenticationService.VERIFY_CODE_PREFIX;
 
 /**
  * 认证控制层
@@ -33,7 +33,7 @@ public class AuthenticationController {
      */
     private final AuthenticationUtil authenticationUtil;
 
-    private final AuthenticationServiceImpl authenticationService;
+    private final AuthenticationService authenticationService;
 
     private final UserMapper userMapper;
 
@@ -66,18 +66,6 @@ public class AuthenticationController {
         System.out.println(user);
         user.baseId("111");
         return Result.success().data("account", user);
-    }
-
-    /**
-     * 账号登录方法
-     *
-     * @param user 账号数据(登录ID、密码)
-     *
-     * @return 登录结果
-     */
-    @PostMapping("/login")
-    public Result login(@RequestBody User user) {
-        return authenticationService.accountLogin(user);
     }
 
     /**
