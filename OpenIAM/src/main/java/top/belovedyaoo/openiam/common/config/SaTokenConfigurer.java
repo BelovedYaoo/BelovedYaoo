@@ -59,7 +59,9 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()
                 // 指定 [拦截路由] 与 [放行路由]
-                .addInclude("/**").addExclude("/favicon.ico")
+                .addInclude("/**")
+                .addExclude("/oauth2/**")
+                .addExclude("/auth/**")
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> {
                     SaManager.getLog().debug("----- 请求path={}  提交token={}", SaHolder.getRequest().getRequestPath(), StpUtil.getTokenValue());

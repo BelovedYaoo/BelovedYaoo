@@ -56,7 +56,7 @@ public class ListStringTypeHandler implements TypeHandler<List<String>> {
         String trimmedInput = input.substring(1, input.length() - 1);
 
         // 使用逗号作为分隔符来分割字符串
-        String[] items = trimmedInput.split(",");
+        String[] items = trimmedInput.split(", ");
 
         // 将数组转换为列表
         return new ArrayList<>(Arrays.asList(items));

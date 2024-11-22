@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/auth_app")
+@RequestMapping("/authApp")
 public class AuthorizedApplicationController extends BaseController<AuthorizedApplication> {
 
     public AuthorizedApplicationController(BaseMapper<AuthorizedApplication> baseMapper, PlatformTransactionManager platformTransactionManager) {
@@ -33,7 +33,9 @@ public class AuthorizedApplicationController extends BaseController<AuthorizedAp
         list.add("test");
         list.add("test2");
         list.add("test3");
-        baseMapper.insert(new AuthorizedApplication().clientName("123").clientId("123").clientSecret("321").allowGrantTypes(list).allowRedirectUris(list));
+        AuthorizedApplication builder = new AuthorizedApplication().clientName("123").clientId("123").clientSecret("321").allowGrantTypes(list).allowRedirectUris(list);
+        System.out.println(builder);
+        baseMapper.insert(builder);
         return Result.success();
     }
 }
