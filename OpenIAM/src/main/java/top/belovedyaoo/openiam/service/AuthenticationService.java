@@ -60,6 +60,27 @@ public class AuthenticationService {
                 .data("tokenValue", StpUtil.getTokenValue());
     }
 
+    public Result getUser(String openId, String password) {
+        User user = userMapper.selectOneByQuery(new QueryWrapper()
+                .eq("open_id", openId));
+
+        // 账号不存在
+        if (user == null) {
+            return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_LOGIN_ID_INVALID);
+        }
+
+        // 密码错误
+        if (!user.password().equals(password)) {
+            return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_PASSWORD_ERROR);
+        }
+
+        // 封禁逻辑
+        StpUtil.checkDisable(user.baseId());
+
+        return Result.success().description("登录成功")
+                .data("user", user);
+    }
+
     /**
      * 账号注册方法
      *

@@ -49,6 +49,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 // 认证路径排除
                 .excludePathPatterns("/oauth2/**")
+                .excludePathPatterns("/openAuth/**")
                 .excludePathPatterns("/auth/**");
     }
 
@@ -61,6 +62,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 // 指定 [拦截路由] 与 [放行路由]
                 .addInclude("/**")
                 .addExclude("/oauth2/**")
+                .addExclude("/openAuth/**")
                 .addExclude("/auth/**")
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> {

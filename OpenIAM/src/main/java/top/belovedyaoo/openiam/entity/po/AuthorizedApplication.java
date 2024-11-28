@@ -15,7 +15,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import top.belovedyaoo.agcore.base.BaseFiled;
-import top.belovedyaoo.openiam.oauth2.data.model.loader.OpenAuthClientModel;
+import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openiam.toolkit.ListStringTypeHandler;
 
 import java.io.Serializable;

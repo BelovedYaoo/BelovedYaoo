@@ -4,5 +4,6 @@ include(
         'AgilityCore',
         'WxApp',
         'OpenIAM',
-        'ACS'
+        'ACS',
+        'OpenAuth'
 )

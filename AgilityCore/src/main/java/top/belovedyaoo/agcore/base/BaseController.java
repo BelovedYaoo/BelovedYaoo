@@ -49,6 +49,7 @@ public abstract class BaseController<T extends BaseFiled> {
      *
      * @return 对应的泛型
      */
+    @SuppressWarnings("unchecked")
     public static <T> Class<T> getGenericClass(Class<?> objectClass, int i) {
         ParameterizedType type = (ParameterizedType) objectClass.getGenericSuperclass();
         if (type == null) {
