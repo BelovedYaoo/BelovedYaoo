@@ -15,7 +15,6 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import top.belovedyaoo.agcore.base.BaseFiled;
-import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openiam.toolkit.ListStringTypeHandler;
 
 import java.io.Serializable;
@@ -122,19 +121,5 @@ public class AuthorizedApplication extends BaseFiled implements Serializable {
     @ColumnComment("单独配置此应用：Lower-Client-Token 保存的时间(单位：秒) [默认取全局配置]")
     @ColumnType(value = MysqlTypeConstant.BIGINT)
     private Long lowerClientTokenTimeout;
-
-    public OpenAuthClientModel convertToClientModel() {
-        return new OpenAuthClientModel()
-                .setClientId(this.clientId())
-                .setClientSecret(this.clientSecret())
-                .addAllowRedirectUris(this.allowRedirectUris().toArray(new String[0]))
-                .addContractScopes(this.contractScopes().toArray(new String[0]))
-                .addAllowGrantTypes(this.allowGrantTypes().toArray(new String[0]));
-                // .setIsNewRefresh(this.isNewRefresh())
-                // .setAccessTokenTimeout(this.accessTokenTimeout())
-                // .setRefreshTokenTimeout(this.refreshTokenTimeout())
-                // .setClientTokenTimeout(this.clientTokenTimeout())
-                // .setLowerClientTokenTimeout(this.lowerClientTokenTimeout());
-    }
 
 }

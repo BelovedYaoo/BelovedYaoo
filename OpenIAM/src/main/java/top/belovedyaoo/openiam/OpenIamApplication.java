@@ -18,9 +18,6 @@ import org.springframework.context.annotation.FilterType;
 @EnableAutoTable(basePackages = {"top.belovedyaoo"})
 @SpringBootApplication(scanBasePackages = {"top.belovedyaoo"})
 @MapperScan(basePackages = {"top.belovedyaoo"})
-@ComponentScan(excludeFilters =
-@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
-        classes = {top.belovedyaoo.openauth.config.GlobalWebMvcConfigurer.class}))
 public class OpenIamApplication {
 
     public static void main(String[] args) {
