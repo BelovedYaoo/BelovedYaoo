@@ -44,7 +44,7 @@ public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
     // 根据 clientId 和 loginId 获取 openid
     @Override
     public String getOpenid(String clientId, Object loginId) {
-        // 此处使用框架默认算法生成 openid，真实环境建议改为从数据库查询
+        // 此处使用框架默认算法生成 openid
         return OpenAuthDataLoader.super.getOpenid(clientId, loginId);
     }
 

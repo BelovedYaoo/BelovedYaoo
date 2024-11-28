@@ -185,8 +185,12 @@ public class PushService {
         String title = "\uD83C\uDF92明天是开学日噢，明晚开始推送课程信息~";
 
         // 获取所有课程信息，并提取其中的课程名称
-        TenantManager.ignoreTenantCondition();
-        List<ClassSchedule> courseData = classScheduleMapper.selectListByQuery(QueryWrapper.create().select().from(ClassSchedule.class).where(BaseTenantFiled.TENANT_ID + " = '" + enterpriseConfig.tenantId()).orderBy(BaseFiled.ORDER_NUM, true));
+        List<ClassSchedule> courseData = TenantManager.withoutTenantCondition(() ->
+                classScheduleMapper.selectListByQuery(
+                        QueryWrapper.create().select()
+                                .from(ClassSchedule.class)
+                                .where(BaseTenantFiled.TENANT_ID + " = '" + enterpriseConfig.tenantId())
+                                .orderBy(BaseFiled.ORDER_NUM, true)));
         List<String> courseNames = courseData.stream().map(ClassSchedule::courseName).collect(Collectors.toList());
         // 通过TreeSet对课程名称进行去重
         courseNames = new ArrayList<>(new TreeSet<>(courseNames));

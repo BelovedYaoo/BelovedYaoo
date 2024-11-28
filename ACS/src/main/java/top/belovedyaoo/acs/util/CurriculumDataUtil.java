@@ -54,8 +54,8 @@ public class CurriculumDataUtil {
         // 开始事务
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
 
-        TenantManager.ignoreTenantCondition();
         try {
+            TenantManager.ignoreTenantCondition();
             linearCurriculumMapper.deleteByQuery(QueryWrapper.create().where(BaseTenantFiled.TENANT_ID + " = '" + tenantId + "'"));
 
             List<ClassSchedule> classScheduleList = classScheduleMapper.selectListByQuery(QueryWrapper.create().select().from(ClassSchedule.class).where(BaseTenantFiled.TENANT_ID + " = '" + tenantId + "'").orderBy(BaseFiled.ORDER_NUM, true));
@@ -164,16 +164,14 @@ public class CurriculumDataUtil {
      */
     public List<LinearCurriculum> getTodayCurriculumData(EnterpriseConfig enterpriseConfig, int period, int week) {
 
-        TenantManager.ignoreTenantCondition();
-        List<LinearCurriculum> todayList = linearCurriculumMapper
+        List<LinearCurriculum> todayList = TenantManager.withoutTenantCondition(() -> linearCurriculumMapper
                 .selectListByQuery(QueryWrapper.create()
                         .select().from(LinearCurriculum.class)
                         .where("curriculum_period = '" + period +
                                 "' AND curriculum_week = '" + week +
                                 "' AND " + BaseTenantFiled.TENANT_ID +
                                 " = '" + enterpriseConfig.tenantId() + "'")
-                        .orderBy(BaseFiled.ORDER_NUM, true));
-
+                        .orderBy(BaseFiled.ORDER_NUM, true)));
         return todayList;
 
     }

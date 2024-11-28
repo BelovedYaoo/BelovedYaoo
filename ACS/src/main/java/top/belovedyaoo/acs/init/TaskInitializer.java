@@ -37,9 +37,8 @@ public class TaskInitializer {
     public void initTasks() {
         System.out.println("开始初始化");
 
-        TenantManager.ignoreTenantCondition();
         QueryWrapper queryWrapper = QueryWrapper.create().select().from(EnterpriseConfig.class).orderBy(BaseFiled.ORDER_NUM, true);
-        List<EnterpriseConfig> configList = enterpriseConfigMapper.selectListByQuery(queryWrapper);
+        List<EnterpriseConfig> configList = TenantManager.withoutTenantCondition(() -> enterpriseConfigMapper.selectListByQuery(queryWrapper));
 
         // for (EnterpriseConfig config : configList) {
         //     if (!config.isEnabledPush().equals("1")) {

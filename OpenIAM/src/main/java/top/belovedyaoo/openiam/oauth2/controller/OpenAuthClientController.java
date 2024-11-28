@@ -23,7 +23,7 @@ import top.belovedyaoo.agcore.common.SoMap;
 public class OpenAuthClientController {
 
 	private final String clientId = "1000";
-	private final String clientSecret = "";
+	private final String clientSecret = "openiam";
 	private final String serverUrl = "http://openiam.top:8090";
 
 	/**
