@@ -28,7 +28,7 @@ public class OpenAuthClientController {
 
 	private final String clientId = "1001";
 	private final String clientSecret = "aaaa-bbbb-cccc-dddd-eeee";
-	private final String serverUrl = "http://openiam.top:8090";
+	private final String serverUrl = "http://openiam.top:8091";
 
 	private final EnterpriseConfigMapper enterpriseConfigMapper;
 
