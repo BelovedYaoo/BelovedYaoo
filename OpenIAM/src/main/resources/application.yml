@@ -107,4 +107,4 @@ auto-table:
     # 是否输出banner
     show-banner: false
     # 是否开启严格继承模式
-    strict-extends: true
+    strict-extends: false

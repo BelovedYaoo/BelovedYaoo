@@ -42,22 +42,6 @@ spring:
                 min-idle: 0
 
 
-# MyBatis-Flex
-mybatis-flex:
-    datasource:
-        # 数据数据库
-        primary:
-            # 数据源类型
-            type: com.mysql.cj.jdbc.MysqlDataSource
-            # 数据库连接地址
-            url: jdbc:mysql://localhost:3307/openiam
-            # 数据库用户名 & 密码
-            user: root
-            password: root
-    global-config:
-        print-banner: false
-
-
 server:
     # 应用服务 WEB 访问端口
     port: 8091

@@ -1,3 +1,15 @@
 dependencies {
     implementation project(":AgilityCore")
 }
+
+
+configurations.configureEach { it ->
+    resolutionStrategy.each { strategy ->
+        // 排除ORM层相关依赖
+        exclude group: 'com.mybatis-flex'
+        exclude group: 'com.tangzc'
+        exclude group: 'com.mysql'
+        // 排除 AOP
+        exclude group: 'org.aspectj'
+    }
+}

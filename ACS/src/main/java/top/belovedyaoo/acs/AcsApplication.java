@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
-@MapperScan(basePackages = {"top.belovedyaoo"})
-@EnableAutoTable(basePackages = {"top.belovedyaoo"})
-@SpringBootApplication(scanBasePackages =  {"top.belovedyaoo"})
+@MapperScan(basePackages = {"top.belovedyaoo.acs", "top.belovedyaoo.agcore"})
+@EnableAutoTable(basePackages = {"top.belovedyaoo.acs", "top.belovedyaoo.agcore"})
+@SpringBootApplication(scanBasePackages =  {"top.belovedyaoo.acs", "top.belovedyaoo.agcore"})
 public class AcsApplication {
 
 	public static void main(String[] args) {
