@@ -30,7 +30,7 @@ public class MybatisFlexConfigurer {
         // 开启 SQL 审计功能
         AuditManager.setAuditEnable(true);
         // 设置 SQL 审计收集器
-        AuditManager.setMessageCollector(new SqlCollector());
+        AuditManager.setMessageCollector(new SqlCollector(SqlCollector.PrintType.LOGGER));
         // 注册插入监听器、更新监听器
         globalConfig.registerInsertListener(new EntityInsertListener(), Object.class);
         globalConfig.registerUpdateListener(new EntityUpdateListener(), Object.class);
