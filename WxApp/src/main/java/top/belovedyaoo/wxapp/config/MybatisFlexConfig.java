@@ -2,11 +2,11 @@ package top.belovedyaoo.wxapp.config;
 
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;
-import com.mybatisflex.core.audit.ConsoleMessageCollector;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import top.belovedyaoo.agcore.base.LogicDeleteProcessor;
+import top.belovedyaoo.agcore.common.SqlCollector;
 import top.belovedyaoo.agcore.eo.EntityInsertListener;
 import top.belovedyaoo.agcore.eo.EntityUpdateListener;
 
@@ -30,7 +30,7 @@ public class MybatisFlexConfig {
         // 开启 SQL 审计功能
         AuditManager.setAuditEnable(true);
         // 设置 SQL 审计收集器
-        AuditManager.setMessageCollector(new ConsoleMessageCollector());
+        AuditManager.setMessageCollector(new SqlCollector());
         // 注册插入监听器、更新监听器
         globalConfig.registerInsertListener(new EntityInsertListener(), Object.class);
         globalConfig.registerUpdateListener(new EntityUpdateListener(), Object.class);

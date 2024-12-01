@@ -2,7 +2,7 @@ package top.belovedyaoo.openiam.common.config;
 
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;
-import com.mybatisflex.core.audit.ConsoleMessageCollector;
+import top.belovedyaoo.agcore.common.SqlCollector;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +30,7 @@ public class MybatisFlexConfig {
         // 开启 SQL 审计功能
         AuditManager.setAuditEnable(true);
         // 设置 SQL 审计收集器
-        AuditManager.setMessageCollector(new ConsoleMessageCollector());
+        AuditManager.setMessageCollector(new SqlCollector());
         // 注册插入监听器、更新监听器
         globalConfig.registerInsertListener(new EntityInsertListener(), Object.class);
         globalConfig.registerUpdateListener(new EntityUpdateListener(), Object.class);
