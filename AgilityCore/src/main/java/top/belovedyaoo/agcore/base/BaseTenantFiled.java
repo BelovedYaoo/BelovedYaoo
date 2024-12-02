@@ -1,6 +1,7 @@
 package top.belovedyaoo.agcore.base;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
 import com.tangzc.autotable.annotation.ColumnComment;
 import com.tangzc.autotable.annotation.ColumnNotNull;
@@ -34,6 +35,7 @@ public abstract class BaseTenantFiled extends BaseFiled{
     @ColumnNotNull
     @Column(tenantId = true)
     @ColumnComment("多租户ID,其值通常为其他用户数据的BaseID")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     private String tenantId;
 
