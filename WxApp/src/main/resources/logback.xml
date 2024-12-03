@@ -3,6 +3,9 @@
     <contextName>WxApp</contextName>
     <property name="log.path" value="WxApp"/>
 
+    <!--自定义颜色配置-->
+    <conversionRule conversionWord="levelColor" converterClass="top.belovedyaoo.agcore.common.LogbackLevelColorful"/>
+    <conversionRule conversionWord="dateColor" converterClass="top.belovedyaoo.agcore.common.LogbackDateColorful"/>
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -10,7 +13,7 @@
         </encoder>
         <encoder charset="UTF-8">
             <pattern>
-                %boldCyan(%d{yyyy-MM-dd HH:mm:ss.SSS}) %magenta(%-5level) %green([%thread]) %highlight([%-30.30class]) -> %yellow(%msg%n)
+                %dateColor(%d{yyyy-MM-dd HH:mm:ss.SSS}) %levelColor(%-5level) %cyan([%thread]) %magenta([%-30.30class]) -> %yellow(%msg%n)
             </pattern>
         </encoder>
     </appender>
