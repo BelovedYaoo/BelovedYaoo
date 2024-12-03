@@ -64,17 +64,16 @@ public class InterfaceLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         Class<?> targetClass = joinPoint.getTarget().getClass();
 
-        // 判断是否继承了BaseController
+        // 判断是否继承了 BaseController
         if (BaseController.class.isAssignableFrom(targetClass)) {
             // 取得具体继承类的泛型类型
             Class<Object> entityClass = BaseController.getGenericClass(targetClass, 0);
         }
 
-        InterfaceLogPO interfaceLogEntity = new InterfaceLogPO();
-        // 保存到线程局部变量
-        INTERFACE_LOG_PO_THREAD_LOCAL.set(interfaceLogEntity);
-        interfaceLogEntity.requestUrl(URLUtil.getPath(request.getRequestURI()))
+        InterfaceLogPO interfaceLogEntity = new InterfaceLogPO()
+                .requestUrl(URLUtil.getPath(request.getRequestURI()))
                 .requestIp(ServletUtil.getClientIP(request))
+                .requestType(request.getMethod())
                 .methodName(joinPoint.getSignature().getName())
                 .startTime(new Date())
                 .params(Arrays.toString(joinPoint.getArgs()));
@@ -90,6 +89,8 @@ public class InterfaceLogAspect {
                 interfaceLogEntity.description(interfaceLog.interfaceDesc());
             }
         }
+        // 保存到线程局部变量
+        INTERFACE_LOG_PO_THREAD_LOCAL.set(interfaceLogEntity);
     }
 
     /**
@@ -119,7 +120,6 @@ public class InterfaceLogAspect {
         applicationContext.publishEvent(new InterfaceLogEvent(interfaceLogEntity));
         // 清空线程局部变量
         INTERFACE_LOG_PO_THREAD_LOCAL.remove();
-
     }
 
 }

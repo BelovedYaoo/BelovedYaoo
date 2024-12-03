@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.toolkit;
+package top.belovedyaoo.agcore.toolkit;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
@@ -55,7 +55,7 @@ public class ListStringTypeHandler implements TypeHandler<List<String>> {
         // 去掉首尾的 ["] 和 \"]
         String trimmedInput = input.substring(1, input.length() - 1);
 
-        // 使用逗号作为分隔符来分割字符串
+        // 使用逗号加空格作为分隔符来分割字符串
         String[] items = trimmedInput.split(", ");
 
         // 将数组转换为列表
