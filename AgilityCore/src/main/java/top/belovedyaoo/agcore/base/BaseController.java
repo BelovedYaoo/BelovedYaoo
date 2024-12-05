@@ -1,9 +1,9 @@
 package top.belovedyaoo.agcore.base;
 
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.update.UpdateChain;
-import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -15,6 +15,7 @@ import top.belovedyaoo.agcore.log.BusinessType;
 import top.belovedyaoo.agcore.log.InterfaceLog;
 import top.belovedyaoo.agcore.result.Result;
 
+import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -25,20 +26,22 @@ import java.util.List;
  * 基础控制器
  *
  * @author BelovedYaoo
- * @version 1.4
+ * @version 1.5
  */
-@RequiredArgsConstructor
 public abstract class BaseController<T extends BaseFiled> {
-
-    /**
-     * 基础Mapper
-     */
-    public final BaseMapper<T> baseMapper;
 
     /**
      * 事务管理器
      */
-    public final PlatformTransactionManager platformTransactionManager;
+    @Resource
+    public PlatformTransactionManager platformTransactionManager;
+
+    /**
+     * 基础Mapper
+     */
+    public BaseMapper<T> baseMapper() {
+        return Mappers.ofEntityClass(getOriginalClass());
+    }
 
     /**
      * 快速获取泛型的类型的方法
@@ -99,7 +102,7 @@ public abstract class BaseController<T extends BaseFiled> {
     @InterfaceLog(persistence = false, print = true, businessType = BusinessType.SELECT, identifierCode = "baseId", interfaceName = "BaseController.queryAll", interfaceDesc = "查询")
     public Result queryAll() {
         QueryWrapper queryWrapper = QueryWrapper.create().select().from(getOriginalClass()).orderBy(BaseFiled.ORDER_NUM, true);
-        List<T> queryList = baseMapper.selectListByQuery(queryWrapper);
+        List<T> queryList = baseMapper().selectListByQuery(queryWrapper);
         return Result.success().singleData(queryList);
     }
 
@@ -114,7 +117,7 @@ public abstract class BaseController<T extends BaseFiled> {
     public Result update(@RequestBody T entity) {
         T typedEntity = convertTo(entity);
         String baseId = typedEntity.baseId();
-        boolean updateResult = baseMapper.update(typedEntity) > 0;
+        boolean updateResult = baseMapper().update(typedEntity) > 0;
         if (!updateResult) {
             return Result.failed().message("数据更新失败").description("ID为" + baseId + "的数据更新失败,数据可能不存在");
         }
@@ -131,8 +134,8 @@ public abstract class BaseController<T extends BaseFiled> {
     @PostMapping("/delete")
     public Result delete(@RequestBody List<String> idList) {
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
-        List<T> entityList = baseMapper.selectListByIds(idList);
-        boolean deleteResult = baseMapper.deleteBatchByIds(idList) == idList.size();
+        List<T> entityList = baseMapper().selectListByIds(idList);
+        boolean deleteResult = baseMapper().deleteBatchByIds(idList) == idList.size();
         if (!deleteResult) {
             platformTransactionManager.rollback(transactionStatus);
             return Result.failed().message("数据删除失败").description("存在未能删除的数据,操作已回滚");
@@ -153,7 +156,7 @@ public abstract class BaseController<T extends BaseFiled> {
         T typedEntity = convertTo(entity);
         // 防止注入
         entity.baseId(null);
-        boolean addResult = baseMapper.insert(typedEntity) > 0;
+        boolean addResult = baseMapper().insert(typedEntity) > 0;
         if (addResult) {
             return Result.success().message("数据新增成功");
         }
@@ -175,7 +178,7 @@ public abstract class BaseController<T extends BaseFiled> {
 
         boolean isAsc = leftTarget > rightTarget;
         QueryWrapper queryWrapper = QueryWrapper.create().where(BaseFiled.ORDER_NUM + " BETWEEN " + Math.min(leftTarget, rightTarget) + " AND " + Math.max(leftTarget, rightTarget)).orderBy(BaseFiled.ORDER_NUM, true);
-        List<T> originalList = baseMapper.selectListByQuery(queryWrapper);
+        List<T> originalList = baseMapper().selectListByQuery(queryWrapper);
 
         // 单独拆出 OrderNum 到一个List
         List<Integer> orderNumList = new ArrayList<>(originalList.stream().map(BaseFiled::orderNum).toList());

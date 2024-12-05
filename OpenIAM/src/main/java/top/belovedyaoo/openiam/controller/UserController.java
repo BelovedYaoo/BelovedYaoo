@@ -1,7 +1,5 @@
 package top.belovedyaoo.openiam.controller;
 
-import com.mybatisflex.core.BaseMapper;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.agcore.base.BaseController;
@@ -16,7 +14,4 @@ import top.belovedyaoo.openiam.entity.po.User;
 @RestController
 @RequestMapping("/acc")
 public class UserController extends BaseController<User> {
-     public UserController(BaseMapper<User> baseMapper, PlatformTransactionManager platformTransactionManager) {
-        super(baseMapper, platformTransactionManager);
-    }
 }
