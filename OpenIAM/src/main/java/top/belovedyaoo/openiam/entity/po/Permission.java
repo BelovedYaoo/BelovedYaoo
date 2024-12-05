@@ -1,7 +1,9 @@
 package top.belovedyaoo.openiam.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.mybatisflex.annotation.RelationManyToMany;
 import com.mybatisflex.annotation.Table;
+import com.tangzc.autotable.annotation.Ignore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 import top.belovedyaoo.openac.model.BasePermission;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (Permission)表持久化对象
@@ -28,5 +31,21 @@ import java.io.Serializable;
 @Accessors(chain = true, fluent = true)
 @Table(value = "permission", dataSource = "primary")
 public class Permission extends BasePermission implements Serializable {
+
+    @Ignore
+    @RelationManyToMany(
+            joinTable = "mapping_permission_router",
+            joinSelfColumn = "permission_id",
+            joinTargetColumn = "router_id"
+    )
+    private List<Router> routers;
+
+    @Ignore
+    @RelationManyToMany(
+            joinTable = "mapping_permission_interface",
+            joinSelfColumn = "permission_id",
+            joinTargetColumn = "interface_id"
+    )
+    private List<Interface> interfaces;
 
 }

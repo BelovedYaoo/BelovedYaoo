@@ -1,6 +1,7 @@
-package top.belovedyaoo.openac.model;
+package top.belovedyaoo.openiam.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,12 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.agcore.base.BaseFiled;
+import top.belovedyaoo.openac.model.BaseInterface;
 
 import java.io.Serializable;
 
 /**
- * 权限接口关系表
+ * (Interface)表持久化对象
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -25,5 +26,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-public class PermissionInterface extends BaseFiled implements Serializable {
+@Table(value = "interface", dataSource = "primary")
+public class Interface extends BaseInterface implements Serializable {
+
 }
