@@ -108,3 +108,5 @@ auto-table:
     show-banner: false
     # 是否开启严格继承模式
     strict-extends: false
+    # 是否开启自动删除字段
+    # auto-drop-column: true

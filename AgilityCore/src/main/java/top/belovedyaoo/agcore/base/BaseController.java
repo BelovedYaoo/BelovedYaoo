@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import top.belovedyaoo.agcore.log.BusinessType;
-import top.belovedyaoo.agcore.log.InterfaceLog;
 import top.belovedyaoo.agcore.result.Result;
 
 import javax.annotation.Resource;
@@ -99,7 +97,6 @@ public abstract class BaseController<T extends BaseFiled> {
      * @return 查询结果
      */
     @GetMapping("/queryAll")
-    @InterfaceLog(persistence = false, print = true, businessType = BusinessType.SELECT, identifierCode = "baseId", interfaceName = "BaseController.queryAll", interfaceDesc = "查询")
     public Result queryAll() {
         QueryWrapper queryWrapper = QueryWrapper.create().select().from(getOriginalClass()).orderBy(BaseFiled.ORDER_NUM, true);
         List<T> queryList = baseMapper().selectListByQuery(queryWrapper);

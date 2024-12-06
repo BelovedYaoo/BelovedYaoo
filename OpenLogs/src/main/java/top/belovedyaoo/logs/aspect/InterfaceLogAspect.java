@@ -1,13 +1,15 @@
-package top.belovedyaoo.agcore.log;
+package top.belovedyaoo.logs.aspect;
 
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -18,6 +20,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.belovedyaoo.agcore.base.BaseController;
 import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.logs.annotation.InterfaceLog;
+import top.belovedyaoo.logs.event.InterfaceLogEvent;
+import top.belovedyaoo.logs.model.po.InterfaceLogPO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -30,7 +35,7 @@ import java.util.Objects;
  * 切面注解得到请求数据 -> 发布监听事件 -> 异步监听日志入库
  *
  * @author BelovedYaoo
- * @version 1.2
+ * @version 1.3
  */
 @Slf4j
 @Aspect
@@ -50,10 +55,44 @@ public class InterfaceLogAspect {
     private static final ThreadLocal<InterfaceLogPO> INTERFACE_LOG_PO_THREAD_LOCAL = new ThreadLocal<>();
 
     /***
-     * 拦截规则,拦截InterfaceLog注解的方法
+     * 拦截具有InterfaceLog注解的方法
      */
-    @Pointcut("@annotation(top.belovedyaoo.agcore.log.InterfaceLog)")
+    @Pointcut("@annotation(top.belovedyaoo.logs.annotation.InterfaceLog)")
     public void interfaceLogAspect() {
+    }
+
+    /**
+     * 拦截具有InterfaceLog注解的类中的所有方法
+     */
+    @Pointcut("@within(top.belovedyaoo.logs.annotation.InterfaceLog)")
+    public void classWithInterfaceLogAnnotation() {
+    }
+
+    @Around(value = "classWithInterfaceLogAnnotation()")
+    public Object classLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        // 获取当前拦截方法的对象
+        MethodSignature msig = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method targetMethod = proceedingJoinPoint.getTarget().getClass().getDeclaredMethod(msig.getName(), msig.getMethod().getParameterTypes());
+
+        // 获取当前方法注解中的值
+        InterfaceLog annotation = targetMethod.getAnnotation(InterfaceLog.class);
+
+        // 如果类上面没有注解，则获取接口上此方法的注解
+        if (annotation == null) {
+            Class<?>[] inters = proceedingJoinPoint.getTarget().getClass().getInterfaces();
+            for (Class<?> inter : inters) {
+                Method targetInterMethod = inter.getDeclaredMethod(msig.getName(), msig.getMethod().getParameterTypes());
+                annotation = targetInterMethod.getAnnotation(InterfaceLog.class);
+                if (annotation != null) {
+                    break;
+                }
+            }
+        }
+
+        System.out.println("拦截！");
+
+        return proceedingJoinPoint.proceed();
+
     }
 
     /**

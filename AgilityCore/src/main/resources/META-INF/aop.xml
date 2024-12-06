@@ -1,0 +1,13 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "https://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver options="-verbose -showWeaveInfo">
+        <!-- 指定需要编织的目标包 -->
+        <!-- MyBatis-FLex 字段包装器 -->
+        <include within="com.mybatisflex.core.util.FieldWrapper"/>
+    </weaver>
+    <aspects>
+        <!-- 使用的切面 -->
+        <!-- 字段包装器切面 -->
+        <aspect name="top.belovedyaoo.agcore.eo.FieldWrapperAspect"/>
+    </aspects>
+</aspectj>

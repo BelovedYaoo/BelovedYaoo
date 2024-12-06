@@ -2,7 +2,6 @@ dependencies {
     implementation project(":AgilityCore")
 }
 
-
 configurations.configureEach { it ->
     resolutionStrategy.each { strategy ->
         // 排除ORM层相关依赖

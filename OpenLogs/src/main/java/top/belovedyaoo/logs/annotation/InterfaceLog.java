@@ -1,4 +1,6 @@
-package top.belovedyaoo.agcore.log;
+package top.belovedyaoo.logs.annotation;
+
+import top.belovedyaoo.logs.enums.BusinessType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,9 +11,9 @@ import java.lang.annotation.Target;
  * 接口日志注解
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InterfaceLog {
 

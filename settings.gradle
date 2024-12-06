@@ -7,4 +7,5 @@ include(
         'ACS',
         'OpenAuth',
         'OpenAC',
+        'OpenLogs',
 )

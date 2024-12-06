@@ -1,4 +1,4 @@
-package top.belovedyaoo.agcore.log;
+package top.belovedyaoo.logs.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import top.belovedyaoo.agcore.generateMapper.InterfaceLogPOMapper;
+import top.belovedyaoo.logs.generateMapper.InterfaceLogPOMapper;
+import top.belovedyaoo.logs.model.po.InterfaceLogPO;
 
 /**
  * 注解形式的监听 异步监听日志事件

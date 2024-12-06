@@ -1,4 +1,4 @@
-package top.belovedyaoo.agcore.log;
+package top.belovedyaoo.logs.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

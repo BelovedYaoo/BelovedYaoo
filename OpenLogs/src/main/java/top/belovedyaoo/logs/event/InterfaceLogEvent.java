@@ -1,6 +1,7 @@
-package top.belovedyaoo.agcore.log;
+package top.belovedyaoo.logs.event;
 
 import org.springframework.context.ApplicationEvent;
+import top.belovedyaoo.logs.model.po.InterfaceLogPO;
 
 /**
  * 接口日志事件
