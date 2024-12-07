@@ -106,7 +106,7 @@ public class JedisConfig {
         jedisPoolConfig.setMaxWait(Duration.ofMillis(maxWaitStatic));
 
         if (passwordStatic == null) {
-            passwordStatic = "";
+            return new JedisPool(jedisPoolConfig, hostStatic, portStatic, timeoutStatic);
         }
         return new JedisPool(jedisPoolConfig, hostStatic, portStatic, timeoutStatic, passwordStatic);
     }
