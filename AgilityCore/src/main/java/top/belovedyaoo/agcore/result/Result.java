@@ -2,9 +2,11 @@ package top.belovedyaoo.agcore.result;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.HashMap;
@@ -50,7 +52,8 @@ public class Result {
     /**
      * 返回数据缓存
      */
-    @Getter(onMethod_ = @JsonIgnore)
+    @Getter(value = AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     private Map<String, Object> dataCache = new HashMap<>();
 
     /**
@@ -111,12 +114,8 @@ public class Result {
         return this;
     }
 
-    public Map<String, Object> data() {
-        return dataCache;
-    }
-
     @JsonGetter(value = "data")
-    public Object singleData() {
+    public Object data() {
         return data;
     }
 
@@ -158,7 +157,7 @@ public class Result {
             resultBuilder.append("description=").append(description).append(", ");
         }
         if (data != null) {
-            resultBuilder.append("data=").append(singleData());
+            resultBuilder.append("data=").append(data());
         }
         resultBuilder.append(")");
         return resultBuilder.toString();
