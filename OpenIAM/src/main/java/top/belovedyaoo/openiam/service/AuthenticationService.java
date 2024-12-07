@@ -35,31 +35,6 @@ public class AuthenticationService {
      */
     private final AuthenticationUtil authenticationUtil;
 
-    public Result openLogin(String openId, String password) {
-        User user = userMapper.selectOneByQuery(new QueryWrapper()
-                .eq("open_id", openId));
-
-        // 账号不存在
-        if (user == null) {
-            return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_LOGIN_ID_INVALID);
-        }
-
-        // 密码错误
-        if (!user.password().equals(password)) {
-            return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_PASSWORD_ERROR);
-        }
-
-        // 封禁逻辑
-        StpUtil.checkDisable(user.baseId());
-
-        // Sa-Token登录
-        StpUtil.login(user.baseId());
-
-        return Result.success().description("登录成功")
-                .data("user", user)
-                .data("tokenValue", StpUtil.getTokenValue());
-    }
-
     public Result getUser(String openId, String password) {
         User user = userMapper.selectOneByQuery(new QueryWrapper()
                 .eq("open_id", openId));
@@ -100,7 +75,7 @@ public class AuthenticationService {
         }
 
         // 应用通过检查后的数据
-        user = (User) dataBindCheckResult.singleData();
+        user = (User) dataBindCheckResult.data();
 
         // 验证码检查
         String codeBind = usePhone ? user.phone() : user.email();
