@@ -1,9 +1,10 @@
-package top.belovedyaoo.agcore.eo;
+package top.belovedyaoo.weaver;
 
 import com.mybatisflex.core.util.FieldWrapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import top.belovedyaoo.agcore.eo.EntityOperate;
 
 import java.lang.reflect.Field;
 

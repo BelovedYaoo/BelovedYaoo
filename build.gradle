@@ -18,7 +18,7 @@ subprojects {
         plugin 'org.springframework.boot'
         plugin 'io.spring.dependency-management'
         // 只有特定模块启用静态织入
-        def staticWeaveModules = ['AgilityCore']
+        def staticWeaveModules = ['Weaver']
         if (staticWeaveModules.contains(project.name)) {
             plugin 'io.freefair.aspectj.post-compile-weaving'
         }

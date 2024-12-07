@@ -2,4 +2,5 @@ dependencies {
     implementation project(":AgilityCore")
     implementation project(":OpenAC")
     implementation project(":OpenLogs")
+    implementation project(":Weaver")
 }

@@ -8,6 +8,6 @@
     <aspects>
         <!-- 使用的切面 -->
         <!-- 字段包装器切面 -->
-        <aspect name="top.belovedyaoo.agcore.eo.FieldWrapperAspect"/>
+        <aspect name="top.belovedyaoo.weaver.FieldWrapperAspect"/>
     </aspects>
 </aspectj>
