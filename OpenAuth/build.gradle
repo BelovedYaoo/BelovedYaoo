@@ -1,14 +1,26 @@
 dependencies {
     implementation project(":AgilityCore")
+    // 保留自动注入处理器
+    implementation 'com.tangzc:mybatis-flex-ext-annotation:1.10.1.054'
 }
 
 configurations.configureEach { it ->
     resolutionStrategy.each { strategy ->
         // 排除ORM层相关依赖
         exclude group: 'com.mybatis-flex'
-        exclude group: 'com.tangzc'
+        exclude group: 'com.tangzc', module: 'auto-table-annotation'
+        exclude group: 'com.tangzc', module: 'auto-table-core'
+        exclude group: 'com.tangzc', module: 'auto-table-spring-boot-starter'
+        // 保留自动注入处理器
+        // exclude group: 'com.tangzc', module: 'mybatis-flex-ext-annotation'
+        exclude group: 'com.tangzc', module: 'mybatis-flex-ext-autotable-annotation'
+        exclude group: 'com.tangzc', module: 'mybatis-flex-ext-autotable-core'
+        exclude group: 'com.tangzc', module: 'mybatis-flex-ext-core'
+        exclude group: 'com.tangzc', module: 'mybatis-flex-ext-spring-boot-starter'
         exclude group: 'com.mysql'
         // 排除 AOP
-        exclude group: 'org.aspectj'
+        exclude group: 'org.aspectj', module: 'aspectjweaver'
+        // 保留 Spring AOP
+        // exclude group: 'org.aspectj', module: 'aspectjrt'
     }
 }

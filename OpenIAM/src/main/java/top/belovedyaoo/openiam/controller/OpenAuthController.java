@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.agcore.security.enc.EncByRsa;
 import top.belovedyaoo.openiam.entity.po.AuthorizedApplication;
 import top.belovedyaoo.openiam.generateMapper.AuthorizedApplicationMapper;
 import top.belovedyaoo.openiam.service.AuthenticationService;
@@ -35,6 +36,7 @@ public class OpenAuthController {
     }
 
     @RequestMapping("/getUser")
+    @EncByRsa
     public Result getUser(String openId, String password) {
         return authenticationService.getUser(openId, password);
     }

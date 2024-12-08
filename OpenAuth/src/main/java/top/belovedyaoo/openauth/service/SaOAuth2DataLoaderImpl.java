@@ -1,11 +1,18 @@
 package top.belovedyaoo.openauth.service;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.ejlchina.okhttps.OkHttps;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Component;
 import top.belovedyaoo.agcore.common.SoMap;
 import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.agcore.security.SecurityConfig;
 import top.belovedyaoo.openauth.data.loader.OpenAuthDataLoader;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.enums.OpenAuthResultEnum;
@@ -14,13 +21,16 @@ import top.belovedyaoo.openauth.function.DoLoginFunction;
 import top.belovedyaoo.openauth.function.NotLoginFunction;
 
 /**
- * Sa-Token OAuth2：自定义数据加载器
+ * 自定义数据加载器
  *
- * @author click33
+ * @author BelovedYaoo
+ * @version 1.0
  */
 @Component
 @RequiredArgsConstructor
 public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
+
+    private final SecurityConfig securityConfig;
 
     // 根据 clientId 获取 Client 信息
     @Override
@@ -63,18 +73,26 @@ public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
 
     public DoLoginFunction doLogin() {
         return (username, password) -> {
+            RSA rsa = new RSA(securityConfig.getPrivateKey(), securityConfig.getPublicKey());
             String str = OkHttps.sync("http://openiam.top:8090/openAuth/getUser")
-                    .addBodyPara("openId", username)
-                    .addBodyPara("password", password)
+                    .addBodyPara("openId", Hex.encodeHexString(rsa.encrypt(username, KeyType.PrivateKey)))
+                    .addBodyPara("password", Hex.encodeHexString(rsa.encrypt(password, KeyType.PrivateKey)))
                     .post()
                     .getBody()
                     .toString();
+
             // 转为Json
             SoMap so = SoMap.getSoMap().setJsonString(str);
             if (so.getInt("code") != 200) {
                 return Result.failed().message(so.getString("message")).description(so.getString("description"));
             }
-            SoMap user = so.getMap("data").getMap("user");
+            String decData;
+            try {
+                decData = StrUtil.str(rsa.decrypt(Hex.decodeHex(so.getString("data")), KeyType.PublicKey), CharsetUtil.CHARSET_UTF_8);
+            } catch (DecoderException e) {
+                throw new RuntimeException(e);
+            }
+            SoMap user = SoMap.getSoMap().setJsonString(decData).getMap("user");
             System.out.println(user.toJsonFormatString());
             SoMap userData = SoMap.getSoMap()
                     .set("baseId", user.getString("baseId"))

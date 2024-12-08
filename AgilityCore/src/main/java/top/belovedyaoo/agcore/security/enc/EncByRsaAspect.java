@@ -4,7 +4,9 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Hex;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,13 +18,12 @@ import top.belovedyaoo.agcore.security.SecurityConfig;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * RSA 加密切面类
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @Slf4j
 @Aspect
@@ -55,6 +56,8 @@ public class EncByRsaAspect {
         String methodName = point.getSignature().getName();
         // 获取拦截方法实参
         Object[] args = point.getArgs();
+        // 获取拦截方法实参
+        Object[] encArgs = point.getArgs();
         // 取得RSA加密对象
         RSA rsa = new RSA(securityConfig.getPrivateKey(), securityConfig.getPublicKey());
         // 判断是否需要解密实参以及实参数量是否大于0
@@ -65,15 +68,13 @@ public class EncByRsaAspect {
                     "方法名[{}]" +
                     "参数:[{}]", className, methodName, args);
             for (int i = 0; i < args.length; i++) {
-                @SuppressWarnings("unchecked")
-                Map<String, Object> argMap = (Map<String, Object>) args[i];
-                argMap.replaceAll((k, v) -> rsa.decrypt(v.toString(), KeyType.PublicKey));
-                args[i] = argMap;
+                encArgs[i] = StrUtil.str(rsa.decrypt(Hex.decodeHex((String)args[i]), KeyType.PublicKey), CharsetUtil.CHARSET_UTF_8);
             }
             log.info("\n===解密后===," +
                     "类名[{}]," +
                     "方法名[{}]" +
                     "参数:[{}]", className, methodName, args);
+            args = encArgs;
         }
         // 运行拦截方法
         Object proceed = point.proceed(args);
@@ -85,12 +86,11 @@ public class EncByRsaAspect {
                     "方法名[{}]" +
                     "返回参数:[{}ms]", className, methodName, proceed.toString());
             Result result = (Result) proceed;
-            byte[] proceedMap = rsa.encrypt(StrUtil.bytes(result.data().toString()), KeyType.PrivateKey);
+            String proceedMap = Hex.encodeHexString(rsa.encrypt(new ObjectMapper().writeValueAsString(result.data()), KeyType.PrivateKey));
             log.info("\n===加密后===," +
                     "类名[{}]," +
                     "方法名[{}]" +
                     "返回参数:[{}]", className, methodName, proceedMap);
-            System.out.println(StrUtil.str(rsa.decrypt(proceedMap, KeyType.PublicKey),CharsetUtil.CHARSET_UTF_8));
             result.singleData(proceedMap);
             return result;
         } else {

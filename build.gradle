@@ -51,6 +51,9 @@ subprojects {
         // AspectJ 运行时库
         implementation 'org.aspectj:aspectjrt:1.9.19'
 
+        // Apache Commons Codec
+        implementation 'org.netbeans.external:org-apache-commons-codec:RELEASE230'
+
         // AspectJ 编译器
         //implementation 'org.aspectj:aspectjtools:1.9.19'
 
