@@ -3,12 +3,12 @@ package top.belovedyaoo.openiam.common.toolkit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tangzc.mybatisflex.util.SpringContextUtil;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.exceptions.JedisDataException;
-import top.belovedyaoo.openiam.common.config.JedisConfig;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -45,10 +45,7 @@ public class JedisOperateUtil {
      */
     private static final int DEFAULT_SETEX_TIMEOUT = 60 * 60;
 
-    /**
-     * 从配置文件中获取Jedis连接池
-     */
-    private static final JedisPool JEDIS_POOL = JedisConfig.getJedisPool();
+    private static volatile JedisConnectionFactory jedisConnectionFactory;
 
     /**
      * Jackson对象映射器
@@ -61,7 +58,14 @@ public class JedisOperateUtil {
      * @return Jedis实例
      */
     public static Jedis getJedis() {
-        return JEDIS_POOL.getResource();
+        if (jedisConnectionFactory == null) {
+            synchronized (JedisOperateUtil.class) {
+                if (jedisConnectionFactory == null) {
+                    jedisConnectionFactory = SpringContextUtil.getBeanOfType(JedisConnectionFactory.class);
+                }
+            }
+        }
+        return (Jedis) jedisConnectionFactory.getConnection().getNativeConnection();
     }
 
     /**
@@ -70,7 +74,9 @@ public class JedisOperateUtil {
      * @param jedis 使用完毕的Jedis实例
      */
     public static void returnJedis(Jedis jedis) {
-        JEDIS_POOL.returnResource(jedis);
+        if (jedis != null) {
+            jedis.close();
+        }
     }
 
     /**

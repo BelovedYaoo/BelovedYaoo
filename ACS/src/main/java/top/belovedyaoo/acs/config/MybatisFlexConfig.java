@@ -3,7 +3,7 @@ package top.belovedyaoo.acs.config;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
-import org.springframework.context.annotation.Bean;
+import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 import top.belovedyaoo.agcore.base.LogicDeleteProcessor;
 import top.belovedyaoo.agcore.common.SqlCollector;
@@ -14,16 +14,16 @@ import top.belovedyaoo.agcore.eo.EntityUpdateListener;
  * Mybatis-Flex 框架的配置类
  *
  * @author BelovedYaoo
- * @version 1.1
+ * @version 1.2
  */
 @Configuration
-public class MybatisFlexConfigurer {
+public class MybatisFlexConfig {
 
     /**
      * Mybatis-Flex 配置初始化
      */
-    @Bean
-    public static void init() {
+    @PostConstruct
+    public void init() {
         FlexGlobalConfig globalConfig = FlexGlobalConfig.getDefaultConfig();
         // 设置逻辑删除处理器
         LogicDeleteManager.setProcessor(new LogicDeleteProcessor());

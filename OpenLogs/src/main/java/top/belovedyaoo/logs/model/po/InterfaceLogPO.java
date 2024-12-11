@@ -2,9 +2,9 @@ package top.belovedyaoo.logs.model.po;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Table;
-import com.tangzc.autotable.annotation.ColumnComment;
-import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.mysql.MysqlTypeConstant;
+import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

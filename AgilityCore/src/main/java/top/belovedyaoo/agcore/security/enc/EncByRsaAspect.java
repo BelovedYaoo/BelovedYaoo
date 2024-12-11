@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.agcore.security.SecurityConfig;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 
 /**

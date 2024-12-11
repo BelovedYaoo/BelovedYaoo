@@ -1,10 +1,10 @@
 package top.belovedyaoo.openauth.config;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import top.belovedyaoo.openauth.core.OpenAuthManager;
-import top.belovedyaoo.openauth.service.SaOAuth2DataLoaderImpl;
+import top.belovedyaoo.openauth.service.OpenAuthDataLoaderImpl;
 
 /**
  * OAuth2Server配置
@@ -16,12 +16,12 @@ import top.belovedyaoo.openauth.service.SaOAuth2DataLoaderImpl;
 @RequiredArgsConstructor
 public class Auth2ServerConfigurer {
 
-    private final SaOAuth2DataLoaderImpl saOAuth2DataLoader;
+    private final OpenAuthDataLoaderImpl openAuthDataLoader;
 
     /**
      * OAuth2Server 配置初始化
      */
-    @Bean
+    @PostConstruct
     public void openAuthServerInit() {
         configInit();
         dataLoaderInit();
@@ -29,14 +29,14 @@ public class Auth2ServerConfigurer {
 
     private void configInit() {
         ServerConfig oauth2Server = new ServerConfig();
-        oauth2Server.notLogin = saOAuth2DataLoader.notLogin();
-        oauth2Server.doLogin = saOAuth2DataLoader.doLogin();
-        oauth2Server.confirm = saOAuth2DataLoader.confirm();
+        oauth2Server.notLogin = openAuthDataLoader.notLogin();
+        oauth2Server.doLogin = openAuthDataLoader.doLogin();
+        oauth2Server.confirm = openAuthDataLoader.confirm();
         OpenAuthManager.setServerConfig(oauth2Server);
     }
 
     private void dataLoaderInit() {
-        OpenAuthManager.setDataLoader(saOAuth2DataLoader);
+        OpenAuthManager.setDataLoader(openAuthDataLoader);
     }
 
 }

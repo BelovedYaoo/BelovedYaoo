@@ -28,7 +28,7 @@ import top.belovedyaoo.openauth.function.NotLoginFunction;
  */
 @Component
 @RequiredArgsConstructor
-public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
+public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
 
     private final SecurityConfig securityConfig;
 
@@ -44,8 +44,8 @@ public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
         if (so.getInt("code") != 200) {
             new OpenAuthClientModel();
         }
-        System.out.println(so.toJsonFormatString());
         SoMap clientModel = so.getMap("data");
+        System.out.println(clientModel.getString("clientId"));
         System.out.println(clientModel.get("allowGrantTypes"));
         return new OpenAuthClientModel()
                 .setClientId(clientModel.getString("clientId"))
@@ -75,7 +75,7 @@ public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
         return (username, password) -> {
             RSA rsa = new RSA(securityConfig.getPrivateKey(), securityConfig.getPublicKey());
             String str = OkHttps.sync("http://openiam.top:8090/openAuth/getUser")
-                    .addBodyPara("openId", Hex.encodeHexString(rsa.encrypt(username, KeyType.PrivateKey)))
+                    .addBodyPara("open_id", Hex.encodeHexString(rsa.encrypt(username, KeyType.PrivateKey)))
                     .addBodyPara("password", Hex.encodeHexString(rsa.encrypt(password, KeyType.PrivateKey)))
                     .post()
                     .getBody()
@@ -93,7 +93,7 @@ public class SaOAuth2DataLoaderImpl implements OpenAuthDataLoader {
                 throw new RuntimeException(e);
             }
             SoMap user = SoMap.getSoMap().setJsonString(decData).getMap("user");
-            System.out.println(user.toJsonFormatString());
+            System.out.println(user.getString("openId"));
             SoMap userData = SoMap.getSoMap()
                     .set("baseId", user.getString("baseId"))
                     .set("openId", user.getString("openId"))

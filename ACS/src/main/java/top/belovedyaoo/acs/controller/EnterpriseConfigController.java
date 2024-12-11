@@ -3,11 +3,8 @@ package top.belovedyaoo.acs.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
-import top.belovedyaoo.acs.task.TaskManager;
 import top.belovedyaoo.agcore.base.BaseController;
 import top.belovedyaoo.agcore.result.Result;
-
-import javax.annotation.Resource;
 
 /**
  * 企业配置表控制器
@@ -18,9 +15,6 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/enterpriseConfig")
 public class EnterpriseConfigController extends BaseController<EnterpriseConfig> {
-
-    @Resource
-    TaskManager taskManager;
 
     @Override
     public Result update(EnterpriseConfig entity) {

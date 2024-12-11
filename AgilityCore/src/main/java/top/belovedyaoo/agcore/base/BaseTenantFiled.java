@@ -3,10 +3,6 @@ package top.belovedyaoo.agcore.base;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
-import com.tangzc.autotable.annotation.ColumnComment;
-import com.tangzc.autotable.annotation.ColumnNotNull;
-import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.mysql.MysqlTypeConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnNotNull;
+import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 
 /**
  * 多租户的基础字段

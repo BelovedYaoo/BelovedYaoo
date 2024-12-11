@@ -4,13 +4,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
-import com.tangzc.autotable.annotation.ColumnComment;
-import com.tangzc.autotable.annotation.ColumnNotNull;
-import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.Index;
-import com.tangzc.autotable.annotation.PrimaryKey;
-import com.tangzc.autotable.annotation.enums.IndexTypeEnum;
-import com.tangzc.autotable.annotation.mysql.MysqlTypeConstant;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
 import com.tangzc.mybatisflex.annotation.InsertFillTime;
 import com.tangzc.mybatisflex.annotation.InsertUpdateFillTime;
@@ -19,6 +12,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnNotNull;
+import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.Index;
+import org.dromara.autotable.annotation.PrimaryKey;
+import org.dromara.autotable.annotation.enums.IndexTypeEnum;
+import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -47,7 +47,7 @@ public abstract class BaseFiled implements Serializable {
 
     @Id
     @ColumnNotNull
-    @PrimaryKey(value = false)
+    @PrimaryKey(autoIncrement = false)
     @ColumnComment("基础ID,仅系统内部使用")
     @Index(type = IndexTypeEnum.UNIQUE)
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)

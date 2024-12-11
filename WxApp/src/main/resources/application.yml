@@ -1,6 +1,6 @@
 spring:
     main:
-        # 是否输出banner
+        # Banner 输出模式
         banner-mode: off
     application:
         # 应用名称
@@ -9,8 +9,8 @@ spring:
     jackson:
         # ALWAYS         默认策略，任何情况都执行序列化
         # NON_NULL       属性为NULL 不序列化
-        # NON_ABSENT     null的不会序列化，但如果类型是AtomicReference，依然会被序列化
-        # NON_EMPTY      null、集合数组等没有内容、空字符串等，都不会被序列化
+        # NON_ABSENT     NULL的不会序列化，但如果类型是AtomicReference，依然会被序列化
+        # NON_EMPTY      NULL、集合数组等没有内容、空字符串等，都不会被序列化
         # NON_DEFAULT    如果字段是默认值，就不会被序列化
         # CUSTOM         此时要指定valueFilter属性，该属性对应一个类，用来自定义判断被JsonInclude修饰的字段是否序列化
         # USE_DEFAULTS   当JsonInclude在类和属性上都有时，优先使用属性上的注解，此时如果在序列化的get方法上使用了JsonInclude，并设置为USE_DEFAULTS，就会使用类注解的设置
@@ -18,6 +18,7 @@ spring:
         # 设置日期格式
         date-format: yyyy-MM-dd HH:mm:ss
         time-zone: GMT+8
+
 
 # MyBatis-Flex
 mybatis-flex:
@@ -34,6 +35,7 @@ mybatis-flex:
     global-config:
         print-banner: false
 
+
 auto-table:
     # 是否开启自动建表功能
     enable: true
@@ -42,8 +44,10 @@ auto-table:
     # 是否开启严格继承模式
     strict-extends: false
 
+
 mybatis-flex-ext:
     enable-auto-fill: false
+
 
 sa-token:
     is-print: false

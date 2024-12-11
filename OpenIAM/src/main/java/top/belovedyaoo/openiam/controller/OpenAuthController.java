@@ -37,7 +37,7 @@ public class OpenAuthController {
 
     @RequestMapping("/getUser")
     @EncByRsa
-    public Result getUser(String openId, String password) {
+    public Result getUser(@RequestParam(value = "open_id") String openId,@RequestParam(value = "") String password) {
         return authenticationService.getUser(openId, password);
     }
 

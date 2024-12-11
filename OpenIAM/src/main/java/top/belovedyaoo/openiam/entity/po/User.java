@@ -3,7 +3,7 @@ package top.belovedyaoo.openiam.entity.po;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.RelationManyToMany;
 import com.mybatisflex.annotation.Table;
-import com.tangzc.autotable.annotation.Ignore;
+import org.dromara.autotable.annotation.Ignore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

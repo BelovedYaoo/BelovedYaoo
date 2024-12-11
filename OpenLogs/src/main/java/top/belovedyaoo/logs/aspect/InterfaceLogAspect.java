@@ -1,7 +1,7 @@
 package top.belovedyaoo.logs.aspect;
 
 import cn.hutool.core.util.URLUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -23,8 +23,8 @@ import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
 import top.belovedyaoo.logs.event.InterfaceLogEvent;
 import top.belovedyaoo.logs.model.po.InterfaceLogPO;
+import top.belovedyaoo.logs.toolkit.ServletUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Date;
@@ -111,7 +111,7 @@ public class InterfaceLogAspect {
 
         InterfaceLogPO interfaceLogEntity = new InterfaceLogPO()
                 .requestUrl(URLUtil.getPath(request.getRequestURI()))
-                .requestIp(ServletUtil.getClientIP(request))
+                .requestIp(ServletUtil.getClientIp(request))
                 .requestType(request.getMethod())
                 .methodName(joinPoint.getSignature().getName())
                 .startTime(new Date())
