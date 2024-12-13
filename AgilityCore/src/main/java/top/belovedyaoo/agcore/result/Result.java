@@ -1,9 +1,8 @@
 package top.belovedyaoo.agcore.result;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +15,10 @@ import java.util.Map;
  * 返回结果统一封装类
  *
  * @author BelovedYaoo
- * @version 1.4
+ * @version 1.5
  */
-@Data
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @Getter(onMethod_ = @JsonGetter)
 @Accessors(chain = true, fluent = true)
@@ -134,32 +134,31 @@ public class Result {
         }
     }
 
-    /**
-     * 转为日志信息<br>
-     * 值为null的字段忽略
-     *
-     * @return 日志信息
-     */
-    @JsonIgnore
-    public String getLogString() {
+    @Override
+    public String toString() {
         StringBuilder resultBuilder = new StringBuilder();
-        resultBuilder.append("Result(");
+        resultBuilder.append("{");
         if (code != null) {
-            resultBuilder.append("code=").append(code).append(", ");
+            resultBuilder.append("\"code\": ").append(code);
         }
         if (state != null) {
-            resultBuilder.append("state=").append(state).append(", ");
+            resultBuilder.append(", ").append("\"state\": ").append(state);
         }
         if (message != null) {
-            resultBuilder.append("message=").append(message).append(", ");
+            resultBuilder.append(", ").append("\"message\": ").append(transValue(message));
         }
         if (description != null) {
-            resultBuilder.append("description=").append(description).append(", ");
+            resultBuilder.append(", ").append("\"description\": ").append(transValue(description));
         }
         if (data != null) {
-            resultBuilder.append("data=").append(data());
+            resultBuilder.append(", ").append("\"data\": ").append(data());
         }
-        resultBuilder.append(")");
+        resultBuilder.append("}");
         return resultBuilder.toString();
     }
+
+    private String transValue(Object value) {
+        return value instanceof String ? STR."\"\{value}\"" : String.valueOf(value);
+    }
+
 }

@@ -139,7 +139,7 @@ public class InterfaceLogAspect {
     public void doAfterReturning(Object ret) {
         InterfaceLogPO interfaceLogEntity = INTERFACE_LOG_PO_THREAD_LOCAL.get();
         Result result = Result.tryConvert(ret);
-        interfaceLogEntity.result(result.getLogString())
+        interfaceLogEntity.result(result.toString())
                 .finishTime(new Date());
         // 发布事件
         applicationContext.publishEvent(new InterfaceLogEvent(interfaceLogEntity));

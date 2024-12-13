@@ -109,7 +109,7 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
     }
 
     public ConfirmFunction confirm() {
-        return (clientId, scopes) -> Result.success().resultType(OpenAuthResultEnum.NEED_CONFIRM).data("clientId", clientId).data("scope", scopes);
+        return (clientId, scopes) -> Result.success().resultType(OpenAuthResultEnum.NEED_CONFIRM).data("client_id", clientId).data("scope", scopes);
     }
 
 }

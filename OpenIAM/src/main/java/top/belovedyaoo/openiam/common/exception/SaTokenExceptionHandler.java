@@ -34,13 +34,10 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(NotLoginException.class)
     @ResponseBody
     public Result notLoginException(NotLoginException nle) {
-
         String message = SaTokenExceptionEnum.getDescByType(nle.getType());
-
         LogUtil.error("Sa-Token登录异常处理："+message);
-
+        System.out.println(1);
         return Result.failed().resultType(ResultEnum.SESSION_INVALID).message(message);
-
     }
 
     /**
@@ -53,12 +50,9 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(DisableServiceException.class)
     @ResponseBody
     public Result disableServiceException(DisableServiceException dse) {
-
         LogUtil.error(dse.getMessage());
-
         return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_BANNED)
                 .data("disableTime", StpUtil.getDisableTime(dse.getLoginId()));
-
     }
-    
+
 }

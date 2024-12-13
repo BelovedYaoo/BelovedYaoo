@@ -8,16 +8,16 @@ import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import top.belovedyaoo.agcore.result.Result;
 
 /**
  * Sa-Token 配置类
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @Configuration
 public class SaTokenConfigurer implements WebMvcConfigurer {
@@ -45,11 +45,12 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 .addExclude("/auth/**")
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> {
-                    SaManager.getLog().debug("----- 请求path={}  提交token={}", SaHolder.getRequest().getRequestPath(), StpUtil.getTokenValue());
+                    StpUtil.checkLogin();
+                    System.out.println(STR."----- 请求path=\{SaHolder.getRequest().getRequestPath()}  提交token=\{StpUtil.getTokenValue()}");
                 })
                 // 异常处理函数：每次认证函数发生异常时执行此函数
                 .setError(e -> {
-                    return SaResult.error(e.getMessage());
+                    return Result.failed().message(e.getMessage());
                 })
                 // 前置函数：在每次认证函数之前执行
                 .setBeforeAuth(obj -> {
@@ -59,13 +60,17 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                             .setHeader("Access-Control-Allow-Origin", "*")
                             // 允许所有请求方式
                             .setHeader("Access-Control-Allow-Methods", "*")
-                            // 允许的header参数
-                            .setHeader("Access-Control-Allow-Headers", "*")
+                            // 允许携带 Cookie
+                            .setHeader("Access-Control-Allow-Credentials", "true")
+                            // 允许的 Header 参数
+                            .setHeader("Access-Control-Allow-Headers", SaManager.getConfig().getTokenName().toLowerCase())
                             // 有效时间
                             .setHeader("Access-Control-Max-Age", "3600");
                     // 如果是预检请求，则立即返回到前端
                     SaRouter.match(SaHttpMethod.OPTIONS)
-                            .free(r -> System.out.println("--------OPTIONS预检请求，不做处理"))
+                            .free(r -> {
+                                System.out.println("--------OPTIONS预检请求，不做处理--------");
+                            })
                             .back();
                 });
     }

@@ -1,4 +1,4 @@
-package top.belovedyaoo.acs.config;
+package top.belovedyaoo.openauth.config;
 
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.context.SaHolder;
@@ -8,10 +8,11 @@ import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.openauth.consts.OpenAuthConst;
 
 /**
  * Sa-Token 配置类
@@ -40,6 +41,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
         return new SaServletFilter()
                 // 指定 [拦截路由] 与 [放行路由]
                 .addInclude("/**")
+                .addExclude(OpenAuthConst.Api.doLogin)
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> {
                     StpUtil.checkLogin();
@@ -47,7 +49,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 })
                 // 异常处理函数：每次认证函数发生异常时执行此函数
                 .setError(e -> {
-                    return Result.failed().message(e.getMessage());
+                    return SaResult.error(e.getMessage());
                 })
                 // 前置函数：在每次认证函数之前执行
                 .setBeforeAuth(obj -> {
