@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import top.belovedyaoo.agcore.enums.result.ResultEnum;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,25 +1,16 @@
-package top.belovedyaoo.agcore.result;
+package top.belovedyaoo.agcore.enums.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import top.belovedyaoo.agcore.result.ResultType;
 
-/**
- * 通用结果枚举类
- *
- * @author BelovedYaoo
- * @version 1.0
- */
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public enum ResultEnum implements ResultType {
+public enum AuthEnum implements ResultType {
 
-    // 通用状态码应与通识保持一致
-    SUCCESS(200, "请求成功"),
-
-    FAILED(400, "请求失败"),
-
+    // 认证与授权状态码
     SESSION_INVALID(700, "会话失效");
 
     private final Integer code;

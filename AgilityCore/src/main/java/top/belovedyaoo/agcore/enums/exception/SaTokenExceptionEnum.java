@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.common.exception;
+package top.belovedyaoo.agcore.enums.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
