@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.openac.model.BaseMappingPermissionInterface;
+import top.belovedyaoo.openac.model.BaseOperation;
 
 import java.io.Serializable;
 
 /**
- * 权限接口关系表
+ * (Operation)表持久化对象
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "mapping_permission_interface", dataSource = "primary")
-public class MappingPermissionInterface extends BaseMappingPermissionInterface implements Serializable {
+@Table(value = "operation", dataSource = "primary")
+public class Operation extends BaseOperation implements Serializable {
 
 }

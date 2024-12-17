@@ -42,10 +42,10 @@ public class Permission extends BasePermission implements Serializable {
 
     @Ignore
     @RelationManyToMany(
-            joinTable = "mapping_permission_interface",
+            joinTable = "mapping_permission_operation",
             joinSelfColumn = "permission_id",
-            joinTargetColumn = "interface_id"
+            joinTargetColumn = "operation_id"
     )
-    private List<Interface> interfaces;
+    private List<Operation> operations;
 
 }

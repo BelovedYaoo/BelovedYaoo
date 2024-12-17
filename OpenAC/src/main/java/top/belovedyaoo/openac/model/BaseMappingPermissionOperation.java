@@ -17,7 +17,7 @@ import top.belovedyaoo.agcore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 权限接口关系映射基类
+ * 权限操作关系映射基类
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -29,7 +29,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-public class BaseMappingPermissionInterface extends BaseFiled implements Serializable {
+public class BaseMappingPermissionOperation extends BaseFiled implements Serializable {
 
     @ColumnNotNull
     @ColumnComment("权限的BaseID")
@@ -37,8 +37,8 @@ public class BaseMappingPermissionInterface extends BaseFiled implements Seriali
     private String permissionId;
 
     @ColumnNotNull
-    @ColumnComment("接口的BaseID")
+    @ColumnComment("操作的BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    private String interfaceId;
+    private String operationId;
 
 }
