@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.entity.po;
+package top.belovedyaoo.openiam.entity.po.ac;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.RelationManyToMany;
@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.openac.model.BaseRole;
+import top.belovedyaoo.openac.model.BasePermission;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * (Role)表持久化对象
+ * (Permission)表持久化对象
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -29,15 +29,23 @@ import java.util.List;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "role", dataSource = "primary")
-public class Role extends BaseRole implements Serializable {
+@Table(value = "permission", dataSource = "primary")
+public class Permission extends BasePermission implements Serializable {
 
     @Ignore
     @RelationManyToMany(
-            joinTable = "mapping_role_permission",
-            joinSelfColumn = "role_id",
-            joinTargetColumn = "permission_id"
+            joinTable = "mapping_permission_router",
+            joinSelfColumn = "permission_id",
+            joinTargetColumn = "router_id"
     )
-    private List<Permission> permissions;
+    private List<Router> routers;
+
+    @Ignore
+    @RelationManyToMany(
+            joinTable = "mapping_permission_operation",
+            joinSelfColumn = "permission_id",
+            joinTargetColumn = "operation_id"
+    )
+    private List<Operation> operations;
 
 }

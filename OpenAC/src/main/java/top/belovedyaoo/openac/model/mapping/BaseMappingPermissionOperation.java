@@ -1,4 +1,4 @@
-package top.belovedyaoo.openac.model;
+package top.belovedyaoo.openac.model.mapping;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import org.dromara.autotable.annotation.ColumnComment;

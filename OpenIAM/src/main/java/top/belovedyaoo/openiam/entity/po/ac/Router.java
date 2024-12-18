@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.entity.po;
+package top.belovedyaoo.openiam.entity.po.ac;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Table;
@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.openac.model.BaseMappingPermissionRouter;
+import top.belovedyaoo.openac.model.BaseRouter;
 
 import java.io.Serializable;
 
 /**
- * 权限菜单关系表
+ * (Router)表持久化对象
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -26,7 +26,6 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "mapping_permission_router", dataSource = "primary")
-public class MappingPermissionRouter extends BaseMappingPermissionRouter implements Serializable {
-
+@Table(value = "router", dataSource = "primary")
+public class Router extends BaseRouter implements Serializable {
 }

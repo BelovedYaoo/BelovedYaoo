@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.entity.po;
+package top.belovedyaoo.openiam.entity.po.ac;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.RelationManyToMany;

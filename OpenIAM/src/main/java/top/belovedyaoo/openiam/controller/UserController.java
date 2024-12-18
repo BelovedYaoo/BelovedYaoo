@@ -7,7 +7,7 @@ import top.belovedyaoo.agcore.base.BaseController;
 import top.belovedyaoo.agcore.result.Result;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
 import top.belovedyaoo.logs.enums.BusinessType;
-import top.belovedyaoo.openiam.entity.po.User;
+import top.belovedyaoo.openiam.entity.po.ac.User;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.entity.po;
+package top.belovedyaoo.openiam.entity.po.ac.mapping;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Table;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.openac.model.BaseMappingPermissionOperation;
+import top.belovedyaoo.openac.model.mapping.BaseMappingPermissionOperation;
 
 import java.io.Serializable;
 

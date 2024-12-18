@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.entity.po;
+package top.belovedyaoo.openiam.entity.po.ac.mapping;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Table;
@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.openac.model.BaseMappingRolePermission;
+import top.belovedyaoo.openac.model.mapping.BaseMappingRoleRouter;
 
 import java.io.Serializable;
 
 /**
- * 角色权限关系表
+ * 权限菜单关系表
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "mapping_role_permission", dataSource = "primary")
-public class MappingRolePermission extends BaseMappingRolePermission implements Serializable {
+@Table(value = "mapping_role_router", dataSource = "primary")
+public class MappingRoleRouter extends BaseMappingRoleRouter implements Serializable {
 
 }

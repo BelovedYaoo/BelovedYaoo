@@ -3,7 +3,7 @@ package top.belovedyaoo.openiam.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.agcore.base.BaseController;
-import top.belovedyaoo.openiam.entity.po.Operation;
+import top.belovedyaoo.openiam.entity.po.ac.Operation;
 
 /**
  * 接口控制器
