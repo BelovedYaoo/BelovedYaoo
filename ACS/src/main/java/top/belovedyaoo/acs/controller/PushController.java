@@ -9,7 +9,7 @@ import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
 import top.belovedyaoo.acs.generateMapper.EnterpriseConfigMapper;
 import top.belovedyaoo.acs.service.PushService;
 import top.belovedyaoo.acs.util.CurriculumDataUtil;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.result.Result;
 
 /**
  * 推送服务

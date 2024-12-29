@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import top.belovedyaoo.agcore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseFiled;
 import top.belovedyaoo.logs.processor.OperatorIdAutoFillProcessor;
 
 import java.io.Serializable;

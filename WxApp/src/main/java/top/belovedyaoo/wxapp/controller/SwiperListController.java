@@ -2,7 +2,7 @@ package top.belovedyaoo.wxapp.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.agcore.base.BaseController;
+import top.belovedyaoo.opencore.base.BaseController;
 import top.belovedyaoo.wxapp.entity.SwiperList;
 
 /**

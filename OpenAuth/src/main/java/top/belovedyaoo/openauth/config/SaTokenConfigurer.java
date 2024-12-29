@@ -13,9 +13,9 @@ import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import top.belovedyaoo.agcore.enums.exception.SaTokenExceptionEnum;
-import top.belovedyaoo.agcore.enums.result.AuthEnum;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.enums.exception.SaTokenExceptionEnum;
+import top.belovedyaoo.opencore.enums.result.AuthEnum;
+import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openauth.consts.OpenAuthConst;
 
 /**

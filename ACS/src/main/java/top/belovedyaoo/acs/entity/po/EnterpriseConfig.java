@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
-import top.belovedyaoo.agcore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.base.BaseTenantFiled;
 
 import java.io.Serializable;
 

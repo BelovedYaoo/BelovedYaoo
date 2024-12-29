@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(":AgilityCore")
+    implementation project(":OpenCore")
     // 保留自动注入处理器
     implementation 'com.tangzc:mybatis-flex-ext-annotation:1.10.1.054'
 }

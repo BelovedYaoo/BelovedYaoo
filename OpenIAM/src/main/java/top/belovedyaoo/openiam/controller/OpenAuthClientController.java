@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.agcore.common.SoMap;
+import top.belovedyaoo.opencore.common.SoMap;
 
 /**
  * OpenAuth 客户端控制器

@@ -5,7 +5,7 @@ import cn.dev33.satoken.context.model.SaRequest;
 import cn.dev33.satoken.context.model.SaResponse;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.util.SaResult;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openauth.core.OpenAuthManager;
 import top.belovedyaoo.openauth.core.OpenAuthTemplate;
 import top.belovedyaoo.openauth.config.ServerConfig;
@@ -246,7 +246,6 @@ public class OpenAuthServerProcessor {
 
         // -------- 情况1：只返回确认结果即可
         if (!buildRedirectUri) {
-            oauth2Template.saveGrantScope(clientId, loginId, scopes);
             return SaResult.ok();
         }
 

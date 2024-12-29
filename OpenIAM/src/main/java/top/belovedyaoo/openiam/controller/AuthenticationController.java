@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openiam.entity.po.ac.User;
 import top.belovedyaoo.openiam.generateMapper.UserMapper;
 import top.belovedyaoo.openiam.service.AuthenticationService;

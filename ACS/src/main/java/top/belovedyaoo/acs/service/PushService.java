@@ -17,9 +17,9 @@ import top.belovedyaoo.acs.util.CurriculumDataUtil;
 import top.belovedyaoo.acs.util.DateUtil;
 import top.belovedyaoo.acs.util.LogUtil;
 import top.belovedyaoo.acs.util.PushDataUtil;
-import top.belovedyaoo.agcore.base.BaseFiled;
-import top.belovedyaoo.agcore.base.BaseTenantFiled;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.result.Result;
 
 import java.util.ArrayList;
 import java.util.List;

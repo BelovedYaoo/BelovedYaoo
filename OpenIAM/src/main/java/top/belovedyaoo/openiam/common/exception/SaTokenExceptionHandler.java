@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 import top.belovedyaoo.openiam.common.toolkit.LogUtil;
 

@@ -4,7 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import top.belovedyaoo.agcore.result.Result;
+import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openiam.generateMapper.UserMapper;
 import top.belovedyaoo.openiam.entity.po.ac.User;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;

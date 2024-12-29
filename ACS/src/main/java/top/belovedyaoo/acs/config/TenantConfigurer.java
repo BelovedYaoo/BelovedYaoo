@@ -3,7 +3,7 @@ package top.belovedyaoo.acs.config;
 import com.mybatisflex.core.tenant.TenantFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.belovedyaoo.agcore.base.BaseTenantFactory;
+import top.belovedyaoo.opencore.base.BaseTenantFactory;
 
 /**
  * 多租户配置

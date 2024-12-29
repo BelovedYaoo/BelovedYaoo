@@ -2,7 +2,7 @@ package top.belovedyaoo.openiam.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import top.belovedyaoo.agcore.result.ResultType;
+import top.belovedyaoo.opencore.result.ResultType;
 
 /**
  * 认证结果枚举类

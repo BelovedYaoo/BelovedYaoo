@@ -80,15 +80,15 @@ sa-token:
         # 是否全局开启授权码模式
         enable-authorization-code: true
         # 是否全局开启 Implicit 模式
-        enable-implicit: true
+        enable-implicit: false
         # 是否全局开启密码模式
-        enable-password: true
+        enable-password: false
         # 是否全局开启客户端模式
-        enable-client-credentials: true
-        # 定义哪些 scope 是高级权限，多个用逗号隔开
-        # higher-scope: openid,userid
-        # 定义哪些 scope 是低级权限，多个用逗号隔开
-        # lower-scope: userinfo
+        enable-client-credentials: false
+        # Access-Token 的全局默认过期时间（30天）
+        access-token-timeout: 2592000
+        # Refresh-Token 的全局默认过期时间（60天）
+        refresh-token-timeout: 5184000
 
 
 security:

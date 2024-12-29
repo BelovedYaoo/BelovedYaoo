@@ -1,5 +1,5 @@
 dependencies {
-	implementation project(":AgilityCore")
+	implementation project(":OpenCore")
 
     // 企业微信配置依赖
     implementation 'com.github.binarywang:weixin-java-cp:4.4.9.B'

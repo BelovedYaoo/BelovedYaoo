@@ -10,10 +10,10 @@ import com.mybatisflex.core.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.agcore.common.SoMap;
+import top.belovedyaoo.opencore.common.SoMap;
 import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
 import top.belovedyaoo.acs.generateMapper.EnterpriseConfigMapper;
-import top.belovedyaoo.agcore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.base.BaseTenantFiled;
 
 /**
  * OpenAuth 客户端控制器

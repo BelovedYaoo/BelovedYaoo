@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.agcore.base.BaseFiled;
-import top.belovedyaoo.agcore.toolkit.ListStringTypeHandler;
+import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.toolkit.ListStringTypeHandler;
 
 import java.io.Serializable;
 import java.util.List;

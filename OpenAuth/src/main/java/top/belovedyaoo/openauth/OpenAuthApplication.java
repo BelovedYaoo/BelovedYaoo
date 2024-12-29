@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author BelovedYaoo
  * @version 1.0
  */
-@SpringBootApplication(scanBasePackages = {"top.belovedyaoo.openauth", "top.belovedyaoo.agcore","com.tangzc.mybatisflex.annotation.handler"})
+@SpringBootApplication(scanBasePackages = {"top.belovedyaoo.openauth", "top.belovedyaoo.opencore","com.tangzc.mybatisflex.annotation.handler"})
 public class OpenAuthApplication {
 
     public static void main(String[] args) {

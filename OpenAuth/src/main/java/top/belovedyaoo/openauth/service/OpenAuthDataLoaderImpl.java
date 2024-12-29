@@ -10,9 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Component;
-import top.belovedyaoo.agcore.common.SoMap;
-import top.belovedyaoo.agcore.result.Result;
-import top.belovedyaoo.agcore.security.SecurityConfig;
+import top.belovedyaoo.opencore.common.SoMap;
+import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.opencore.security.SecurityConfig;
 import top.belovedyaoo.openauth.data.loader.OpenAuthDataLoader;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.enums.OpenAuthResultEnum;
@@ -52,12 +52,12 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                 .setClientSecret(clientModel.getString("clientSecret"))
                 .setContractScopes(clientModel.getList("contractScopes", String.class))
                 .setAllowRedirectUris(clientModel.getList("allowRedirectUris", String.class))
-                .setAllowGrantTypes(clientModel.getList("allowGrantTypes", String.class))
-                .setIsNewRefresh(clientModel.getBoolean("isNewRefresh"))
-                .setAccessTokenTimeout(clientModel.getLong("accessTokenTimeout"))
-                .setRefreshTokenTimeout(clientModel.getLong("refreshTokenTimeout"))
-                .setClientTokenTimeout(clientModel.getLong("clientTokenTimeout"))
-                .setLowerClientTokenTimeout(clientModel.getLong("lowerClientTokenTimeout"));
+                .setAllowGrantTypes(clientModel.getList("allowGrantTypes", String.class));
+                // .setIsNewRefresh(clientModel.getBoolean("isNewRefresh"))
+                // .setAccessTokenTimeout(clientModel.getLong("accessTokenTimeout"))
+                // .setRefreshTokenTimeout(clientModel.getLong("refreshTokenTimeout"))
+                // .setClientTokenTimeout(clientModel.getLong("clientTokenTimeout"))
+                // .setLowerClientTokenTimeout(clientModel.getLong("lowerClientTokenTimeout"));
     }
 
     // 根据 clientId 和 loginId 获取 openid

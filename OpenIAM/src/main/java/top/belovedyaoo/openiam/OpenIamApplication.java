@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  */
 @EnableAutoTable(basePackages = {"top.belovedyaoo.openiam", "top.belovedyaoo.logs"})
-@SpringBootApplication(scanBasePackages = {"top.belovedyaoo.openiam", "top.belovedyaoo.agcore", "top.belovedyaoo.logs", "top.belovedyaoo.weaver"})
+@SpringBootApplication(scanBasePackages = {"top.belovedyaoo.openiam", "top.belovedyaoo.opencore", "top.belovedyaoo.logs", "top.belovedyaoo.weaver"})
 @MapperScan(basePackages = {"top.belovedyaoo.openiam", "top.belovedyaoo.logs"})
 public class OpenIamApplication {
 

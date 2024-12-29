@@ -10,7 +10,7 @@ import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
 import top.belovedyaoo.acs.generateMapper.EnterpriseConfigMapper;
 import top.belovedyaoo.acs.service.PushService;
 import top.belovedyaoo.acs.task.TaskManager;
-import top.belovedyaoo.agcore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseFiled;
 
 import java.util.List;
 

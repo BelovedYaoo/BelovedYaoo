@@ -4,7 +4,7 @@ import com.mybatisflex.core.util.FieldWrapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import top.belovedyaoo.agcore.eo.EntityOperate;
+import top.belovedyaoo.opencore.eo.EntityOperate;
 
 import java.lang.reflect.Field;
 
