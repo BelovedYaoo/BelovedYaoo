@@ -10,7 +10,7 @@ import top.belovedyaoo.openiam.entity.po.ac.Role;
 
 import java.util.List;
 
-import static top.belovedyaoo.openiam.entity.po.table.RoleTableDef.ROLE;
+import static top.belovedyaoo.openiam.entity.po.ac.table.RoleTableDef.ROLE;
 
 /**
  * 角色控制器

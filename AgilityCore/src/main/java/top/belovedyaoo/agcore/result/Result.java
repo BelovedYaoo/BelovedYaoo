@@ -159,7 +159,11 @@ public class Result {
     }
 
     private String transValue(Object value) {
-        return value instanceof String ? STR."\"\{value}\"" : String.valueOf(value);
+        if (value == null) {
+            return null;
+        } else {
+            return value instanceof String ? "\"" + value + "\"" : String.valueOf(value);
+        }
     }
 
 }

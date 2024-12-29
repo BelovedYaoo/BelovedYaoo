@@ -11,7 +11,7 @@ import top.belovedyaoo.openiam.entity.po.ac.User;
 
 import java.util.List;
 
-import static top.belovedyaoo.openiam.entity.po.table.UserTableDef.USER;
+import static top.belovedyaoo.openiam.entity.po.ac.table.UserTableDef.USER;
 
 /**
  * 用户控制器

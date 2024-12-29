@@ -55,7 +55,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 .setError(e -> {
                     if (e instanceof NotLoginException nle) {
                         String message = SaTokenExceptionEnum.getDescByType(nle.getType());
-                        // LogUtil.error(STR."Sa-Token登录异常处理：\{message}");
+                        // LogUtil.error("Sa-Token登录异常处理："+ message);
                         return Result.failed().resultType(AuthEnum.SESSION_INVALID).message(message);
                     }
                     return SaResult.error(e.getMessage());
