@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.opencore.common.SoMap;
+import top.belovedyaoo.opencore.common.OcMap;
 
 /**
  * OpenAuth 客户端控制器
@@ -44,9 +44,9 @@ public class OpenAuthClientController {
 				.post()
 				.getBody()
 				.toString();
-		SoMap so = SoMap.getSoMap().setJsonString(str);
+		OcMap so = OcMap.build(str);
 		System.out.println("登录返回结果: " + new ObjectMapper().writeValueAsString(so));
-		SoMap result = new SoMap().setMap(JWT.of(so.getString("id_token")).getPayloads().getRaw());
+		OcMap result = OcMap.build().setMap(JWT.of(so.getString("id_token")).getPayloads().getRaw());
 		System.out.println(result);
 		// code不等于200  代表请求失败
 		if(so.getInt("code") != 200) {
@@ -75,7 +75,7 @@ public class OpenAuthClientController {
 				.post()
 				.getBody()
 				.toString();
-		SoMap so = SoMap.getSoMap().setJsonString(str);
+		OcMap so = OcMap.build(str);
 		System.out.println("刷新返回结果: " + new ObjectMapper().writeValueAsString(so));
 		
 		// code不等于200  代表请求失败 
@@ -100,7 +100,7 @@ public class OpenAuthClientController {
 				.post()
 				.getBody()
 				.toString();
-		SoMap so = SoMap.getSoMap().setJsonString(str);
+		OcMap so = OcMap.build(str);
 		System.out.println("返回结果: " + new ObjectMapper().writeValueAsString(so));
 		
 		// code不等于200  代表请求失败 
@@ -127,7 +127,7 @@ public class OpenAuthClientController {
 				.post()
 				.getBody()
 				.toString();
-		SoMap so = SoMap.getSoMap().setJsonString(str);
+		OcMap so = OcMap.build(str);
 		System.out.println("返回结果: " + new ObjectMapper().writeValueAsString(so));
 		
 		// code不等于200  代表请求失败 
@@ -155,7 +155,7 @@ public class OpenAuthClientController {
 				.post()
 				.getBody()
 				.toString();
-		SoMap so = SoMap.getSoMap().setJsonString(str);
+		OcMap so = OcMap.build(str);
 		System.out.println("返回结果: " + new ObjectMapper().writeValueAsString(so));
 		
 		// code不等于200  代表请求失败 

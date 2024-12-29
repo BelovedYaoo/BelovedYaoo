@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Component;
-import top.belovedyaoo.opencore.common.SoMap;
+import top.belovedyaoo.opencore.common.OcMap;
 import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.opencore.security.SecurityConfig;
 import top.belovedyaoo.openauth.data.loader.OpenAuthDataLoader;
@@ -40,11 +40,11 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                 .post()
                 .getBody()
                 .toString();
-        SoMap so = SoMap.getSoMap().setJsonString(str);
+        OcMap so = OcMap.build(str);
         if (so.getInt("code") != 200) {
             new OpenAuthClientModel();
         }
-        SoMap clientModel = so.getMap("data");
+        OcMap clientModel = so.getMap("data");
         System.out.println(clientModel.getString("clientId"));
         System.out.println(clientModel.get("allowGrantTypes"));
         return new OpenAuthClientModel()
@@ -82,7 +82,7 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                     .toString();
 
             // 转为Json
-            SoMap so = SoMap.getSoMap().setJsonString(str);
+            OcMap so = OcMap.build(str);
             if (so.getInt("code") != 200) {
                 return Result.failed().message(so.getString("message")).description(so.getString("description"));
             }
@@ -92,9 +92,9 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
             } catch (DecoderException e) {
                 throw new RuntimeException(e);
             }
-            SoMap user = SoMap.getSoMap().setJsonString(decData).getMap("user");
+            OcMap user = OcMap.build(decData).getMap("user");
             System.out.println(user.getString("openId"));
-            SoMap userData = SoMap.getSoMap()
+            OcMap userData = OcMap.build()
                     .set("baseId", user.getString("baseId"))
                     .set("openId", user.getString("openId"))
                     .set("phone", user.getString("phone"))
