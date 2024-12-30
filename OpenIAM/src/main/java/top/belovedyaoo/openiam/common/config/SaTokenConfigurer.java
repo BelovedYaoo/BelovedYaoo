@@ -12,9 +12,9 @@ import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.opencore.enums.result.AuthEnum;
 import top.belovedyaoo.opencore.enums.exception.SaTokenExceptionEnum;
+import top.belovedyaoo.opencore.enums.result.AuthEnum;
+import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openiam.common.toolkit.LogUtil;
 
 /**
@@ -55,7 +55,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 .setError(e -> {
                     if (e instanceof NotLoginException nle) {
                         String message = SaTokenExceptionEnum.getDescByType(nle.getType());
-                        LogUtil.error("Sa-Token登录异常处理："+ message);
+                        LogUtil.error("Sa-Token登录异常处理：" + message);
                         return Result.failed().resultType(AuthEnum.SESSION_INVALID).message(message);
                     }
                     return Result.failed().message(e.getMessage());
@@ -69,9 +69,9 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                             // 允许所有请求方式
                             .setHeader("Access-Control-Allow-Methods", "*")
                             // 允许携带 Cookie
-                            .setHeader("Access-Control-Allow-Credentials", "true")
+                            .setHeader("Access-Control-Allow-Credentials", "false")
                             // 允许的 Header 参数
-                            .setHeader("Access-Control-Allow-Headers", SaManager.getConfig().getTokenName().toLowerCase())
+                            .setHeader("Access-Control-Allow-Headers", SaManager.getConfig().getTokenName().toLowerCase() + ",Content-Type")
                             // 有效时间
                             .setHeader("Access-Control-Max-Age", "3600");
                     // 如果是预检请求，则立即返回到前端

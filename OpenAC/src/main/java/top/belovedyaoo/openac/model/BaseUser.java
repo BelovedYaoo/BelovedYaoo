@@ -34,6 +34,18 @@ import java.io.Serializable;
 @Accessors(chain = true, fluent = true)
 public class BaseUser extends BaseFiled implements Serializable {
 
+    public static final String OPEN_ID = "open_id";
+
+    public static final String PASSWORD = "password";
+
+    public static final String PHONE = "phone";
+
+    public static final String EMAIL = "email";
+
+    public static final String NICKNAME = "nickname";
+
+    public static final String AVATAR_ADDRESS = "avatar_address";
+
     /**
      * 该ID为用户登录使用
      */

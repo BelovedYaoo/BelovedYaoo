@@ -4,8 +4,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import top.belovedyaoo.openiam.service.impl.BaseUserServiceImpl;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.openiam.generateMapper.UserMapper;
 import top.belovedyaoo.openiam.entity.po.ac.User;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 import top.belovedyaoo.openiam.common.toolkit.JedisOperateUtil;
@@ -28,7 +28,7 @@ public class AuthenticationService {
      */
     public static final String VERIFY_CODE_PREFIX = "userRegister";
 
-    private final UserMapper userMapper;
+    private final BaseUserServiceImpl userService;
 
     /**
      * 认证工具类
@@ -36,8 +36,7 @@ public class AuthenticationService {
     private final AuthenticationUtil authenticationUtil;
 
     public Result getUser(String openId, String password) {
-        User user = userMapper.selectOneByQuery(new QueryWrapper()
-                .eq("open_id", openId));
+        User user = userService.getUserInfo(openId);
 
         // 账号不存在
         if (user == null) {
@@ -89,7 +88,7 @@ public class AuthenticationService {
         }
 
         // 数据入库
-        userMapper.insert(user);
+        userService.register(user);
 
         // 清除验证码
         JedisOperateUtil.del(VERIFY_CODE_PREFIX + ":" + (usePhone ? user.phone() : user.email()));
@@ -114,7 +113,7 @@ public class AuthenticationService {
         Result accountDataBindCheck = Result.failed().state(false);
 
         // 检查登录ID是否已被使用
-        boolean accountLoginIdAlreadyUse = userMapper.selectCountByQuery(new QueryWrapper().eq("open_id", user.openId())) == 1;
+        boolean accountLoginIdAlreadyUse = userService.userExists(user.openId());
         if (accountLoginIdAlreadyUse) {
             return accountDataBindCheck.resultType(AuthenticationResultEnum.LOGIN_ID_ALREADY_USE);
         }
@@ -139,7 +138,7 @@ public class AuthenticationService {
         }
 
         // 查询是否已存在对应条件的数据
-        boolean uniqueBindAlreadyUse = userMapper.selectCountByQuery(uniqueBindQuery) == 1;
+        boolean uniqueBindAlreadyUse = userService.exists(uniqueBindQuery);;
 
         if (uniqueBindAlreadyUse) {
             return accountDataBindCheck;

@@ -9,14 +9,13 @@ import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import top.belovedyaoo.openauth.consts.OpenAuthConst;
 import top.belovedyaoo.opencore.enums.exception.SaTokenExceptionEnum;
 import top.belovedyaoo.opencore.enums.result.AuthEnum;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.openauth.consts.OpenAuthConst;
 
 /**
  * Sa-Token 配置类
@@ -58,7 +57,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                         // LogUtil.error("Sa-Token登录异常处理："+ message);
                         return Result.failed().resultType(AuthEnum.SESSION_INVALID).message(message);
                     }
-                    return SaResult.error(e.getMessage());
+                    return Result.failed().message(e.getMessage());
                 })
                 // 前置函数：在每次认证函数之前执行
                 .setBeforeAuth(obj -> {
@@ -71,7 +70,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                             // 不允许携带 Cookie
                             .setHeader("Access-Control-Allow-Credentials", "false")
                             // 允许的 Header 参数
-                            .setHeader("Access-Control-Allow-Headers", SaManager.getConfig().getTokenName().toLowerCase())
+                            .setHeader("Access-Control-Allow-Headers", SaManager.getConfig().getTokenName().toLowerCase() + ",Content-Type")
                             // 有效时间
                             .setHeader("Access-Control-Max-Age", "3600");
                     // 如果是预检请求，则立即返回到前端

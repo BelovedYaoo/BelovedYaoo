@@ -54,7 +54,6 @@ public abstract class BaseFiled implements Serializable {
     @InsertFillData(BaseIdAutoFillProcessor.class)
     private String baseId;
 
-    @Column()
     @ColumnComment("数据序号,用于数据排序")
     @ColumnType(value = MysqlTypeConstant.INT)
     private Integer orderNum;

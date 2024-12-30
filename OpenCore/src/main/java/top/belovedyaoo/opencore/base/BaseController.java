@@ -1,7 +1,5 @@
 package top.belovedyaoo.opencore.base;
 
-import com.mybatisflex.core.BaseMapper;
-import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.update.UpdateChain;
 import jakarta.annotation.Resource;
@@ -13,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.opencore.toolkit.TypeUtil;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,9 +21,9 @@ import java.util.List;
  * 基础控制器
  *
  * @author BelovedYaoo
- * @version 1.5
+ * @version 1.6
  */
-public abstract class BaseController<T extends BaseFiled> {
+public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
 
     /**
      * 事务管理器
@@ -35,46 +32,8 @@ public abstract class BaseController<T extends BaseFiled> {
     public PlatformTransactionManager platformTransactionManager;
 
     /**
-     * 基础Mapper
-     */
-    public BaseMapper<T> baseMapper() {
-        return Mappers.ofEntityClass(getOriginalClass());
-    }
-
-    /**
-     * 快速获取泛型的类型的方法
-     *
-     * @param objectClass 要取泛型的对应的Class
-     * @param i           要取第几个泛型(0开始)
-     * @param <T>         泛型类型
-     *
-     * @return 对应的泛型
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> Class<T> getGenericClass(Class<?> objectClass, int i) {
-        ParameterizedType type = (ParameterizedType) objectClass.getGenericSuperclass();
-        if (type == null) {
-            return null;
-        }
-        Type[] types = type.getActualTypeArguments();
-        if (types.length > i) {
-            return (Class<T>) types[i];
-        }
-        return null;
-    }
-
-    /**
-     * 获取泛型类型对应的Class对象
-     *
-     * @return 具体Class对象
-     */
-    public Class<T> getOriginalClass() {
-        return getGenericClass(this.getClass(), 0);
-    }
-
-    /**
-     * 确保传入的对象 entity 是 T 的实例,并且继承自 BaseFiled<p>
-     * 若满足条件,则会强制将 entity 转换为 T 类型<p>
+     * 确保传入的对象 entity 继承自 BaseFiled 的实例<p>
+     * 若满足条件,则会强制转换<p>
      * 否则,抛出 IllegalArgumentException<p>
      * 除非能够保证输入完全符合预期,否则这一步检测都是必要的
      *

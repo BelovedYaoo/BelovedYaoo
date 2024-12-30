@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * 增强 LinkedHashMap，部分函数参照了星星之火的OcMap
+ * LinkedHashMap 增强
  *
  * @author BelovedYaoo
  * @version 1.0
