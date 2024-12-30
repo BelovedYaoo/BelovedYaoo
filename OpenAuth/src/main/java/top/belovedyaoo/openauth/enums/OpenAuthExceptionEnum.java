@@ -2,7 +2,8 @@ package top.belovedyaoo.openauth.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import top.belovedyaoo.opencore.result.ResultType;
+import lombok.experimental.Accessors;
+import top.belovedyaoo.opencore.exception.ExceptionType;
 
 /**
  * OpenAuth 异常枚举
@@ -12,12 +13,19 @@ import top.belovedyaoo.opencore.result.ResultType;
  */
 @Getter
 @AllArgsConstructor
-public enum OpenAuthExceptionEnum implements ResultType {
+@Accessors(fluent = true, chain = true)
+public enum OpenAuthExceptionEnum implements ExceptionType {
 
-    // 所有 OpenAuth 服务的状态码应以 9 开头
-    NEED_LOGIN(900, "未登录", "请先登录再进行操作"),
+    // OpenAuth 异常
+    PERMISSION_DENIED(30000, "权限不足", null),
 
-    NEED_CONFIRM(901, "需要授权", "请先授权");
+    NOT_SUPPORTED_AUTH_MODEL(30001, "不支持的认证模式", null),
+
+    INVALID_REQUEST_METHOD(30002, "不支持的请求方式", null),
+
+    INVALID_PARAMETER(30003, "参数无效", null),
+
+    MISSING_PARAMETER(30004, "参数缺失", null);
 
     private final Integer code;
 

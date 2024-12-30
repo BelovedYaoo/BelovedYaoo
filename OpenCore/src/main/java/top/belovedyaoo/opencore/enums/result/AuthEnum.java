@@ -5,6 +5,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import top.belovedyaoo.opencore.result.ResultType;
 
+/**
+ * 认证与授权状态码
+ *
+ * @author BelovedYaoo
+ * @version 1.0
+ */
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor

@@ -4,15 +4,15 @@ import cn.dev33.satoken.context.model.SaRequest;
 import cn.dev33.satoken.httpauth.basic.SaHttpBasicUtil;
 import cn.dev33.satoken.util.SaFoxUtil;
 import cn.dev33.satoken.util.SaResult;
-import top.belovedyaoo.openauth.core.OpenAuthManager;
 import top.belovedyaoo.openauth.consts.OpenAuthConst.Param;
 import top.belovedyaoo.openauth.consts.OpenAuthConst.TokenType;
+import top.belovedyaoo.openauth.core.OpenAuthManager;
 import top.belovedyaoo.openauth.data.model.AccessTokenModel;
 import top.belovedyaoo.openauth.data.model.ClientTokenModel;
 import top.belovedyaoo.openauth.data.model.request.ClientIdAndSecretModel;
 import top.belovedyaoo.openauth.data.model.request.RequestAuthModel;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
+import top.belovedyaoo.openauth.enums.OpenAuthExceptionEnum;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -55,7 +55,7 @@ public class OpenAuthDataResolverDefaultImpl implements OpenAuthDataResolver {
         }
 
         // 如果都没有提供，则抛出异常
-        throw new OpenAuthException("请提供 client 信息").setCode(OpenAuthErrorCode.CODE_30191);
+        throw new OpenException(OpenAuthExceptionEnum.MISSING_PARAMETER).description("请提供 Client 信息");
     }
 
     /**
@@ -63,26 +63,7 @@ public class OpenAuthDataResolverDefaultImpl implements OpenAuthDataResolver {
      */
     @Override
     public String readAccessToken(SaRequest request) {
-        // 优先从请求参数中获取
-        String accessToken = request.getParam(Param.access_token);
-        if (SaFoxUtil.isNotEmpty(accessToken)) {
-            return accessToken;
-        }
-
-        // 如果请求参数中没有提供 access_token 参数，则尝试从 Authorization 中获取
-        String authorizationValue = request.getHeader(Param.Authorization);
-        if (SaFoxUtil.isEmpty(authorizationValue)) {
-            return null;
-        }
-
-        // 判断前缀，裁剪
-        String prefix = TokenType.Bearer + " ";
-        if (authorizationValue.startsWith(prefix)) {
-            return authorizationValue.substring(prefix.length());
-        }
-
-        // 前缀不符合，返回 null
-        return null;
+        return readTokenFromRequest(request, Param.access_token);
     }
 
     /**
@@ -90,24 +71,33 @@ public class OpenAuthDataResolverDefaultImpl implements OpenAuthDataResolver {
      */
     @Override
     public String readClientToken(SaRequest request) {
-        // 优先从请求参数中获取
-        String clientToken = request.getParam(Param.client_token);
-        if (SaFoxUtil.isNotEmpty(clientToken)) {
-            return clientToken;
-        }
+        return readTokenFromRequest(request, Param.client_token);
+    }
 
-        // 如果请求参数中没有提供 client_token 参数，则尝试从 Authorization 中获取
+    /**
+     * 通用方法：从请求对象中读取指定参数或 Authorization 头中的令牌
+     *
+     * @param request   请求对象
+     * @param paramName 参数名（access_token 或 client_token）
+     *
+     * @return 令牌字符串，获取不到返回 null
+     */
+    private String readTokenFromRequest(SaRequest request, String paramName) {
+        // 优先从请求参数中获取
+        String token = request.getParam(paramName);
+        if (SaFoxUtil.isNotEmpty(token)) {
+            return token;
+        }
+        // 如果请求参数中没有提供 token 参数，则尝试从 Authorization 中获取
         String authorizationValue = request.getHeader(Param.Authorization);
         if (SaFoxUtil.isEmpty(authorizationValue)) {
             return null;
         }
-
         // 判断前缀，裁剪
         String prefix = TokenType.Bearer + " ";
         if (authorizationValue.startsWith(prefix)) {
             return authorizationValue.substring(prefix.length());
         }
-
         // 前缀不符合，返回 null
         return null;
     }

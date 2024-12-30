@@ -6,9 +6,8 @@ import top.belovedyaoo.openauth.consts.OpenAuthGrantType;
 import top.belovedyaoo.openauth.consts.OpenAuthConst;
 import top.belovedyaoo.openauth.data.model.AccessTokenModel;
 import top.belovedyaoo.openauth.data.model.RefreshTokenModel;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.OpenAuthClientModelException;
-import top.belovedyaoo.openauth.exception.OpenAuthRefreshTokenException;
+import top.belovedyaoo.openauth.enums.OidcExceptionEnum;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.util.List;
 
@@ -32,10 +31,10 @@ public class RefreshTokenGrantTypeHandler implements GrantTypeHandlerInterface {
 
         // 校验：Refresh-Token 是否存在
         RefreshTokenModel rt = OpenAuthManager.getDao().getRefreshToken(refreshToken);
-        OpenAuthRefreshTokenException.throwBy(rt == null, "无效refresh_token: " + refreshToken, refreshToken, OpenAuthErrorCode.CODE_30111);
+        OpenException.throwBy(rt == null, OidcExceptionEnum.INVALID_REFRESH_TOKEN, refreshToken);
 
         // 校验：Refresh-Token 代表的 ClientId 与提供的 ClientId 是否一致
-        OpenAuthClientModelException.throwBy( ! rt.clientId.equals(clientId), "无效client_id: " + clientId, clientId, OpenAuthErrorCode.CODE_30122);
+        OpenException.throwBy(!rt.clientId.equals(clientId), OidcExceptionEnum.UNCONFORMITY_CLIENT_ID, clientId);
 
         // 获取新 Access-Token
         return OpenAuthManager.getDataGenerate().refreshAccessToken(refreshToken);

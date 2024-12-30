@@ -6,8 +6,8 @@ import top.belovedyaoo.openauth.consts.OpenAuthGrantType;
 import top.belovedyaoo.openauth.consts.OpenAuthConst;
 import top.belovedyaoo.openauth.data.model.AccessTokenModel;
 import top.belovedyaoo.openauth.data.model.request.RequestAuthModel;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
 import cn.dev33.satoken.stp.StpUtil;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class PasswordGrantTypeHandler implements GrantTypeHandlerInterface {
         loginByUsernamePassword(username, password);
         Object loginId = StpUtil.getLoginIdDefaultNull();
         if(loginId == null) {
-            throw new OpenAuthException("登录失败");
+            throw new OpenException("登录失败");
         }
 
         // 4、构建 ra 对象

@@ -5,15 +5,14 @@ import cn.dev33.satoken.context.model.SaRequest;
 import cn.dev33.satoken.context.model.SaResponse;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.util.SaResult;
-import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.openauth.core.OpenAuthManager;
-import top.belovedyaoo.openauth.core.OpenAuthTemplate;
 import top.belovedyaoo.openauth.config.ServerConfig;
 import top.belovedyaoo.openauth.consts.OpenAuthConst;
 import top.belovedyaoo.openauth.consts.OpenAuthConst.Api;
 import top.belovedyaoo.openauth.consts.OpenAuthConst.Param;
 import top.belovedyaoo.openauth.consts.OpenAuthConst.ResponseType;
 import top.belovedyaoo.openauth.consts.OpenAuthGrantType;
+import top.belovedyaoo.openauth.core.OpenAuthManager;
+import top.belovedyaoo.openauth.core.OpenAuthTemplate;
 import top.belovedyaoo.openauth.data.generate.OpenAuthDataGenerate;
 import top.belovedyaoo.openauth.data.model.AccessTokenModel;
 import top.belovedyaoo.openauth.data.model.ClientTokenModel;
@@ -21,9 +20,11 @@ import top.belovedyaoo.openauth.data.model.CodeModel;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.data.model.request.ClientIdAndSecretModel;
 import top.belovedyaoo.openauth.data.model.request.RequestAuthModel;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
+import top.belovedyaoo.openauth.enums.OidcExceptionEnum;
+import top.belovedyaoo.openauth.enums.OpenAuthExceptionEnum;
 import top.belovedyaoo.openauth.strategy.OpenAuthStrategy;
+import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.result.Result;
 
 import java.util.List;
 
@@ -147,7 +148,7 @@ public class OpenAuthServerProcessor {
         }
 
         // 默认返回
-        throw new OpenAuthException("无效 response_type: " + ra.responseType).setCode(OpenAuthErrorCode.CODE_30125);
+        throw new OpenException(OidcExceptionEnum.INVALID_RESPONSE_TYPE).data(ra.responseType);
     }
 
     /**
@@ -168,7 +169,7 @@ public class OpenAuthServerProcessor {
     public Object refresh() {
         SaRequest req = SaHolder.getRequest();
         String grantType = req.getParamNotNull(Param.grant_type);
-        OpenAuthException.throwBy(!grantType.equals(OpenAuthGrantType.refresh_token), "无效 grant_type：" + grantType, OpenAuthErrorCode.CODE_30126);
+        OpenException.throwBy(!grantType.equals(OpenAuthGrantType.refresh_token), OidcExceptionEnum.INVALID_GRANT_TYPE, grantType);
         AccessTokenModel accessTokenModel = OpenAuthStrategy.INSTANCE.grantTypeAuth.apply(req);
         return OpenAuthManager.getDataResolver().buildRefreshTokenReturnValue(accessTokenModel);
     }
@@ -234,9 +235,7 @@ public class OpenAuthServerProcessor {
         OpenAuthTemplate oauth2Template = OpenAuthManager.getTemplate();
 
         // 此请求只允许 POST 方式
-        if (!req.isMethod(SaHttpMethod.POST)) {
-            throw new OpenAuthException("无效请求方式：" + req.getMethod()).setCode(OpenAuthErrorCode.CODE_30151);
-        }
+        OpenException.throwBy(!req.isMethod(SaHttpMethod.POST), OpenAuthExceptionEnum.INVALID_REQUEST_METHOD,"仅接受POST请求", req.getMethod());
 
         // 确认授权
         oauth2Template.saveGrantScope(clientId, loginId, scopes);
@@ -270,7 +269,7 @@ public class OpenAuthServerProcessor {
         }
 
         // 默认返回
-        throw new OpenAuthException("无效response_type: " + ra.responseType).setCode(OpenAuthErrorCode.CODE_30125);
+        throw new OpenException(OidcExceptionEnum.INVALID_RESPONSE_TYPE).data(ra.responseType);
     }
 
     /**
@@ -285,9 +284,7 @@ public class OpenAuthServerProcessor {
         OpenAuthTemplate oauth2Template = OpenAuthManager.getTemplate();
 
         String grantType = req.getParamNotNull(Param.grant_type);
-        if (!grantType.equals(OpenAuthGrantType.client_credentials)) {
-            throw new OpenAuthException("无效 grant_type：" + grantType).setCode(OpenAuthErrorCode.CODE_30126);
-        }
+        OpenException.throwBy(!grantType.equals(OpenAuthGrantType.client_credentials), OidcExceptionEnum.INVALID_GRANT_TYPE, grantType);
         if (!cfg.enableClientCredentials) {
             throwErrorSystemNotEnableModel();
         }
@@ -363,7 +360,7 @@ public class OpenAuthServerProcessor {
         }
         // 其它
         else {
-            throw new OpenAuthException("无效 response_type: " + responseType).setCode(OpenAuthErrorCode.CODE_30125);
+            throw new OpenException(OidcExceptionEnum.INVALID_RESPONSE_TYPE).data(responseType);
         }
     }
 
@@ -371,14 +368,14 @@ public class OpenAuthServerProcessor {
      * 系统未开放此授权模式时抛出异常
      */
     public void throwErrorSystemNotEnableModel() {
-        throw new OpenAuthException("系统暂未开放此授权模式").setCode(OpenAuthErrorCode.CODE_30141);
+        throw new OpenException(OpenAuthExceptionEnum.NOT_SUPPORTED_AUTH_MODEL);
     }
 
     /**
      * 应用未开放此授权模式时抛出异常
      */
     public void throwErrorClientNotEnableModel() {
-        throw new OpenAuthException("应用暂未开放此授权模式").setCode(OpenAuthErrorCode.CODE_30142);
+        throw new OpenException(OpenAuthExceptionEnum.NOT_SUPPORTED_AUTH_MODEL).description("应用暂未开放的授权模式");
     }
 
 }

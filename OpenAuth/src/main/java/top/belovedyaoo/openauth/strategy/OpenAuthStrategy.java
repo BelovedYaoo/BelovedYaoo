@@ -1,6 +1,8 @@
 package top.belovedyaoo.openauth.strategy;
 
 import cn.dev33.satoken.SaManager;
+import top.belovedyaoo.openauth.enums.OidcExceptionEnum;
+import top.belovedyaoo.openauth.enums.OpenAuthExceptionEnum;
 import top.belovedyaoo.openauth.function.strategy.CreateAccessTokenValueFunction;
 import top.belovedyaoo.openauth.function.strategy.CreateClientTokenValueFunction;
 import top.belovedyaoo.openauth.function.strategy.CreateCodeValueFunction;
@@ -14,8 +16,6 @@ import top.belovedyaoo.openauth.consts.OpenAuthGrantType;
 import top.belovedyaoo.openauth.consts.OpenAuthConst;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.data.model.request.ClientIdAndSecretModel;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
 import top.belovedyaoo.openauth.handler.AuthorizationCodeGrantTypeHandler;
 import top.belovedyaoo.openauth.handler.PasswordGrantTypeHandler;
 import top.belovedyaoo.openauth.handler.RefreshTokenGrantTypeHandler;
@@ -26,6 +26,7 @@ import top.belovedyaoo.openauth.scope.handler.OpenIdScopeHandler;
 import top.belovedyaoo.openauth.scope.handler.OpenAuthScopeHandlerInterface;
 import top.belovedyaoo.openauth.scope.handler.UserIdScopeHandler;
 import cn.dev33.satoken.util.SaFoxUtil;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -153,18 +154,12 @@ public final class OpenAuthStrategy {
 	public GrantTypeAuthFunction grantTypeAuth = (req) -> {
 		String grantType = req.getParamNotNull(OpenAuthConst.Param.grant_type);
 		GrantTypeHandlerInterface grantTypeHandler = grantTypeHandlerMap.get(grantType);
-		if(grantTypeHandler == null) {
-			throw new OpenAuthException("无效 grant_type: " + grantType).setCode(OpenAuthErrorCode.CODE_30126);
-		}
+		OpenException.throwBy(grantTypeHandler == null, OidcExceptionEnum.INVALID_GRANT_TYPE,grantType);
 
 		// 看看全局是否开启了此 grantType
 		ServerConfig config = OpenAuthManager.getServerConfig();
-		if(grantType.equals(OpenAuthGrantType.authorization_code) && !config.getEnableAuthorizationCode() ) {
-			throw new OpenAuthException("系统未开放的 grant_type: " + grantType).setCode(OpenAuthErrorCode.CODE_30126);
-		}
-		if(grantType.equals(OpenAuthGrantType.password) && !config.getEnablePassword() ) {
-			throw new OpenAuthException("系统未开放的 grant_type: " + grantType).setCode(OpenAuthErrorCode.CODE_30126);
-		}
+		OpenException.throwBy(grantType.equals(OpenAuthGrantType.authorization_code) && !config.getEnableAuthorizationCode(),OidcExceptionEnum.INVALID_GRANT_TYPE,grantType);
+		OpenException.throwBy(grantType.equals(OpenAuthGrantType.password) && !config.getEnablePassword(),OidcExceptionEnum.INVALID_GRANT_TYPE,grantType);
 
 		// 校验 clientSecret 和 scope
 		ClientIdAndSecretModel clientIdAndSecretModel = OpenAuthManager.getDataResolver().readClientIdAndSecret(req);
@@ -172,9 +167,7 @@ public final class OpenAuthStrategy {
 		OpenAuthClientModel clientModel = OpenAuthManager.getTemplate().checkClientSecretAndScope(clientIdAndSecretModel.getClientId(), clientIdAndSecretModel.getClientSecret(), scopes);
 
 		// 检测应用是否开启此 grantType
-		if(!clientModel.getAllowGrantTypes().contains(grantType)) {
-			throw new OpenAuthException("应用未开放的 grant_type: " + grantType).setCode(OpenAuthErrorCode.CODE_30141);
-		}
+		OpenException.throwBy(!clientModel.getAllowGrantTypes().contains(grantType), OpenAuthExceptionEnum.NOT_SUPPORTED_AUTH_MODEL,"应用暂未开放的 GrantType",grantType);
 
 		// 调用 处理器
 		return grantTypeHandler.getAccessToken(req, clientIdAndSecretModel.getClientId(), scopes);

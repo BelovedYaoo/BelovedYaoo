@@ -2,9 +2,9 @@ package top.belovedyaoo.openauth.data.loader;
 
 import top.belovedyaoo.openauth.core.OpenAuthManager;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.OpenAuthClientModelException;
+import top.belovedyaoo.openauth.enums.OidcExceptionEnum;
 import cn.dev33.satoken.secure.SaSecureUtil;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 /**
  * OpenAuth 数据加载器
@@ -33,11 +33,7 @@ public interface OpenAuthDataLoader {
      */
     default OpenAuthClientModel getClientModelNotNull(String clientId) {
         OpenAuthClientModel clientModel = getClientModel(clientId);
-        if(clientModel == null) {
-            throw new OpenAuthClientModelException("无效 client_id: " + clientId)
-                    .setClientId(clientId)
-                    .setCode(OpenAuthErrorCode.CODE_30105);
-        }
+        OpenException.throwBy(clientModel == null, OidcExceptionEnum.INVALID_CLIENT_ID, clientId);
         return clientModel;
     }
 

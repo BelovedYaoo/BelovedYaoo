@@ -3,8 +3,8 @@ package top.belovedyaoo.openauth.data.model.request;
 import cn.dev33.satoken.util.SaFoxUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
+import top.belovedyaoo.openauth.enums.OidcExceptionEnum;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -60,18 +60,14 @@ public class RequestAuthModel implements Serializable {
      * @return 对象自身
      */
     public RequestAuthModel checkModel() {
-        if (SaFoxUtil.isEmpty(clientId)) {
-            throw new OpenAuthException("client_id 不可为空").setCode(OpenAuthErrorCode.CODE_30101);
-        }
-        if (SaFoxUtil.isEmpty(scopes)) {
-            throw new OpenAuthException("scope 不可为空").setCode(OpenAuthErrorCode.CODE_30102);
-        }
-        if (SaFoxUtil.isEmpty(redirectUri)) {
-            throw new OpenAuthException("redirect_uri 不可为空").setCode(OpenAuthErrorCode.CODE_30103);
-        }
-        if (SaFoxUtil.isEmpty(String.valueOf(loginId))) {
-            throw new OpenAuthException("LoginId 不可为空").setCode(OpenAuthErrorCode.CODE_30104);
-        }
+        // clientId 不可为空
+        OpenException.throwBy(SaFoxUtil.isEmpty(clientId), OidcExceptionEnum.MISSING_CLIENT_ID);
+        // scope 不可为空
+        OpenException.throwBy(SaFoxUtil.isEmpty(scopes), OidcExceptionEnum.MISSING_SCOPE);
+        // redirectUri 不可为空
+        OpenException.throwBy(SaFoxUtil.isEmpty(redirectUri), OidcExceptionEnum.MISSING_REDIRECT_URI);
+        // loginId 不可为空
+        OpenException.throwBy(SaFoxUtil.isEmpty(String.valueOf(loginId)), OidcExceptionEnum.MISSING_LOGIN_ID);
         return this;
     }
 

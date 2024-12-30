@@ -12,9 +12,9 @@ import top.belovedyaoo.openauth.data.model.AccessTokenModel;
 import top.belovedyaoo.openauth.data.model.ClientTokenModel;
 import top.belovedyaoo.openauth.data.model.oidc.IdTokenModel;
 import top.belovedyaoo.openauth.data.model.request.ClientIdAndSecretModel;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
 import top.belovedyaoo.openauth.scope.CommonScope;
 import cn.dev33.satoken.util.SaFoxUtil;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -90,7 +90,7 @@ public class OidcScopeHandler implements OpenAuthScopeHandlerInterface {
             }
             return iss;
         } catch (MalformedURLException e) {
-            throw new OpenAuthException(e);
+            throw new OpenException(e);
         }
     }
 

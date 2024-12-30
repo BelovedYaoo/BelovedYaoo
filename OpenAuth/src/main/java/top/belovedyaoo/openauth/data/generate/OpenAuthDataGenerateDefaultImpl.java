@@ -1,7 +1,8 @@
 package top.belovedyaoo.openauth.data.generate;
 
-import top.belovedyaoo.openauth.core.OpenAuthManager;
+import cn.dev33.satoken.util.SaFoxUtil;
 import top.belovedyaoo.openauth.consts.OpenAuthConst;
+import top.belovedyaoo.openauth.core.OpenAuthManager;
 import top.belovedyaoo.openauth.dao.OpenAuthDao;
 import top.belovedyaoo.openauth.data.convert.OpenAuthDataConverter;
 import top.belovedyaoo.openauth.data.model.AccessTokenModel;
@@ -10,12 +11,9 @@ import top.belovedyaoo.openauth.data.model.CodeModel;
 import top.belovedyaoo.openauth.data.model.RefreshTokenModel;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.data.model.request.RequestAuthModel;
-import top.belovedyaoo.openauth.error.OpenAuthErrorCode;
-import top.belovedyaoo.openauth.exception.AuthorizationCodeException;
-import top.belovedyaoo.openauth.exception.OpenAuthException;
-import top.belovedyaoo.openauth.exception.OpenAuthRefreshTokenException;
+import top.belovedyaoo.openauth.enums.OidcExceptionEnum;
 import top.belovedyaoo.openauth.strategy.OpenAuthStrategy;
-import cn.dev33.satoken.util.SaFoxUtil;
+import top.belovedyaoo.opencore.exception.OpenException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,7 +28,9 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 构建Model：Code授权码
+     *
      * @param ra 请求参数Model
+     *
      * @return 授权码Model
      */
     @Override
@@ -58,7 +58,9 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 构建Model：Access-Token
+     *
      * @param code 授权码Model
+     *
      * @return AccessToken Model
      */
     @Override
@@ -69,7 +71,7 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
         // 1、先校验
         CodeModel cm = dao.getCode(code);
-        AuthorizationCodeException.throwBy(cm == null, "无效 code: " + code, code, OpenAuthErrorCode.CODE_30110);
+        OpenException.throwBy(cm == null, OidcExceptionEnum.INVALID_CODE, code);
 
         // 2、删除旧Token
         dao.deleteAccessToken(dao.getAccessTokenValue(cm.clientId, cm.loginId));
@@ -98,7 +100,9 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 刷新Model：根据 Refresh-Token 生成一个新的 Access-Token
+     *
      * @param refreshToken Refresh-Token值
+     *
      * @return 新的 Access-Token
      */
     @Override
@@ -108,11 +112,11 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
         // 获取 Refresh-Token 信息
         RefreshTokenModel rt = dao.getRefreshToken(refreshToken);
-        OpenAuthRefreshTokenException.throwBy(rt == null, "无效 refresh_token: " + refreshToken, refreshToken, OpenAuthErrorCode.CODE_30111);
+        OpenException.throwBy(rt == null, OidcExceptionEnum.INVALID_REFRESH_TOKEN, refreshToken);
 
         // 如果配置了[每次刷新产生新的Refresh-Token]
         OpenAuthClientModel clientModel = OpenAuthManager.getDataLoader().getClientModelNotNull(rt.clientId);
-        if(clientModel.getIsNewRefresh()) {
+        if (clientModel.getIsNewRefresh()) {
             // 删除旧 Refresh-Token
             dao.deleteRefreshToken(rt.refreshToken);
 
@@ -138,8 +142,10 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 构建Model：Access-Token (根据RequestAuthModel构建，用于隐藏式 and 密码式)
-     * @param ra 请求参数Model
+     *
+     * @param ra         请求参数Model
      * @param isCreateRt 是否生成对应的Refresh-Token
+     *
      * @return Access-Token Model
      */
     @Override
@@ -149,7 +155,7 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
         // 1、删除 旧Token
         dao.deleteAccessToken(dao.getAccessTokenValue(ra.clientId, ra.loginId));
-        if(isCreateRt) {
+        if (isCreateRt) {
             dao.deleteRefreshToken(dao.getRefreshTokenValue(ra.clientId, ra.loginId));
         }
 
@@ -166,7 +172,7 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
         at.expiresTime = System.currentTimeMillis() + (clientModel.getAccessTokenTimeout() * 1000);
 
         // 3、生成&保存 Refresh-Token
-        if(isCreateRt) {
+        if (isCreateRt) {
             RefreshTokenModel rt = OpenAuthManager.getDataConverter().convertAccessTokenToRefreshToken(at);
             at.refreshToken = rt.refreshToken;
             at.refreshExpiresTime = rt.expiresTime;
@@ -185,8 +191,10 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 构建Model：Client-Token
+     *
      * @param clientId 应用id
-     * @param scopes 授权范围
+     * @param scopes   授权范围
+     *
      * @return Client-Token Model
      */
     @Override
@@ -203,7 +211,7 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
         // 2.5、如果配置了 Lower-Client-Token 的 ttl ，则需要更新一下
         OpenAuthClientModel cm = OpenAuthManager.getDataLoader().getClientModelNotNull(clientId);
-        if(oldCt != null && cm.getLowerClientTokenTimeout() != -1) {
+        if (oldCt != null && cm.getLowerClientTokenTimeout() != -1) {
             oldCt.expiresTime = System.currentTimeMillis() + (cm.getLowerClientTokenTimeout() * 1000);
             dao.saveClientToken(oldCt);
         }
@@ -226,15 +234,17 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 构建URL：下放Code URL (Authorization Code 授权码)
+     *
      * @param redirectUri 下放地址
-     * @param code code参数
-     * @param state state参数
+     * @param code        code参数
+     * @param state       state参数
+     *
      * @return 构建完毕的URL
      */
     @Override
     public String buildRedirectUri(String redirectUri, String code, String state) {
         String url = SaFoxUtil.joinParam(redirectUri, OpenAuthConst.Param.code, code);
-        if( ! SaFoxUtil.isEmpty(state)) {
+        if (!SaFoxUtil.isEmpty(state)) {
             checkState(state);
             url = SaFoxUtil.joinParam(url, OpenAuthConst.Param.state, state);
         }
@@ -243,15 +253,17 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 构建URL：下放Access-Token URL （implicit 隐藏式）
+     *
      * @param redirectUri 下放地址
-     * @param token token
-     * @param state state参数
+     * @param token       token
+     * @param state       state参数
+     *
      * @return 构建完毕的URL
      */
     @Override
     public String buildImplicitRedirectUri(String redirectUri, String token, String state) {
         String url = SaFoxUtil.joinSharpParam(redirectUri, OpenAuthConst.Param.token, token);
-        if( ! SaFoxUtil.isEmpty(state)) {
+        if (!SaFoxUtil.isEmpty(state)) {
             checkState(state);
             url = SaFoxUtil.joinSharpParam(url, OpenAuthConst.Param.state, state);
         }
@@ -260,14 +272,13 @@ public class OpenAuthDataGenerateDefaultImpl implements OpenAuthDataGenerate {
 
     /**
      * 检查 state 是否被重复使用
+     *
      * @param state /
      */
     @Override
     public void checkState(String state) {
         String value = OpenAuthManager.getDao().getState(state);
-        if(SaFoxUtil.isNotEmpty(value)) {
-            throw new OpenAuthException("多次请求的 state 不可重复: " + state).setCode(OpenAuthErrorCode.CODE_30127);
-        }
+        OpenException.throwBy(SaFoxUtil.isNotEmpty(value), OidcExceptionEnum.INVALID_STATE, state);
         OpenAuthManager.getDao().saveState(state);
     }
 
