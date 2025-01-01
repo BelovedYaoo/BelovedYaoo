@@ -2,7 +2,10 @@ package top.belovedyaoo.openauth.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import top.belovedyaoo.opencore.result.ResultType;
+import lombok.experimental.Accessors;
+import top.belovedyaoo.opencore.result.ResultCode;
+import top.belovedyaoo.opencore.result.ResultDescription;
+import top.belovedyaoo.opencore.result.ResultMessage;
 
 /**
  * OpenAuth 服务
@@ -11,8 +14,9 @@ import top.belovedyaoo.opencore.result.ResultType;
  * @version 1.0
  */
 @Getter
+@Accessors(fluent = true)
 @AllArgsConstructor
-public enum OpenAuthResultEnum implements ResultType {
+public enum OpenAuthResultEnum implements ResultCode, ResultMessage, ResultDescription {
 
     // OpenAuth 的异常状态码均以 9 开头
     NEED_LOGIN(900, "未登录", "请先登录再进行操作"),

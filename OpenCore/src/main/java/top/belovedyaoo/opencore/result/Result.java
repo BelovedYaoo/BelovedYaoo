@@ -16,7 +16,7 @@ import java.util.Map;
  * 返回结果统一封装类
  *
  * @author BelovedYaoo
- * @version 1.5
+ * @version 1.6
  */
 @Setter
 @EqualsAndHashCode
@@ -121,9 +121,18 @@ public class Result {
     }
 
     public Result resultType(ResultType resultEnum) {
-        code(resultEnum.getCode());
-        message(resultEnum.getMessage());
-        description(resultEnum.getDescription());
+        if (resultEnum instanceof ResultCode resultCode) {
+            code(resultCode.code());
+        }
+        if (resultEnum instanceof ResultMessage resultMessage) {
+            message(resultMessage.message());
+        }
+        if (resultEnum instanceof ResultDescription resultDescription) {
+            description(resultDescription.description());
+        }
+        if (resultEnum instanceof ResultState resultState) {
+            state(resultState.state());
+        }
         return this;
     }
 

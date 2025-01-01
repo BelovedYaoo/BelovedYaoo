@@ -2,7 +2,10 @@ package top.belovedyaoo.openiam.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import top.belovedyaoo.opencore.result.ResultType;
+import lombok.experimental.Accessors;
+import top.belovedyaoo.opencore.result.ResultCode;
+import top.belovedyaoo.opencore.result.ResultDescription;
+import top.belovedyaoo.opencore.result.ResultMessage;
 
 /**
  * 认证结果枚举类
@@ -11,8 +14,9 @@ import top.belovedyaoo.opencore.result.ResultType;
  * @version 1.2
  */
 @Getter
+@Accessors(fluent = true)
 @AllArgsConstructor
-public enum AuthenticationResultEnum implements ResultType {
+public enum AuthenticationResultEnum implements ResultCode, ResultMessage, ResultDescription {
 
     // 所有认证相关的错误码均应以 7 开头
     ACCOUNT_LOGIN_ID_INVALID(701, "登录失败", "账号不存在"),

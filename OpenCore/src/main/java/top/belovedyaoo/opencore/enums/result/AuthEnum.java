@@ -1,9 +1,10 @@
 package top.belovedyaoo.opencore.enums.result;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import top.belovedyaoo.opencore.result.ResultType;
+import lombok.experimental.Accessors;
+import top.belovedyaoo.opencore.result.ResultCode;
+import top.belovedyaoo.opencore.result.ResultMessage;
 
 /**
  * 认证与授权状态码
@@ -12,9 +13,9 @@ import top.belovedyaoo.opencore.result.ResultType;
  * @version 1.0
  */
 @Getter
-@AllArgsConstructor
+@Accessors(fluent = true)
 @RequiredArgsConstructor
-public enum AuthEnum implements ResultType {
+public enum AuthEnum implements ResultCode, ResultMessage {
 
     // 认证与授权状态码
     SESSION_INVALID(700, "会话失效");
@@ -22,7 +23,5 @@ public enum AuthEnum implements ResultType {
     private final Integer code;
 
     private final String message;
-
-    private String description;
 
 }

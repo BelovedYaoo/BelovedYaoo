@@ -4,11 +4,11 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import top.belovedyaoo.openiam.service.impl.BaseUserServiceImpl;
 import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.openiam.common.toolkit.JedisOperateUtil;
 import top.belovedyaoo.openiam.entity.po.ac.User;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
-import top.belovedyaoo.openiam.common.toolkit.JedisOperateUtil;
+import top.belovedyaoo.openiam.service.impl.BaseUserServiceImpl;
 import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
 
 import static cn.hutool.core.util.ObjectUtil.isNull;
@@ -17,7 +17,7 @@ import static cn.hutool.core.util.ObjectUtil.isNull;
  * 认证服务实现类
  *
  * @author BelovedYaoo
- * @version 1.3
+ * @version 1.4
  */
 @Service
 @RequiredArgsConstructor
@@ -36,31 +36,21 @@ public class AuthenticationService {
     private final AuthenticationUtil authenticationUtil;
 
     public Result getUser(String openId, String password) {
-        User user = userService.getUserInfo(openId);
-
-        // 账号不存在
-        if (user == null) {
-            return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_LOGIN_ID_INVALID);
+        Result result = userService.getUserInfo(openId, password);
+        if (result.data() instanceof User user) {
+            // 封禁逻辑
+            StpUtil.checkDisable(user.baseId());
+            return Result.success().singleData(user);
         }
-
-        // 密码错误
-        if (!user.password().equals(password)) {
-            return Result.failed().resultType(AuthenticationResultEnum.ACCOUNT_PASSWORD_ERROR);
-        }
-
-        // 封禁逻辑
-        StpUtil.checkDisable(user.baseId());
-
-        return Result.success().description("登录成功")
-                .data("user", user);
+        return result;
     }
 
     /**
      * 账号注册方法
      *
-     * @param user 账号数据(登录ID、密码)
-     * @param usePhone    是否使用手机号注册
-     * @param verifyCode  验证码
+     * @param user       账号数据(登录ID、密码)
+     * @param usePhone   是否使用手机号注册
+     * @param verifyCode 验证码
      *
      * @return 注册结果
      */
@@ -102,8 +92,8 @@ public class AuthenticationService {
      * 首先检查登录ID是否已被使用，然后根据提供的电话号码或电子邮件地址检查唯一绑定是否已存在。
      * 如果登录ID或唯一绑定已存在，将返回相应的错误结果；如果都不存在，将返回成功结果。
      *
-     * @param user 账号数据
-     * @param usePhone    是否使用手机号码
+     * @param user     账号数据
+     * @param usePhone 是否使用手机号码
      *
      * @return 检查结果
      */
@@ -138,7 +128,7 @@ public class AuthenticationService {
         }
 
         // 查询是否已存在对应条件的数据
-        boolean uniqueBindAlreadyUse = userService.exists(uniqueBindQuery);;
+        boolean uniqueBindAlreadyUse = userService.exists(uniqueBindQuery);
 
         if (uniqueBindAlreadyUse) {
             return accountDataBindCheck;

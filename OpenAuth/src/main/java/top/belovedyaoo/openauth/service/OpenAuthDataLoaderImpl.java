@@ -32,7 +32,11 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
 
     private final SecurityConfig securityConfig;
 
-    // 根据 clientId 获取 Client 信息
+    /**
+     * 根据 clientId 获取 Client 信息
+     * @param clientId 应用id
+     * @return Client信息
+     */
     @Override
     public OpenAuthClientModel getClientModel(String clientId) {
         String str = OkHttps.sync("http://openiam.top:8090/openAuth/getClientModel")
@@ -60,7 +64,12 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                 // .setLowerClientTokenTimeout(clientModel.getLong("lowerClientTokenTimeout"));
     }
 
-    // 根据 clientId 和 loginId 获取 openid
+    /**
+     * 根据 clientId 和 loginId 获取 openid
+     * @param clientId 应用id
+     * @param loginId 账号id
+     * @return openid
+     */
     @Override
     public String getOpenid(String clientId, Object loginId) {
         // 此处使用框架默认算法生成 openid
@@ -84,7 +93,7 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
             // 转为Json
             OcMap so = OcMap.build(str);
             if (so.getInt("code") != 200) {
-                return Result.failed().message(so.getString("message")).description(so.getString("description"));
+                return Result.failed().message("登录失败").description(so.getString("message"));
             }
             String decData;
             try {
@@ -92,7 +101,7 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
             } catch (DecoderException e) {
                 throw new RuntimeException(e);
             }
-            OcMap user = OcMap.build(decData).getMap("user");
+            OcMap user = OcMap.build(decData);
             System.out.println(user.getString("openId"));
             OcMap userData = OcMap.build()
                     .set("baseId", user.getString("baseId"))
@@ -102,7 +111,8 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                     .set("nickname", user.getString("nickname"));
             // Sa-Token登录
             StpUtil.login(userData.getString("baseId"));
-            return Result.success().description("登录成功")
+            return Result.success().message("登录成功")
+                    .description("欢迎您，"+ user.getString("nickname"))
                     .data(userData)
                     .data("tokenValue", StpUtil.getTokenValue());
         };
