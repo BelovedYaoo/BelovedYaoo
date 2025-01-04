@@ -4,10 +4,18 @@
         <!-- 指定需要编织的目标包 -->
         <!-- MyBatis-FLex 字段包装器 -->
         <include within="com.mybatisflex.core.util.FieldWrapper"/>
+        <!-- MyBatis-FLex 表信息工厂 -->
+        <include within="com.mybatisflex.core.table.TableInfoFactory"/>
+        <!-- MyBatis 反射 -->
+        <include within="org.apache.ibatis.reflection.Reflector"/>
     </weaver>
     <aspects>
         <!-- 使用的切面 -->
         <!-- 字段包装器切面 -->
         <aspect name="top.belovedyaoo.weaver.FieldWrapperAspect"/>
+        <!-- 表信息工厂切面类 -->
+        <aspect name="top.belovedyaoo.weaver.TableInfoFactoryAspect"/>
+        <!-- 反射切面类 -->
+        <aspect name="top.belovedyaoo.weaver.ReflectorAspect"/>
     </aspects>
 </aspectj>

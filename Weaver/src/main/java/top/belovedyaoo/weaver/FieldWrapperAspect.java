@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 public class FieldWrapperAspect {
 
     @Around("execution(* com.mybatisflex.core.util.FieldWrapper.of(..))")
-    public Object interceptOfMethod(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object of(ProceedingJoinPoint joinPoint) throws Throwable {
         // 执行原方法
         FieldWrapper fieldWrapper = (FieldWrapper) joinPoint.proceed();
         // 介入getter和setter查找逻辑

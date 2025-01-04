@@ -1,6 +1,7 @@
 package top.belovedyaoo.opencore.base;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
@@ -15,10 +16,12 @@ import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.Ignore;
 import org.dromara.autotable.annotation.Index;
 import org.dromara.autotable.annotation.PrimaryKey;
 import org.dromara.autotable.annotation.enums.IndexTypeEnum;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
+import top.belovedyaoo.opencore.tree.Tree;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,7 +35,7 @@ import java.util.Date;
  * Accessors用于去除Getter、Setter前缀并开启链式调用,使Getter、Setter返回当前对象
  *
  * @author BelovedYaoo
- * @version 1.8
+ * @version 2.0
  */
 @Data
 @SuperBuilder
@@ -44,6 +47,14 @@ public abstract class BaseFiled implements Serializable {
     public static final String BASE_ID = "base_id";
 
     public static final String ORDER_NUM = "order_num";
+
+    public static final String CREATE_TIME = "create_time";
+
+    public static final String UPDATE_TIME = "update_time";
+
+    public static final String DISABLED_AT = "disabled_at";
+
+    public static final String DELETED_AT = "deleted_at";
 
     @Id
     @ColumnNotNull
@@ -82,6 +93,17 @@ public abstract class BaseFiled implements Serializable {
     private Date deletedAt;
 
     /**
+     * 树节点数据<br>
+     * Ignore注解用于忽略AutoTable的表结构自动维护<br>
+     * Column注解用于忽略MyBatis-Flex的列定义<br>
+     * Getter用于忽略Jackson的序列化与反序列化
+     */
+    @Ignore
+    @Column(ignore = true)
+    @Getter(onMethod_ = @JsonIgnore)
+    private final Tree.TreeNode treeNode = new Tree.TreeNode();
+
+    /**
      * 派生类方法在调用基类Setter时会传递基类类型对象<p>
      * 此方法用于将基类类型对象转换为指定的派生类类型对象<p>
      * 请通过上下文确保类型一致
@@ -116,10 +138,12 @@ public abstract class BaseFiled implements Serializable {
     }
 
     /**
-     * 判断是否禁用
+     * 判断是否禁用<br>
+     * 由于命名刚好是标准Bean规范，需要加上Jackson的注解忽略序列化与反序列化
      *
      * @return 数据的禁用状态
      */
+    @JsonIgnore
     public boolean isDisabled() {
         return this.disabledAt != null;
     }
