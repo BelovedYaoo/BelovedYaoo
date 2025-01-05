@@ -15,7 +15,7 @@ import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
  * 树形数据接口
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 public interface Tree {
 
@@ -157,12 +157,15 @@ public interface Tree {
          * @return 是否为树形结构
          */
         public static boolean isTree(Class<?> clazz) {
+            // 检查当前类的接口
             for (Class<?> i : clazz.getInterfaces()) {
-                if (i.equals(Tree.class)) {
+                if (i == Tree.class) {
                     return true;
                 }
             }
-            return false;
+            // 检查当前类的父类
+            Class<?> superclass = clazz.getSuperclass();
+            return superclass != null && isTree(superclass);
         }
 
     }
