@@ -26,7 +26,7 @@ import java.util.Set;
  * LinkedHashMap 增强
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @NoArgsConstructor
 public class OcMap extends LinkedHashMap<String, Object> implements Serializable {
@@ -481,19 +481,22 @@ public class OcMap extends LinkedHashMap<String, Object> implements Serializable
         // 获取类型
         Class<?> cs = obj.getClass();
         // 循环复制
-        for (Field field : cs.getDeclaredFields()) {
-            try {
-                // 获取对象
-                Object value = this.get(field.getName());
-                if (value == null) {
-                    continue;
+        while (cs != null && !cs.equals(Object.class)) {
+            for (Field field : cs.getDeclaredFields()) {
+                try {
+                    // 获取对象
+                    Object value = this.get(field.getName());
+                    if (value == null) {
+                        continue;
+                    }
+                    field.setAccessible(true);
+                    Object valueConvert = getValueByClass(value, field.getType());
+                    field.set(obj, valueConvert);
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    throw new RuntimeException("属性取值出错：" + field.getName(), e);
                 }
-                field.setAccessible(true);
-                Object valueConvert = getValueByClass(value, field.getType());
-                field.set(obj, valueConvert);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new RuntimeException("属性取值出错：" + field.getName(), e);
             }
+            cs = cs.getSuperclass(); // 移动到父类
         }
         return obj;
     }
@@ -553,6 +556,8 @@ public class OcMap extends LinkedHashMap<String, Object> implements Serializable
             }
         } else if (cs.equals(boolean.class) || cs.equals(Boolean.class)) {
             obj3 = Boolean.valueOf(obj2);
+        } else if (cs.equals(Date.class)) {
+            obj3 = new Date(Long.parseLong(obj2));
         } else {
             throw new IllegalArgumentException("无法将 " + obj2 + " 转换为 " + cs.getName());
         }
