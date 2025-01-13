@@ -1,9 +1,9 @@
 package top.belovedyaoo.openiam.entity.po.ac;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mybatisflex.annotation.RelationManyToMany;
 import com.mybatisflex.annotation.Table;
-import org.dromara.autotable.annotation.Ignore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.autotable.annotation.Ignore;
 import top.belovedyaoo.openac.model.BaseUser;
 
 import java.io.Serializable;
@@ -38,6 +39,7 @@ public class User extends BaseUser implements Serializable {
             joinSelfColumn = "user_id",
             joinTargetColumn = "role_id"
     )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Role> roles;
 
 }

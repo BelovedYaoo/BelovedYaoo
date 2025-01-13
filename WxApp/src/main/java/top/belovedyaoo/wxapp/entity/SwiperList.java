@@ -15,6 +15,8 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import top.belovedyaoo.opencore.base.BaseFiled;
 
+import java.io.Serializable;
+
 /**
  * 轮播列表
  *
@@ -29,7 +31,7 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "swiper_list", dataSource = "primary")
-public class SwiperList extends BaseFiled {
+public class SwiperList extends BaseFiled implements Serializable {
 
     @ColumnNotNull
     @ColumnComment("轮播资源类型")

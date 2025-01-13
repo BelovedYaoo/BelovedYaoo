@@ -1,6 +1,7 @@
 package top.belovedyaoo.openiam.entity.po.ac;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mybatisflex.annotation.RelationManyToMany;
 import com.mybatisflex.annotation.Table;
 import org.dromara.autotable.annotation.Ignore;
@@ -38,6 +39,7 @@ public class Role extends BaseRole implements Serializable {
             joinSelfColumn = "role_id",
             joinTargetColumn = "permission_id"
     )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Permission> permissions;
 
 }
