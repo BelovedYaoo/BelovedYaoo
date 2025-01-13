@@ -144,11 +144,11 @@ public interface Tree {
         private String treePath;
 
         @ColumnComment("当前节点是否为顶级节点")
-        @ColumnType(value = MysqlTypeConstant.TINYINT, length = 1)
+        @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
         private boolean isRoot;
 
         @ColumnComment("当前节点是否为叶子节点")
-        @ColumnType(value = MysqlTypeConstant.TINYINT, length = 1)
+        @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
         private boolean isLeaf;
 
         /**

@@ -36,7 +36,7 @@ public abstract class BaseTenantFiled extends BaseFiled implements Serializable 
 
     @ColumnNotNull
     @Column(tenantId = true)
-    @ColumnComment("多租户ID,其值通常为其他用户数据的BaseID")
+    @ColumnComment("多租户ID,其值通常为其他用户或域的BaseID")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     private String tenantId;

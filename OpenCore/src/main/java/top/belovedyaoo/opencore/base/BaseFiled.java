@@ -96,7 +96,7 @@ public abstract class BaseFiled implements Serializable {
      * 树节点数据<br>
      * Ignore注解用于忽略AutoTable的表结构自动维护<br>
      * Column注解用于忽略MyBatis-Flex的列定义<br>
-     * Getter用于忽略Jackson的序列化与反序列化
+     * Getter注解用于忽略Jackson的序列化与反序列化
      */
     @Ignore
     @Column(ignore = true)

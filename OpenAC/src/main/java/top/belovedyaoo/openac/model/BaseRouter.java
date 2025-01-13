@@ -63,7 +63,7 @@ public class BaseRouter extends BaseFiled implements Serializable {
 
     @ColumnNotNull
     @ColumnComment("是否隐藏")
-    @ColumnType(value = MysqlTypeConstant.TINYINT, length = 1)
+    @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
     private Boolean isHidden;
 
 }

@@ -91,7 +91,7 @@ public class AuthorizedApplication extends BaseFiled implements Serializable {
      * 是否同时刷新 Refresh-Token
      */
     @ColumnComment("单独配置此应用：是否在每次 Refresh-Token 刷新 Access-Token 时，产生一个新的 Refresh-Token [默认取全局配置]")
-    @ColumnType(value = MysqlTypeConstant.TINYINT, length = 1)
+    @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
     private Boolean isNewRefresh;
 
     /**
