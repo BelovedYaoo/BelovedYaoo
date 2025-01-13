@@ -1,5 +1,8 @@
 dependencies {
     implementation project(":OpenCore")
+    implementation project(":OpenAC")
+    // 保留核心包，用于兼容树形数据支持
+    implementation 'org.dromara.autotable:auto-table-core:2.0.1.1'
     // 保留自动注入处理器
     implementation 'com.tangzc:mybatis-flex-ext-annotation:1.10.1.054'
 }
@@ -8,15 +11,17 @@ configurations.configureEach { it ->
     resolutionStrategy.each { strategy ->
         // 排除ORM层相关依赖
         exclude group: 'com.mybatis-flex'
-        exclude group: 'com.tangzc', module: 'auto-table-annotation'
-        exclude group: 'com.tangzc', module: 'auto-table-core'
-        exclude group: 'com.tangzc', module: 'auto-table-spring-boot-starter'
+        // 保留核心包，用于兼容树形数据支持
+         exclude group: 'org.dromara.autotable', module: 'auto-table'
+         exclude group: 'org.dromara.autotable', module: 'auto-table-annotation'
+        // exclude group: 'org.dromara.autotable', module: 'auto-table-core'
+        exclude group: 'org.dromara.autotable', module: 'auto-table-spring-boot-starter'
         // 保留自动注入处理器
         // exclude group: 'com.tangzc', module: 'mybatis-flex-ext-annotation'
         exclude group: 'com.tangzc', module: 'mybatis-flex-ext-autotable-annotation'
         exclude group: 'com.tangzc', module: 'mybatis-flex-ext-autotable-core'
         exclude group: 'com.tangzc', module: 'mybatis-flex-ext-core'
-        exclude group: 'com.tangzc', module: 'mybatis-flex-ext-spring-boot-starter'
+        exclude group: 'com.tangzc', module: 'mybatis-flex-ext-spring-boot3-starter'
         exclude group: 'com.mysql'
         // 排除 AOP
         exclude group: 'org.aspectj', module: 'aspectjweaver'
