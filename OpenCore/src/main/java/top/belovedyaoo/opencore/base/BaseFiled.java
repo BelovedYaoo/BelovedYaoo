@@ -7,6 +7,7 @@ import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
 import com.tangzc.mybatisflex.annotation.InsertFillTime;
+import com.tangzc.mybatisflex.annotation.InsertUpdateFillData;
 import com.tangzc.mybatisflex.annotation.InsertUpdateFillTime;
 import lombok.Data;
 import lombok.Getter;
@@ -35,7 +36,7 @@ import java.util.Date;
  * Accessors用于去除Getter、Setter前缀并开启链式调用,使Getter、Setter返回当前对象
  *
  * @author BelovedYaoo
- * @version 2.0
+ * @version 2.1
  */
 @Data
 @SuperBuilder
@@ -80,6 +81,16 @@ public abstract class BaseFiled implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @InsertUpdateFillTime
     private Date updateTime;
+
+    @ColumnComment("数据创建者的BaseID")
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    @InsertFillData(CreatorIdAutoFillProcessor.class)
+    private String creatorId;
+
+    @ColumnComment("数据上一次更新者BaseID")
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    @InsertUpdateFillData(CreatorIdAutoFillProcessor.class)
+    private String updaterId;
 
     @ColumnComment("不为NULL的情况表示数据的禁用时间")
     @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
