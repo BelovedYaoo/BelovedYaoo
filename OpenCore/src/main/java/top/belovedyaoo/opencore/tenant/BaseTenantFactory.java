@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.base;
+package top.belovedyaoo.opencore.tenant;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.mybatisflex.core.tenant.TenantFactory;

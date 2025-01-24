@@ -22,6 +22,9 @@ import org.dromara.autotable.annotation.Index;
 import org.dromara.autotable.annotation.PrimaryKey;
 import org.dromara.autotable.annotation.enums.IndexTypeEnum;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
+import top.belovedyaoo.opencore.processor.BaseIdAutoFillProcessor;
+import top.belovedyaoo.opencore.processor.CreatorIdAutoFillProcessor;
+import top.belovedyaoo.opencore.processor.UpdaterIdAutoFillProcessor;
 import top.belovedyaoo.opencore.tree.Tree;
 
 import java.io.Serializable;
@@ -89,7 +92,7 @@ public abstract class BaseFiled implements Serializable {
 
     @ColumnComment("数据上一次更新者BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    @InsertUpdateFillData(CreatorIdAutoFillProcessor.class)
+    @InsertUpdateFillData(UpdaterIdAutoFillProcessor.class)
     private String updaterId;
 
     @ColumnComment("不为NULL的情况表示数据的禁用时间")

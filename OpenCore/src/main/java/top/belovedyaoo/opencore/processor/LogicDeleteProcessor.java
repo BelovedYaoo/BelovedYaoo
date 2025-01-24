@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.base;
+package top.belovedyaoo.opencore.processor;
 
 import com.mybatisflex.core.logicdelete.NullableColumnLogicDeleteProcessor;
 

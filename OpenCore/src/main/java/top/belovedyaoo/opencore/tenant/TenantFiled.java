@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.base;
+package top.belovedyaoo.opencore.tenant;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,6 +14,7 @@ import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
+import top.belovedyaoo.opencore.base.BaseFiled;
 
 import java.io.Serializable;
 
@@ -30,7 +31,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-public abstract class BaseTenantFiled extends BaseFiled implements Serializable {
+public class TenantFiled extends BaseFiled implements Serializable {
 
     public final static String TENANT_ID = "tenant_id";
 

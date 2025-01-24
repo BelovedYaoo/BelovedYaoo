@@ -1,23 +1,23 @@
-package top.belovedyaoo.opencore.base;
+package top.belovedyaoo.opencore.processor;
 
-import cn.hutool.core.util.IdUtil;
+import cn.dev33.satoken.stp.StpUtil;
 import com.tangzc.mybatisflex.annotation.handler.AutoFillHandler;
 import org.springframework.stereotype.Component;
+import top.belovedyaoo.opencore.base.BaseFiled;
 
 import java.lang.reflect.Field;
 
 /**
- * 插入数据时自动生成主键ID
+ * 插入与修改数据时自动修改更新者ID
  *
  * @author BelovedYaoo
  * @version 1.0
  */
 @Component
-public class BaseIdAutoFillProcessor implements AutoFillHandler<String> {
+public class UpdaterIdAutoFillProcessor implements AutoFillHandler<String> {
 
     /**
-     * 自动填充BaseID<p>
-     * 当BaseID不为空时,直接返回已存在的BaseID,否则自动生成一个UUID
+     * 自动填充UpdaterID<p>
      *
      * @param object 需要填充的对象
      * @param clazz  对象的类型
@@ -27,8 +27,9 @@ public class BaseIdAutoFillProcessor implements AutoFillHandler<String> {
      */
     @Override
     public String getVal(Object object, Class clazz, Field field) {
-        String baseId = BaseFiled.convertToBaseFiled(object).baseId();
-        return baseId != null ? baseId : IdUtil.simpleUUID();
+        String lastUpdaterId = BaseFiled.convertToBaseFiled(object).baseId();
+        String updaterId = StpUtil.getLoginId("");
+        return updaterId.isEmpty() ? lastUpdaterId : updaterId;
     }
 
 }

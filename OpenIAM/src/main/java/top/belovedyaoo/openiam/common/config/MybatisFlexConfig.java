@@ -5,7 +5,7 @@ import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
-import top.belovedyaoo.opencore.base.LogicDeleteProcessor;
+import top.belovedyaoo.opencore.processor.LogicDeleteProcessor;
 import top.belovedyaoo.opencore.common.SqlCollector;
 import top.belovedyaoo.opencore.eo.EntityInsertListener;
 import top.belovedyaoo.opencore.eo.EntityUpdateListener;
