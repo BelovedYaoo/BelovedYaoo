@@ -1,20 +1,27 @@
 package top.belovedyaoo.logs.model.po;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
-import org.dromara.autotable.annotation.ColumnComment;
-import org.dromara.autotable.annotation.ColumnType;
-import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
+import com.tangzc.mybatisflex.annotation.InsertFillTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import top.belovedyaoo.opencore.base.BaseFiled;
+import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnNotNull;
+import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.Index;
+import org.dromara.autotable.annotation.PrimaryKey;
+import org.dromara.autotable.annotation.enums.IndexTypeEnum;
+import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.logs.processor.OperatorIdAutoFillProcessor;
+import top.belovedyaoo.opencore.processor.BaseIdAutoFillProcessor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,10 +37,18 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter(onMethod_ = @JsonGetter)
-@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "log_interface", dataSource = "primary")
-public class InterfaceLogPO extends BaseFiled implements Serializable {
+public class InterfaceLogPO implements Serializable {
+
+    @Id
+    @ColumnNotNull
+    @PrimaryKey(autoIncrement = false)
+    @ColumnComment("基础ID,仅系统内部使用")
+    @Index(type = IndexTypeEnum.UNIQUE)
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    @InsertFillData(BaseIdAutoFillProcessor.class)
+    private String baseId;
 
     @ColumnComment("每条日志记录的操作者ID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
@@ -83,5 +98,17 @@ public class InterfaceLogPO extends BaseFiled implements Serializable {
     @ColumnComment("异常情况")
     @ColumnType(value = MysqlTypeConstant.TEXT)
     private String exceptionMessage;
+
+    @ColumnComment("数据的创建时间")
+    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @InsertFillTime
+    private Date createTime;
+
+    @Column(isLogicDelete = true)
+    @ColumnComment("不为NULL的情况表示数据的删除时间")
+    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Date deletedAt;
 
 }

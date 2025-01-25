@@ -38,12 +38,11 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-
 /**
  * 实体操作基类
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 public class EntityOperate {
 
@@ -80,6 +79,7 @@ public class EntityOperate {
      * 获取给定类实例中的字段列表
      *
      * @param clazz 类实例
+     *
      * @return 字段列表
      */
     public static List<Field> getFieldList(Class<?> clazz) {
@@ -100,8 +100,10 @@ public class EntityOperate {
 
     /**
      * 通过类和字段获取属性描述符
+     *
      * @param clazz 类实例
      * @param field 字段实例
+     *
      * @return 属性描述符
      */
     public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, Field field) {
@@ -116,8 +118,8 @@ public class EntityOperate {
         }
 
         try {
-            Method getter = getGetterOrSetterByField(clazz,field,true);
-            Method setter = getGetterOrSetterByField(clazz,field,false);
+            Method getter = getGetterOrSetterByField(clazz, field, true);
+            Method setter = getGetterOrSetterByField(clazz, field, false);
             return new PropertyDescriptor(field.getName(), getter, setter);
         } catch (IntrospectionException e) {
             throw new RuntimeException("获取" + clazz.getName() + "的Bean属性信息异常");
@@ -132,7 +134,7 @@ public class EntityOperate {
      * @param field      要搜索的字段
      * @param findGetter 是否查找getter方法
      *
-     * @return 返回找到的方法对象,如果没有找到则返回null
+     * @return 返回找到的方法对象, 如果没有找到则返回null
      */
     public static Method getGetterOrSetterByField(Class<?> clazz, Field field, boolean findGetter) {
         try {
@@ -155,65 +157,68 @@ public class EntityOperate {
             // 默认值
             setDefaultVale(fill, object, clazz, field);
             // 操作时间
-            setOptionDate(object, clazz, field, now);
+            setOptionDate(fill, object, clazz, field, now);
             // 操作数据
-            setOptionData(object, clazz, field);
+            setOptionData(fill, object, clazz, field);
         });
     }
 
     private void setDefaultVale(FieldFill fill, Object object, Class<?> clazz, Field field) {
         DefaultValue defaultValue = AnnotatedElementUtils.getMergedAnnotation(field, DefaultValue.class);
-        if (defaultValue != null && (defaultValue.fill() == FieldFill.INSERT_UPDATE || defaultValue.fill() == fill)) {
-            PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
-            Method readMethod = propertyDescriptor.getReadMethod();
-            boolean canSet = ReflectionUtils.invokeMethod(readMethod, object) == null;
-            if (canSet) {
-                Object newVal = convert(field, defaultValue);
-                Method writeMethod = propertyDescriptor.getWriteMethod();
-                writeMethod.setAccessible(true);
-                ReflectionUtils.invokeMethod(writeMethod, object, newVal);
-            }
+        if (defaultValue == null || (defaultValue.fill() != fill && defaultValue.fill() != FieldFill.INSERT_UPDATE)) {
+            return;
+        }
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
+        Method readMethod = propertyDescriptor.getReadMethod();
+        boolean canSet = ReflectionUtils.invokeMethod(readMethod, object) == null;
+        if (canSet) {
+            Object newVal = convert(field, defaultValue);
+            Method writeMethod = propertyDescriptor.getWriteMethod();
+            writeMethod.setAccessible(true);
+            ReflectionUtils.invokeMethod(writeMethod, object, newVal);
         }
     }
 
-    private void setOptionDate(Object object, Class<?> clazz, Field field, Now now) {
+    private void setOptionDate(FieldFill fill, Object object, Class<?> clazz, Field field, Now now) {
         FillTime fillTime = AnnotatedElementUtils.getMergedAnnotation(field, FillTime.class);
-        if (fillTime != null) {
-            PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
-            boolean canSet = fillTime.override() || ReflectionUtils.invokeMethod(propertyDescriptor.getReadMethod(), object) == null;
-            if (canSet) {
-                Class<?> type = getDateType(clazz, field);
-                Object nowDate = Optional.ofNullable(now.now(type, fillTime.format()))
-                        .orElseThrow(() -> new RuntimeException("类：" + clazz + "的字段：" + field.getName()
-                                + "的类型不支持。仅支持String、Long、long、Date、LocalDate、LocalDateTime"));
-                // 赋值
-                ReflectionUtils.invokeMethod(propertyDescriptor.getWriteMethod(), object, nowDate);
-            }
+        if (fillTime == null || (fillTime.fill() != fill && fillTime.fill() != FieldFill.INSERT_UPDATE)) {
+            return;
+        }
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
+        boolean canSet = fillTime.override() || ReflectionUtils.invokeMethod(propertyDescriptor.getReadMethod(), object) == null;
+        if (canSet) {
+            Class<?> type = getDateType(clazz, field);
+            Object nowDate = Optional.ofNullable(now.now(type, fillTime.format()))
+                    .orElseThrow(() -> new RuntimeException("类：" + clazz + "的字段：" + field.getName()
+                            + "的类型不支持。仅支持String、Long、long、Date、LocalDate、LocalDateTime"));
+            // 赋值
+            ReflectionUtils.invokeMethod(propertyDescriptor.getWriteMethod(), object, nowDate);
         }
     }
 
-    private void setOptionData(Object object, Class<?> clazz, Field field) {
+    private void setOptionData(FieldFill fill, Object object, Class<?> clazz, Field field) {
         FillData fillData = AnnotatedElementUtils.getMergedAnnotation(field, FillData.class);
-        if (fillData != null) {
-            PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
-            // 判断原来值为null,或者覆盖选项为true
-            boolean canSet = fillData.override() || ReflectionUtils.invokeMethod(propertyDescriptor.getReadMethod(), object) == null;
-            if (canSet) {
-                Object userInfo = null;
-                AutoFillHandler<?> instance = getAutoFillHandler(fillData.value());
-                if (instance != null) {
-                    userInfo = instance.getVal(object, clazz, field);
+        if (fillData == null || (fillData.fill() != fill && fillData.fill() != FieldFill.INSERT_UPDATE)) {
+            return;
+        }
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
+        // 判断原来值为null,或者覆盖选项为true
+        boolean canSet = fillData.override() || ReflectionUtils.invokeMethod(propertyDescriptor.getReadMethod(), object) == null;
+        if (canSet) {
+            Object userInfo = null;
+            AutoFillHandler<?> instance = getAutoFillHandler(fillData.value());
+            if (instance != null) {
+                userInfo = instance.getVal(object, clazz, field);
+            }
+            // 如果当前未取到信息,不设置
+            if (userInfo != null) {
+                // 先校验类型是否一致
+                if (!this.checkTypeConsistency(userInfo.getClass(), field.getType())) {
+                    String errorMsg = clazz.getName() + "中的字段" + field.getName() + "的类型（" + field.getType() + "）与" + instance.getClass() + "返回值的类型（" + userInfo.getClass() + "）不一致";
+                    throw new RuntimeException(errorMsg);
                 }
-                // 如果当前未取到信息,不设置
-                if (userInfo != null) {
-                    // 先校验类型是否一致
-                    if (!this.checkTypeConsistency(userInfo.getClass(), field.getType())) {
-                        String errorMsg = clazz.getName() + "中的字段" + field.getName() + "的类型（" + field.getType() + "）与" + instance.getClass() + "返回值的类型（" + userInfo.getClass() + "）不一致";
-                        throw new RuntimeException(errorMsg);
-                    }
-                    // 赋值
-                    ReflectionUtils.invokeMethod(propertyDescriptor.getWriteMethod(), object, userInfo);
-                }
+                // 赋值
+                ReflectionUtils.invokeMethod(propertyDescriptor.getWriteMethod(), object, userInfo);
             }
         }
     }

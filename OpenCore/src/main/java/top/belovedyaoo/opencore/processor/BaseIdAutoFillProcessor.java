@@ -3,7 +3,6 @@ package top.belovedyaoo.opencore.processor;
 import cn.hutool.core.util.IdUtil;
 import com.tangzc.mybatisflex.annotation.handler.AutoFillHandler;
 import org.springframework.stereotype.Component;
-import top.belovedyaoo.opencore.base.BaseFiled;
 
 import java.lang.reflect.Field;
 
@@ -11,7 +10,7 @@ import java.lang.reflect.Field;
  * 插入数据时自动生成主键ID
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @Component
 public class BaseIdAutoFillProcessor implements AutoFillHandler<String> {
@@ -28,8 +27,7 @@ public class BaseIdAutoFillProcessor implements AutoFillHandler<String> {
      */
     @Override
     public String getVal(Object object, Class clazz, Field field) {
-        String baseId = BaseFiled.convertToBaseFiled(object).baseId();
-        return baseId != null ? baseId : IdUtil.simpleUUID();
+        return IdUtil.simpleUUID();
     }
 
 }
