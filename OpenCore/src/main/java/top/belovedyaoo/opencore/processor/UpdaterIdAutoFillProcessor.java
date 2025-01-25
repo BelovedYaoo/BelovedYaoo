@@ -27,7 +27,7 @@ public class UpdaterIdAutoFillProcessor implements AutoFillHandler<String> {
      */
     @Override
     public String getVal(Object object, Class clazz, Field field) {
-        String lastUpdaterId = BaseFiled.convertToBaseFiled(object).baseId();
+        String lastUpdaterId = BaseFiled.convertToBaseFiled(object).updaterId();
         String updaterId = StpUtil.getLoginId("");
         return updaterId.isEmpty() ? lastUpdaterId : updaterId;
     }
