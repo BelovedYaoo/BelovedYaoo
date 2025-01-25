@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
 import top.belovedyaoo.openac.model.BaseRole;
-import top.belovedyaoo.opencore.base.BaseController;
+import top.belovedyaoo.opencore.base.DefaultController;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import static top.belovedyaoo.openac.model.table.BaseRoleTableDef.BASE_ROLE;
 @RestController
 @RequestMapping("/role")
 @InterfaceLog(identifierCode = "role", interfaceName = "角色管理", print = true)
-public class BaseRoleController extends BaseController<BaseRole> {
+public class BaseRoleController extends DefaultController<BaseRole> {
 
     @Override
     public Result queryAll() {

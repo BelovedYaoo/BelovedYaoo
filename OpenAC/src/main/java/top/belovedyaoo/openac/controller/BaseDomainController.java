@@ -1,7 +1,7 @@
 package top.belovedyaoo.openac.controller;
 
 import top.belovedyaoo.openac.model.BaseDomain;
-import top.belovedyaoo.opencore.base.BaseController;
+import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
  * 域控制器基类
@@ -9,5 +9,5 @@ import top.belovedyaoo.opencore.base.BaseController;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BaseDomainController extends BaseController<BaseDomain> {
+public class BaseDomainController extends DefaultController<BaseDomain> {
 }

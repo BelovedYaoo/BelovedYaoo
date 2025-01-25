@@ -1,23 +1,28 @@
-package top.belovedyaoo.acs.controller;
+package top.belovedyaoo.opencore.base;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
-import top.belovedyaoo.opencore.base.DefaultController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import top.belovedyaoo.opencore.result.Result;
 
 /**
- * 企业配置表控制器
+ * 基础控制器更新接口
+ *
+ * @param <T> 实体类
  *
  * @author BelovedYaoo
  * @version 1.0
  */
-@RestController
-@RequestMapping("/enterpriseConfig")
-public class EnterpriseConfigController extends DefaultController<EnterpriseConfig> {
+public interface BaseUpdate<T extends BaseFiled> extends BaseControllerMethod<T> {
 
-    @Override
-    public Result update(EnterpriseConfig entity) {
+    /**
+     * 更新数据
+     *
+     * @param entity 要更新的数据
+     *
+     * @return 操作结果
+     */
+    @PostMapping("/update")
+    default Result update(@RequestBody T entity) {
         String baseId = entity.baseId();
         boolean updateResult = baseMapper().update(entity) > 0;
         if (!updateResult) {

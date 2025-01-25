@@ -2,7 +2,7 @@ package top.belovedyaoo.wxapp.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.opencore.base.BaseController;
+import top.belovedyaoo.opencore.base.DefaultController;
 import top.belovedyaoo.wxapp.entity.SwiperList;
 
 /**
@@ -13,6 +13,6 @@ import top.belovedyaoo.wxapp.entity.SwiperList;
  */
 @RestController
 @RequestMapping("/swiperList")
-public class SwiperListController extends BaseController<SwiperList> {
+public class SwiperListController extends DefaultController<SwiperList> {
 
 }

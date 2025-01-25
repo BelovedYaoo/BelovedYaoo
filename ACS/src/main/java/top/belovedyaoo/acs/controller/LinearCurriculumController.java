@@ -3,7 +3,7 @@ package top.belovedyaoo.acs.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.acs.entity.po.LinearCurriculum;
-import top.belovedyaoo.opencore.base.BaseController;
+import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
  * 线性课程表控制器
@@ -13,6 +13,6 @@ import top.belovedyaoo.opencore.base.BaseController;
  */
 @RestController
 @RequestMapping("/linearCurriculum")
-public class LinearCurriculumController extends BaseController<LinearCurriculum> {
+public class LinearCurriculumController extends DefaultController<LinearCurriculum> {
 
 }
