@@ -13,7 +13,7 @@ import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
-import top.belovedyaoo.opencore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.tenant.TenantFiled;
 
 import java.io.Serializable;
 
@@ -31,7 +31,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "linear_curriculum", dataSource = "primary")
-public class LinearCurriculum extends BaseTenantFiled implements Serializable {
+public class LinearCurriculum extends TenantFiled implements Serializable {
 
     @ColumnNotNull
     @ColumnComment("课程名称")

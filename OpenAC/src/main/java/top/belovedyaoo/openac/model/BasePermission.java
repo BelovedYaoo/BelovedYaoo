@@ -1,8 +1,12 @@
 package top.belovedyaoo.openac.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mybatisflex.annotation.RelationManyToMany;
+import com.mybatisflex.annotation.Table;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.Ignore;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 import top.belovedyaoo.opencore.base.BaseFiled;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 权限实体基类
@@ -28,6 +33,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
+@Table(value = "permission", dataSource = "primary")
 public class BasePermission extends BaseFiled implements Serializable {
 
     @ColumnComment("权限名称")
@@ -41,5 +47,23 @@ public class BasePermission extends BaseFiled implements Serializable {
     @ColumnComment("权限描述")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 50)
     private String permissionDesc;
+
+    @Ignore
+    @RelationManyToMany(
+            joinTable = "mapping_permission_router",
+            joinSelfColumn = "permission_id",
+            joinTargetColumn = "router_id"
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<BaseRouter> routers;
+
+    @Ignore
+    @RelationManyToMany(
+            joinTable = "mapping_permission_operation",
+            joinSelfColumn = "permission_id",
+            joinTargetColumn = "operation_id"
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<BaseOperation> operations;
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.opencore.common.OcMap;
 import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
 import top.belovedyaoo.acs.generateMapper.EnterpriseConfigMapper;
-import top.belovedyaoo.opencore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.tenant.TenantFiled;
 
 /**
  * OpenAuth 客户端控制器
@@ -71,7 +71,7 @@ public class OpenAuthClientController {
     }
 
 	private void configInit(String tenantId) {
-		EnterpriseConfig enterpriseConfig = enterpriseConfigMapper.selectOneByQuery(new QueryWrapper().where(BaseTenantFiled.TENANT_ID + "= '" + tenantId+"'"));
+		EnterpriseConfig enterpriseConfig = enterpriseConfigMapper.selectOneByQuery(new QueryWrapper().where(TenantFiled.TENANT_ID + "= '" + tenantId+"'"));
 		if (enterpriseConfig == null) {
 			enterpriseConfig = new EnterpriseConfig();
 			enterpriseConfigMapper.insert(enterpriseConfig);

@@ -1,10 +1,14 @@
 package top.belovedyaoo.openac.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mybatisflex.annotation.RelationManyToMany;
+import com.mybatisflex.annotation.Table;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.Ignore;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +22,7 @@ import top.belovedyaoo.opencore.sensitization.Sensitization;
 import top.belovedyaoo.opencore.sensitization.SensitizationType;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 用户实体基类
@@ -32,6 +37,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
+@Table(value = "user", dataSource = "primary")
 public class BaseUser extends BaseFiled implements Serializable {
 
     public static final String OPEN_ID = "open_id";
@@ -80,6 +86,15 @@ public class BaseUser extends BaseFiled implements Serializable {
     @ColumnComment("用户的头像地址")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 50)
     private String avatarAddress;
+
+    @Ignore
+    @RelationManyToMany(
+            joinTable = "mapping_user_role",
+            joinSelfColumn = "user_id",
+            joinTargetColumn = "role_id"
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<BaseRole> roles;
 
 }
 

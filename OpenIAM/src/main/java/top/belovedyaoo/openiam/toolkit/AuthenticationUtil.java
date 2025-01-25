@@ -4,8 +4,8 @@ import cn.hutool.core.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.openiam.common.toolkit.JedisOperateUtil;
-import top.belovedyaoo.openiam.common.toolkit.LogUtil;
+import top.belovedyaoo.opencore.toolkit.JedisOperateUtil;
+import top.belovedyaoo.logs.toolkit.LogUtil;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 
 import jakarta.validation.constraints.NotBlank;

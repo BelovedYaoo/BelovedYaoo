@@ -1,7 +1,5 @@
 package top.belovedyaoo.openiam.controller;
 
-import cn.dev33.satoken.context.SaHolder;
-import cn.dev33.satoken.context.model.SaRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
+import top.belovedyaoo.openac.generateMapper.BaseUserMapper;
+import top.belovedyaoo.openac.model.BaseUser;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.openiam.entity.po.ac.User;
-import top.belovedyaoo.openiam.generateMapper.UserMapper;
 import top.belovedyaoo.openiam.service.AuthenticationService;
 import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
 
@@ -35,7 +33,7 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    private final UserMapper userMapper;
+    private final BaseUserMapper userMapper;
 
     @PostMapping("/test")
     public boolean test(String str) {
@@ -44,28 +42,28 @@ public class AuthenticationController {
 
     @PostMapping("/test2")
     @InterfaceLog(identifierCode = "abc", interfaceDesc = "测试接口日志注解", interfaceName = "test2")
-    public User test2() {
-        User account = User.builder()
+    public BaseUser test2() {
+        BaseUser account = BaseUser.builder()
                 .baseId("111")
                 .openId("222")
-                .build();
-        System.out.println(account);
-        userMapper.insert(User.builder()
-                .openId("123")
                 .password("YTY2NWE0NTkyMDQyMmY5ZDQxN2U0ODY3ZWZkYzRmYjhhMDRhMWYzZmZmMWZhMDdlOTk4ZTg2ZjdmN2EyN2FlMw==")
-                .email("belovedyaoo@qq.com")
-                .build());
+                .build();
+        // System.out.println(account);
+        userMapper.insert(account);
+        // userMapper.insert(User.builder()
+        //         .openId("123")
+        //         .password("YTY2NWE0NTkyMDQyMmY5ZDQxN2U0ODY3ZWZkYzRmYjhhMDRhMWYzZmZmMWZhMDdlOTk4ZTg2ZjdmN2EyN2FlMw==")
+        //         .email("belovedyaoo@qq.com")
+        //         .build());
         return account;
     }
 
     @PostMapping("/test3")
     @InterfaceLog(identifierCode = "abc333", interfaceDesc = "测试接口日志注解3", interfaceName = "test3")
-    public Result test3(@RequestBody User user) {
-        SaRequest req = SaHolder.getRequest();
-        req.getParamMap().forEach((k, v) -> System.out.println(k + ":" + v));
-        System.out.println(user);
-        user.baseId("111");
-        return Result.success().data("account", user);
+    public Result test3(@RequestBody BaseUser user) {
+        // System.out.println(user);
+        userMapper.insert(user);
+        return Result.success().singleData(user);
     }
 
     /**
@@ -76,7 +74,7 @@ public class AuthenticationController {
      * @return 注册结果
      */
     @PostMapping("/register")
-    public Result register(@RequestBody User user, @RequestParam(value = "usePhone") boolean usePhone, @RequestParam(value = "verifyCode") String verifyCode) {
+    public Result register(@RequestBody BaseUser user, @RequestParam(value = "usePhone") boolean usePhone, @RequestParam(value = "verifyCode") String verifyCode) {
         return authenticationService.register(user, usePhone, verifyCode);
     }
 
@@ -88,7 +86,7 @@ public class AuthenticationController {
      * @return 生成结果
      */
     @PostMapping("/getVerifyCode")
-    public Result getVerifyCode(@RequestBody User user, @RequestParam(value = "usePhone") boolean usePhone) {
+    public Result getVerifyCode(@RequestBody BaseUser user, @RequestParam(value = "usePhone") boolean usePhone) {
         return authenticationUtil.codeVerify(VERIFY_CODE_PREFIX, usePhone ? user.phone() : user.email());
     }
 

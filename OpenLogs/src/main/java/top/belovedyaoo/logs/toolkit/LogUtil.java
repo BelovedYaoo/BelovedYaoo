@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.common.toolkit;
+package top.belovedyaoo.logs.toolkit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.common.toolkit;
+package top.belovedyaoo.opencore.toolkit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

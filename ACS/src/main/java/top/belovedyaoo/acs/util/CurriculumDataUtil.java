@@ -13,7 +13,7 @@ import top.belovedyaoo.acs.entity.po.LinearCurriculum;
 import top.belovedyaoo.acs.generateMapper.ClassScheduleMapper;
 import top.belovedyaoo.acs.generateMapper.LinearCurriculumMapper;
 import top.belovedyaoo.opencore.base.BaseFiled;
-import top.belovedyaoo.opencore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.tenant.TenantFiled;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.ArrayList;
@@ -56,9 +56,9 @@ public class CurriculumDataUtil {
 
         try {
             TenantManager.ignoreTenantCondition();
-            linearCurriculumMapper.deleteByQuery(QueryWrapper.create().where(BaseTenantFiled.TENANT_ID + " = '" + tenantId + "'"));
+            linearCurriculumMapper.deleteByQuery(QueryWrapper.create().where(TenantFiled.TENANT_ID + " = '" + tenantId + "'"));
 
-            List<ClassSchedule> classScheduleList = classScheduleMapper.selectListByQuery(QueryWrapper.create().select().from(ClassSchedule.class).where(BaseTenantFiled.TENANT_ID + " = '" + tenantId + "'").orderBy(BaseFiled.ORDER_NUM, true));
+            List<ClassSchedule> classScheduleList = classScheduleMapper.selectListByQuery(QueryWrapper.create().select().from(ClassSchedule.class).where(TenantFiled.TENANT_ID + " = '" + tenantId + "'").orderBy(BaseFiled.ORDER_NUM, true));
             List<LinearCurriculum> linearCurriculum = new ArrayList<>();
             for (ClassSchedule classSchedule : classScheduleList) {
                 linearCurriculum.addAll(getCurriculumData(classSchedule));
@@ -169,7 +169,7 @@ public class CurriculumDataUtil {
                         .select().from(LinearCurriculum.class)
                         .where("curriculum_period = '" + period +
                                 "' AND curriculum_week = '" + week +
-                                "' AND " + BaseTenantFiled.TENANT_ID +
+                                "' AND " + TenantFiled.TENANT_ID +
                                 " = '" + enterpriseConfig.tenantId() + "'")
                         .orderBy(BaseFiled.ORDER_NUM, true)));
         return todayList;

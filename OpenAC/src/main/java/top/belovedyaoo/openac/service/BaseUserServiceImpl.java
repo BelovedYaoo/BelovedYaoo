@@ -1,12 +1,14 @@
 package top.belovedyaoo.openac.service;
 
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.service.IService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import top.belovedyaoo.openac.enums.UserOperationEnum;
 import top.belovedyaoo.openac.model.BaseUser;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.opencore.toolkit.TypeUtil;
 
 /**
  * 用户服务类基类
@@ -14,11 +16,13 @@ import top.belovedyaoo.opencore.toolkit.TypeUtil;
  * @author BelovedYaoo
  * @version 1.1
  */
-public abstract class BaseUserService<U extends BaseUser> extends TypeUtil<U> implements IService<U> {
+@Service
+@RequiredArgsConstructor
+public class BaseUserServiceImpl implements IService<BaseUser> {
 
     @Override
-    public BaseMapper<U> getMapper() {
-        return baseMapper();
+    public BaseMapper<BaseUser> getMapper() {
+        return Mappers.ofEntityClass(BaseUser.class);
     }
 
     /**
@@ -29,7 +33,7 @@ public abstract class BaseUserService<U extends BaseUser> extends TypeUtil<U> im
      * @return 获取结果
      */
     public Result getUserInfo(String openId) {
-        U user = baseMapper().selectOneByQuery(new QueryWrapper().eq(U.OPEN_ID, openId));
+        BaseUser user = getMapper().selectOneByQuery(new QueryWrapper().eq(BaseUser.OPEN_ID, openId));
         // 如果数据不为NULL，则返回用户数据，否则返回用户不存在结果
         if (user != null) {
             return Result.success().singleData(user);
@@ -68,8 +72,30 @@ public abstract class BaseUserService<U extends BaseUser> extends TypeUtil<U> im
      *
      * @return 注册结果
      */
-    public int register(U user) {
-        return baseMapper().insert(user);
+    public Result register(BaseUser user) {
+        // 检查OpenID是否已被注册
+        if (userExists(user.openId())) {
+            return Result.failed().resultType(UserOperationEnum.ALREADY_USED_OPEN_ID);
+        }
+        // 检查邮箱是否已被注册
+        if (user.email() != null) {
+            if (exists(new QueryWrapper().eq(BaseUser.EMAIL, user.email()))) {
+                return Result.failed().resultType(UserOperationEnum.ALREADY_USED_EMAIL);
+            }
+        }
+        // 检查手机号是否已被注册
+        if (user.phone() != null) {
+            if (exists(new QueryWrapper().eq(BaseUser.PHONE, user.phone()))) {
+                return Result.failed().resultType(UserOperationEnum.ALREADY_USED_PHONE);
+            }
+        }
+        // 用户数据入库
+        user.baseId(null);
+        if (getMapper().insert(user) == 1) {
+            return Result.success().state(true);
+        } else {
+            return Result.failed().resultType(UserOperationEnum.UNKNOWN_ERROR);
+        }
     }
 
     /**
@@ -80,7 +106,7 @@ public abstract class BaseUserService<U extends BaseUser> extends TypeUtil<U> im
      * @return 用户是否存在
      */
     public boolean userExists(String openId) {
-        return baseMapper().selectCountByQuery(new QueryWrapper().eq(U.OPEN_ID, openId)) > 0;
+        return getMapper().selectCountByQuery(new QueryWrapper().eq(BaseUser.OPEN_ID, openId)) > 0;
     }
 
 }

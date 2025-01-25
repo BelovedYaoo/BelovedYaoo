@@ -6,19 +6,22 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.ejlchina.okhttps.OkHttps;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Component;
-import top.belovedyaoo.opencore.common.OcMap;
-import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.opencore.security.SecurityConfig;
+import top.belovedyaoo.openac.model.BaseUser;
 import top.belovedyaoo.openauth.data.loader.OpenAuthDataLoader;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.enums.OpenAuthResultEnum;
 import top.belovedyaoo.openauth.function.ConfirmFunction;
 import top.belovedyaoo.openauth.function.DoLoginFunction;
 import top.belovedyaoo.openauth.function.NotLoginFunction;
+import top.belovedyaoo.opencore.common.OcMap;
+import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.opencore.security.SecurityConfig;
 
 /**
  * 自定义数据加载器
@@ -34,7 +37,9 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
 
     /**
      * 根据 clientId 获取 Client 信息
+     *
      * @param clientId 应用id
+     *
      * @return Client信息
      */
     @Override
@@ -57,17 +62,19 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                 .setContractScopes(clientModel.getList("contractScopes", String.class))
                 .setAllowRedirectUris(clientModel.getList("allowRedirectUris", String.class))
                 .setAllowGrantTypes(clientModel.getList("allowGrantTypes", String.class));
-                // .setIsNewRefresh(clientModel.getBoolean("isNewRefresh"))
-                // .setAccessTokenTimeout(clientModel.getLong("accessTokenTimeout"))
-                // .setRefreshTokenTimeout(clientModel.getLong("refreshTokenTimeout"))
-                // .setClientTokenTimeout(clientModel.getLong("clientTokenTimeout"))
-                // .setLowerClientTokenTimeout(clientModel.getLong("lowerClientTokenTimeout"));
+        // .setIsNewRefresh(clientModel.getBoolean("isNewRefresh"))
+        // .setAccessTokenTimeout(clientModel.getLong("accessTokenTimeout"))
+        // .setRefreshTokenTimeout(clientModel.getLong("refreshTokenTimeout"))
+        // .setClientTokenTimeout(clientModel.getLong("clientTokenTimeout"))
+        // .setLowerClientTokenTimeout(clientModel.getLong("lowerClientTokenTimeout"));
     }
 
     /**
      * 根据 clientId 和 loginId 获取 openid
+     *
      * @param clientId 应用id
-     * @param loginId 账号id
+     * @param loginId  账号id
+     *
      * @return openid
      */
     @Override
@@ -101,6 +108,14 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
             } catch (DecoderException e) {
                 throw new RuntimeException(e);
             }
+            // BaseUser user;
+            // try {
+            //     user = new ObjectMapper().readValue(decData, BaseUser.class);
+            // } catch (JsonProcessingException e) {
+            //     user = new BaseUser();
+            // }
+            // System.out.println(user);
+            // System.out.println(user.openId());
             OcMap user = OcMap.build(decData);
             System.out.println(user.getString("openId"));
             OcMap userData = OcMap.build()
@@ -109,11 +124,12 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                     .set("phone", user.getString("phone"))
                     .set("email", user.getString("email"))
                     .set("nickname", user.getString("nickname"));
+            BaseUser user2 = user.getModel(BaseUser.class);
             // Sa-Token登录
-            StpUtil.login(userData.getString("baseId"));
+            StpUtil.login(user2.baseId());
             return Result.success().message("登录成功")
-                    .description("欢迎您，"+ user.getString("nickname"))
-                    .data(userData)
+                    .description("欢迎您，" + user2.nickname())
+                    .data(OcMap.build(user))
                     .data("tokenValue", StpUtil.getTokenValue());
         };
     }

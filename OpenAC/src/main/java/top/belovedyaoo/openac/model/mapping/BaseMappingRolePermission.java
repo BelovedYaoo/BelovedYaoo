@@ -1,6 +1,7 @@
 package top.belovedyaoo.openac.model.mapping;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.mybatisflex.annotation.Table;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
@@ -29,6 +30,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
+@Table(value = "mapping_role_permission", dataSource = "primary")
 public class BaseMappingRolePermission extends BaseFiled implements Serializable {
 
     @ColumnNotNull

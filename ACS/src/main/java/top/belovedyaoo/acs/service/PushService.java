@@ -18,7 +18,7 @@ import top.belovedyaoo.acs.util.DateUtil;
 import top.belovedyaoo.acs.util.LogUtil;
 import top.belovedyaoo.acs.util.PushDataUtil;
 import top.belovedyaoo.opencore.base.BaseFiled;
-import top.belovedyaoo.opencore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.tenant.TenantFiled;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.ArrayList;
@@ -189,7 +189,7 @@ public class PushService {
                 classScheduleMapper.selectListByQuery(
                         QueryWrapper.create().select()
                                 .from(ClassSchedule.class)
-                                .where(BaseTenantFiled.TENANT_ID + " = '" + enterpriseConfig.tenantId())
+                                .where(TenantFiled.TENANT_ID + " = '" + enterpriseConfig.tenantId())
                                 .orderBy(BaseFiled.ORDER_NUM, true)));
         List<String> courseNames = courseData.stream().map(ClassSchedule::courseName).collect(Collectors.toList());
         // 通过TreeSet对课程名称进行去重

@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.common.config;
+package top.belovedyaoo.openiam.config;
 
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;

@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
-import top.belovedyaoo.opencore.base.BaseTenantFiled;
+import top.belovedyaoo.opencore.tenant.TenantFiled;
 
 import java.io.Serializable;
 
@@ -30,7 +30,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "enterprise_config", dataSource = "primary")
-public class EnterpriseConfig extends BaseTenantFiled implements Serializable {
+public class EnterpriseConfig extends TenantFiled implements Serializable {
 
     @ColumnComment("企业id(此参数为身份唯一标识，请保密)")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 64)

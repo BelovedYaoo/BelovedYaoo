@@ -21,7 +21,7 @@ import java.util.List;
  * 基础控制器
  *
  * @author BelovedYaoo
- * @version 1.6
+ * @version 1.7
  */
 public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
 
@@ -30,25 +30,6 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
      */
     @Resource
     public PlatformTransactionManager platformTransactionManager;
-
-    /**
-     * 确保传入的对象 entity 继承自 BaseFiled 的实例<p>
-     * 若满足条件,则会强制转换<p>
-     * 否则,抛出 IllegalArgumentException<p>
-     * 除非能够保证输入完全符合预期,否则这一步检测都是必要的
-     *
-     * @param entity 要转换的对象
-     * @param <R>    泛型类型
-     *
-     * @return 转换后的对象
-     */
-    public <R extends BaseFiled> T convertTo(R entity) {
-        Class<T> entityType = getOriginalClass();
-        if (!entityType.isInstance(entity)) {
-            throw new IllegalArgumentException(entity.getClass().getName() + "必须继承BaseFiled");
-        }
-        return entityType.cast(entity);
-    }
 
     /**
      * 查询所有数据
@@ -71,9 +52,8 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
      */
     @PostMapping("/update")
     public Result update(@RequestBody T entity) {
-        T typedEntity = convertTo(entity);
-        String baseId = typedEntity.baseId();
-        boolean updateResult = baseMapper().update(typedEntity) > 0;
+        String baseId = entity.baseId();
+        boolean updateResult = baseMapper().update(entity) > 0;
         if (!updateResult) {
             return Result.failed().message("数据更新失败").description("ID为" + baseId + "的数据更新失败,数据可能不存在");
         }
@@ -90,7 +70,7 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
     @PostMapping("/delete")
     public Result delete(@RequestBody List<String> idList) {
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
-        List<T> entityList = baseMapper().selectListByIds(idList);
+        // List<T> entityList = baseMapper().selectListByIds(idList);
         boolean deleteResult = baseMapper().deleteBatchByIds(idList) == idList.size();
         if (!deleteResult) {
             platformTransactionManager.rollback(transactionStatus);
@@ -109,10 +89,9 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
      */
     @PostMapping("/add")
     public Result add(@RequestBody T entity) {
-        T typedEntity = convertTo(entity);
         // 防止注入
         entity.baseId(null);
-        boolean addResult = baseMapper().insert(typedEntity) > 0;
+        boolean addResult = baseMapper().insert(entity) > 0;
         if (addResult) {
             return Result.success().message("数据新增成功");
         }
@@ -129,25 +108,20 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
      */
     @PostMapping("/reorder")
     public Result reorder(@RequestParam(value = "leftTarget") int leftTarget, @RequestParam(value = "rightTarget") int rightTarget) {
-
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
-
         boolean isAsc = leftTarget > rightTarget;
         QueryWrapper queryWrapper = QueryWrapper.create().where(BaseFiled.ORDER_NUM + " BETWEEN " + Math.min(leftTarget, rightTarget) + " AND " + Math.max(leftTarget, rightTarget)).orderBy(BaseFiled.ORDER_NUM, true);
         List<T> originalList = baseMapper().selectListByQuery(queryWrapper);
-
         // 单独拆出 OrderNum 到一个List
         List<Integer> orderNumList = new ArrayList<>(originalList.stream().map(BaseFiled::orderNum).toList());
         // 平移 OrderNum 列表
         Collections.rotate(orderNumList, isAsc ? -1 : 1);
-
         for (int i = 0; i < originalList.size(); i++) {
             UpdateChain.of(getOriginalClass())
                     .set(BaseFiled.ORDER_NUM, orderNumList.get(i))
                     .where(BaseFiled.BASE_ID + " = '" + originalList.get(i).baseId() + "'")
                     .update();
         }
-
         platformTransactionManager.commit(transactionStatus);
         return Result.success().message("数据排序成功");
     }
@@ -167,9 +141,7 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
                             @RequestParam(value = "leftTargetOrderNum") int leftTargetOrderNum,
                             @RequestParam(value = "rightTargetBaseId") String rightTargetBaseId,
                             @RequestParam(value = "rightTargetOrderNum") int rightTargetOrderNum) {
-
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
-
         UpdateChain.of(getOriginalClass())
                 .set(BaseFiled.ORDER_NUM, rightTargetOrderNum)
                 .where(BaseFiled.BASE_ID + " = '" + leftTargetBaseId + "'")
@@ -178,7 +150,6 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
                 .set(BaseFiled.ORDER_NUM, leftTargetOrderNum)
                 .where(BaseFiled.BASE_ID + " = '" + rightTargetBaseId + "'")
                 .update();
-
         platformTransactionManager.commit(transactionStatus);
         return Result.success().message("顺序交换成功");
     }

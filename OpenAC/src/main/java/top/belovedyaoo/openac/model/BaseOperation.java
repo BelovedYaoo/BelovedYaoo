@@ -1,6 +1,7 @@
 package top.belovedyaoo.openac.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.mybatisflex.annotation.Table;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
+@Table(value = "operation", dataSource = "primary")
 public class BaseOperation extends BaseFiled implements Serializable {
 
     @ColumnComment("操作名称")

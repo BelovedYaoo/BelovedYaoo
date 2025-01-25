@@ -120,6 +120,9 @@ subprojects {
         // OK HTTPS
         implementation 'com.ejlchina:okhttps:3.1.1'
 
+        // Oshi
+        implementation 'com.github.oshi:oshi-core:6.6.5'
+
     }
 
 }

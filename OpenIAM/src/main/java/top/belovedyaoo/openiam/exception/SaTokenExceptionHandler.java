@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.common.exception;
+package top.belovedyaoo.openiam.exception;
 
 import cn.dev33.satoken.exception.DisableServiceException;
 import cn.dev33.satoken.stp.StpUtil;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
-import top.belovedyaoo.openiam.common.toolkit.LogUtil;
+import top.belovedyaoo.logs.toolkit.LogUtil;
 
 /**
  * Sa-Token异常捕捉

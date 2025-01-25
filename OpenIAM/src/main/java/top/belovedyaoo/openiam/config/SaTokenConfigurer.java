@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.common.config;
+package top.belovedyaoo.openiam.config;
 
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.context.SaHolder;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.belovedyaoo.opencore.enums.exception.SaTokenExceptionEnum;
 import top.belovedyaoo.opencore.enums.result.AuthEnum;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.openiam.common.toolkit.LogUtil;
+import top.belovedyaoo.logs.toolkit.LogUtil;
 
 /**
  * Sa-Token 配置类

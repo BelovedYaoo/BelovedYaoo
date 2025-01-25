@@ -1,6 +1,7 @@
 package top.belovedyaoo.openac.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.tree.Tree;
 
 import java.io.Serializable;
 
@@ -28,7 +30,8 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-public class BaseDomain extends BaseFiled implements Serializable {
+@Table(value = "domain", dataSource = "primary")
+public class BaseDomain extends BaseFiled implements Serializable, Tree {
 
     @ColumnComment("域名称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
@@ -41,5 +44,5 @@ public class BaseDomain extends BaseFiled implements Serializable {
     @ColumnComment("域描述")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
     private String domainDesc;
-    
+
 }
