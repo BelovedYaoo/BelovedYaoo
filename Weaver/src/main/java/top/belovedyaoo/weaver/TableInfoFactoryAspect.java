@@ -29,7 +29,7 @@ import static top.belovedyaoo.opencore.tree.Tree.TreeNode.isTree;
  * 表信息工厂切面类
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @Aspect
 public class TableInfoFactoryAspect {
@@ -43,7 +43,7 @@ public class TableInfoFactoryAspect {
      * 类与表定义缓存<br>
      * 树形数据类每合并一次表定义都需要大量的反射操作，因此有必要弄一个缓存
      */
-    private static final Map<Class<?>, TableInfo> CACHE = new HashMap<>();
+    private static final Map<Class<?>, TableInfo> CACHE = Collections.synchronizedMap(new HashMap<>());
 
     public static TableInfoFactoryAspect aspectOf() {
         return new TableInfoFactoryAspect();
@@ -251,19 +251,26 @@ public class TableInfoFactoryAspect {
         // 反射处理
         Field columnQueryMappingField = TableInfo.class.getDeclaredField("columnQueryMapping");
         columnQueryMappingField.setAccessible(true);
-        // 合并列查询映射
+        // 获取左目标和右目标的列查询映射
         @SuppressWarnings("unchecked")
-        Map<String, QueryColumn> leftColumnQueryMappingList = (HashMap<String, QueryColumn>) columnQueryMappingField.get(left);
+        Map<String, QueryColumn> leftColumnQueryMapping = (Map<String, QueryColumn>) columnQueryMappingField.get(left);
         @SuppressWarnings("unchecked")
-        Map<String, QueryColumn> rightColumnQueryMappingList = (HashMap<String, QueryColumn>) columnQueryMappingField.get(right);
-        // 将右目标的列查询映射中的表名替换成左目标的表名
-        rightColumnQueryMappingList.forEach((_, value) -> {
-            // 通过BaseID获取，别的也行
-            value.setTable(leftColumnQueryMappingList.get(BaseFiled.BASE_ID).getTable());
+        Map<String, QueryColumn> rightColumnQueryMapping = (Map<String, QueryColumn>) columnQueryMappingField.get(right);
+        // 创建一个新的 Map 来存储合并后的列查询映射
+        Map<String, QueryColumn> mergedColumnQueryMapping = new HashMap<>(leftColumnQueryMapping);
+        // 将右目标的列查询映射中的表名替换成左目标的表名，并合并到新的 Map 中
+        rightColumnQueryMapping.forEach((key, value) -> {
+            // 创建一个新的 QueryColumn 对象，避免后续修改影响
+            QueryColumn newQueryColumn = new QueryColumn();
+            newQueryColumn.setName(value.getName());
+            newQueryColumn.setAlias(value.getAlias());
+            // 通过 BaseID 获取左目标的表名，并设置到新的 QueryColumn 中
+            newQueryColumn.setTable(leftColumnQueryMapping.get(BaseFiled.BASE_ID).getTable());
+            // 将新的 QueryColumn 添加到合并后的 Map 中
+            mergedColumnQueryMapping.put(key, newQueryColumn);
         });
-        leftColumnQueryMappingList.putAll(rightColumnQueryMappingList);
-        // 列查询映射写入
-        columnQueryMappingField.set(left, leftColumnQueryMappingList);
+        // 将合并后的 Map 设置为左目标的列查询映射
+        columnQueryMappingField.set(left, mergedColumnQueryMapping);
     }
 
     /**
