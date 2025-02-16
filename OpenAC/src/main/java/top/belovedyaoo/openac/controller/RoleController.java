@@ -13,7 +13,7 @@ import java.util.List;
 import static top.belovedyaoo.openac.model.table.RoleTableDef.ROLE;
 
 /**
- * 角色控制器基类
+ * 角色控制器
  *
  * @author BelovedYaoo
  * @version 1.0

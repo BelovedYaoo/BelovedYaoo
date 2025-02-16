@@ -25,7 +25,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 用户实体基类
+ * 用户实体类
  *
  * @author BelovedYaoo
  * @version 1.1

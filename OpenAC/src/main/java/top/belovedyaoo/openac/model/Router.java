@@ -18,7 +18,7 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 菜单实体基类
+ * 菜单实体类
  *
  * @author BelovedYaoo
  * @version 1.0

@@ -17,7 +17,7 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 操作实体基类
+ * 操作实体类
  *
  * @author BelovedYaoo
  * @version 1.0

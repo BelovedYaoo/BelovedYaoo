@@ -6,7 +6,7 @@ import com.mybatisflex.core.service.IService;
 import top.belovedyaoo.openac.model.Permission;
 
 /**
- * 权限服务类基类
+ * 权限服务类类
  *
  * @author BelovedYaoo
  * @version 1.0

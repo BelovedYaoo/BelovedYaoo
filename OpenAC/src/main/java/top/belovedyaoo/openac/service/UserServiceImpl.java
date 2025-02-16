@@ -11,7 +11,7 @@ import top.belovedyaoo.openac.model.User;
 import top.belovedyaoo.opencore.result.Result;
 
 /**
- * 用户服务类基类
+ * 用户服务类类
  *
  * @author BelovedYaoo
  * @version 1.1

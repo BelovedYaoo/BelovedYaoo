@@ -7,7 +7,7 @@ import top.belovedyaoo.opencore.base.BaseTree;
 import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
- * 域控制器基类
+ * 域控制器
  *
  * @author BelovedYaoo
  * @version 1.0

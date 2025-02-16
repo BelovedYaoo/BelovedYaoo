@@ -22,7 +22,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 角色实体基类<br>
+ * 角色实体类<br>
  * 角色必须有一个明确的归属域，通过TenantID来定义<br>
  * 上级域的角色可以被下级域继承与使用<br>
  * 比如我的顶级域有管理员这个角色<br>

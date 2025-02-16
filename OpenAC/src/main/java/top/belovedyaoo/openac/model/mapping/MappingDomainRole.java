@@ -18,7 +18,7 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 域角色关系映射基类
+ * 域角色关系映射类
  *
  * @author BelovedYaoo
  * @version 1.0

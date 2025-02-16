@@ -6,7 +6,7 @@ import com.mybatisflex.core.service.IService;
 import top.belovedyaoo.openac.model.Operation;
 
 /**
- * 操作服务类基类
+ * 操作服务类类
  *
  * @author BelovedYaoo
  * @version 1.0

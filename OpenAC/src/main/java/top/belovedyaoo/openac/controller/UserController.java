@@ -14,7 +14,7 @@ import java.util.List;
 import static top.belovedyaoo.openac.model.table.UserTableDef.USER;
 
 /**
- * 用户控制器基类
+ * 用户控制器
  *
  * @author BelovedYaoo
  * @version 1.0
