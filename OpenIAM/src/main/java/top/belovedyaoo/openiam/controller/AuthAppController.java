@@ -1,18 +1,18 @@
-package top.belovedyaoo.acs.controller;
+package top.belovedyaoo.openiam.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.acs.entity.po.EnterpriseConfig;
 import top.belovedyaoo.opencore.base.DefaultController;
+import top.belovedyaoo.openiam.entity.po.AuthorizedApplication;
 
 /**
- * 企业配置表控制器
+ * 授权应用控制器
  *
  * @author BelovedYaoo
  * @version 1.0
  */
 @RestController
-@RequestMapping("/enterpriseConfig")
-public class EnterpriseConfigController extends DefaultController<EnterpriseConfig> {
+@RequestMapping("/authApp")
+public class AuthAppController extends DefaultController<AuthorizedApplication> {
 
 }

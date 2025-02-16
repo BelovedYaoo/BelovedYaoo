@@ -24,7 +24,7 @@ public interface BaseUpdate<T extends BaseFiled> extends BaseControllerMethod<T>
     @PostMapping("/update")
     default Result update(@RequestBody T entity) {
         String baseId = entity.baseId();
-        boolean updateResult = baseMapper().update(entity) > 0;
+        boolean updateResult = getMapper().update(entity) > 0;
         if (!updateResult) {
             return Result.failed().message("数据更新失败").description("ID为" + baseId + "的数据更新失败,数据可能不存在");
         }

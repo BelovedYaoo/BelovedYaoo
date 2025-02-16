@@ -56,6 +56,10 @@ public abstract class BaseFiled implements Serializable {
 
     public static final String UPDATE_TIME = "update_time";
 
+    public static final String CREATOR_ID = "creator_id";
+
+    public static final String UPDATER_ID = "updater_id";
+
     public static final String DISABLED_AT = "disabled_at";
 
     public static final String DELETED_AT = "deleted_at";
@@ -88,11 +92,13 @@ public abstract class BaseFiled implements Serializable {
     @ColumnComment("数据创建者的BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     @InsertFillData(CreatorIdAutoFillProcessor.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String creatorId;
 
     @ColumnComment("数据上一次更新者BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     @InsertUpdateFillData(UpdaterIdAutoFillProcessor.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String updaterId;
 
     @ColumnComment("不为NULL的情况表示数据的禁用时间")
@@ -149,6 +155,17 @@ public abstract class BaseFiled implements Serializable {
         } else {
             throw new IllegalArgumentException("传入的参数类型不是BaseFiled的基类,请检查");
         }
+    }
+
+    /**
+     * 获取BaseFiled的BaseID字段的查询条件
+     *
+     * @param id BaseID字段
+     *
+     * @return BaseID字段的查询条件
+     */
+    public static String eqBaseId(String id) {
+        return BaseFiled.BASE_ID + " = '" + id + "'";
     }
 
     /**

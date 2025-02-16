@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
+import top.belovedyaoo.opencore.base.BaseFiled;
 
 /**
  * 树形数据接口
@@ -19,12 +20,29 @@ import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
  */
 public interface Tree {
 
+    String PARENT_ID = "parentId";
+
+    String TREE_PATH = "treePath";
+
+    String IS_ROOT = "isRoot";
+
+    String IS_LEAF = "isLeaf";
+
+    /**
+     * 获取BaseID
+     *
+     * @return BaseID
+     */
+    default String baseId() {
+        return BaseFiled.convertToBaseFiled(this).baseId();
+    }
+
     /**
      * 获取父节点ID
      *
      * @return 父节点ID
      */
-    @JsonGetter(TreeNode.PARENT_ID)
+    @JsonGetter(PARENT_ID)
     default String parentId() {
         return treeNode().parentId();
     }
@@ -36,7 +54,7 @@ public interface Tree {
      *
      * @return TreeNode
      */
-    @JsonSetter(TreeNode.PARENT_ID)
+    @JsonSetter(PARENT_ID)
     default TreeNode parentId(String parentId) {
         return treeNode().parentId(parentId);
     }
@@ -46,7 +64,7 @@ public interface Tree {
      *
      * @return 完整路径
      */
-    @JsonGetter(TreeNode.TREE_PATH)
+    @JsonGetter(TREE_PATH)
     default String treePath() {
         return treeNode().treePath();
     }
@@ -58,7 +76,6 @@ public interface Tree {
      *
      * @return TreeNode
      */
-    @JsonSetter(TreeNode.TREE_PATH)
     default TreeNode treePath(String treePath) {
         return treeNode().treePath(treePath);
     }
@@ -68,7 +85,7 @@ public interface Tree {
      *
      * @return 是否为顶级节点
      */
-    @JsonGetter(TreeNode.IS_ROOT)
+    @JsonGetter(IS_ROOT)
     default boolean isRoot() {
         return treeNode().isRoot();
     }
@@ -80,7 +97,6 @@ public interface Tree {
      *
      * @return TreeNode
      */
-    @JsonSetter(TreeNode.IS_ROOT)
     default TreeNode isRoot(boolean isRoot) {
         return treeNode().isRoot(isRoot);
     }
@@ -90,7 +106,7 @@ public interface Tree {
      *
      * @return 是否为叶子节点
      */
-    @JsonGetter(TreeNode.IS_LEAF)
+    @JsonGetter(IS_LEAF)
     default boolean isLeaf() {
         return treeNode().isLeaf();
     }
@@ -102,7 +118,6 @@ public interface Tree {
      *
      * @return TreeNode
      */
-    @JsonSetter(TreeNode.IS_LEAF)
     default TreeNode isLeaf(boolean isLeaf) {
         return treeNode().isLeaf(isLeaf);
     }
@@ -127,13 +142,13 @@ public interface Tree {
     @Accessors(fluent = true, chain = true)
     class TreeNode {
 
-        public static final String PARENT_ID = "parentId";
+        public static final String PARENT_ID = "parent_id";
 
-        public static final String TREE_PATH = "treePath";
+        public static final String TREE_PATH = "tree_path";
 
-        public static final String IS_ROOT = "isRoot";
+        public static final String IS_ROOT = "is_root";
 
-        public static final String IS_LEAF = "isLeaf";
+        public static final String IS_LEAF = "is_leaf";
 
         @ColumnComment("父节点ID,通常为父节点的BaseID")
         @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
@@ -153,7 +168,9 @@ public interface Tree {
 
         /**
          * 判断是否为树形结构
+         *
          * @param clazz 目标类
+         *
          * @return 是否为树形结构
          */
         public static boolean isTree(Class<?> clazz) {

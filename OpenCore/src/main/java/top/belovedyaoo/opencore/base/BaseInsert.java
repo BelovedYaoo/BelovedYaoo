@@ -25,7 +25,7 @@ public interface BaseInsert<T extends BaseFiled> extends BaseControllerMethod<T>
     default Result add(@RequestBody T entity) {
         // 防止注入
         entity.baseId(null);
-        boolean addResult = baseMapper().insert(entity) > 0;
+        boolean addResult = save(entity);
         if (addResult) {
             return Result.success().message("数据新增成功");
         }

@@ -84,7 +84,7 @@ public class EncByRsaAspect {
             log.info("\n===加密前===" +
                     "类名[{}]," +
                     "方法名[{}]" +
-                    "返回参数:[{}ms]", className, methodName, proceed.toString());
+                    "返回参数:[{}]", className, methodName, proceed.toString());
             Result result = (Result) proceed;
             String proceedMap = Hex.encodeHexString(rsa.encrypt(new ObjectMapper().writeValueAsString(result.data()), KeyType.PrivateKey));
             log.info("\n===加密后===," +

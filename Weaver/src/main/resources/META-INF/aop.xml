@@ -8,6 +8,8 @@
         <include within="com.mybatisflex.core.table.TableInfoFactory"/>
         <!-- MyBatis 反射 -->
         <include within="org.apache.ibatis.reflection.Reflector"/>
+        <!-- 抽象关系 -->
+        <include within="com.mybatisflex.core.relation.AbstractRelation"/>
     </weaver>
     <aspects>
         <!-- 使用的切面 -->
@@ -17,5 +19,7 @@
         <aspect name="top.belovedyaoo.weaver.TableInfoFactoryAspect"/>
         <!-- 反射切面类 -->
         <aspect name="top.belovedyaoo.weaver.ReflectorAspect"/>
+        <!-- 抽象关系切面类 -->
+        <aspect name="top.belovedyaoo.weaver.AbstractRelationAspect"/>
     </aspects>
 </aspectj>

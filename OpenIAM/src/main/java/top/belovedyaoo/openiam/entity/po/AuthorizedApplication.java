@@ -37,6 +37,11 @@ import java.util.List;
 @Table(value = "auth_app", dataSource = "primary")
 public class AuthorizedApplication extends BaseFiled implements Serializable {
 
+    @ColumnNotNull
+    @ColumnComment("域的BaseID")
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    private String domainId;
+
     /**
      * 应用名称
      */

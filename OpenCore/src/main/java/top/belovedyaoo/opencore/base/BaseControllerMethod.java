@@ -1,6 +1,8 @@
 package top.belovedyaoo.opencore.base;
 
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.mybatis.Mappers;
+import com.mybatisflex.core.service.IService;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
@@ -11,7 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author BelovedYaoo
  * @version 1.0
  */
-public interface BaseControllerMethod<T extends BaseFiled> {
+public interface BaseControllerMethod<T> extends IService<T> {
 
     /**
      * 获取泛型类型对应的Class对象
@@ -29,8 +31,12 @@ public interface BaseControllerMethod<T extends BaseFiled> {
 
     /**
      * 获取泛型的Mapper
+     *
      * @return Mapper
      */
-    BaseMapper<T> baseMapper();
+    @Override
+    default BaseMapper<T> getMapper() {
+        return Mappers.ofEntityClass(getOriginalClass());
+    }
 
 }

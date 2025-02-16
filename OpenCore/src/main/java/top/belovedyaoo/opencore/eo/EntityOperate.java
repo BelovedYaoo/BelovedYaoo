@@ -1,5 +1,7 @@
 package top.belovedyaoo.opencore.eo;
 
+import cn.dev33.satoken.stp.StpUtil;
+import com.mybatisflex.core.update.UpdateChain;
 import com.tangzc.mybatisflex.annotation.DefaultValue;
 import com.tangzc.mybatisflex.annotation.FieldFill;
 import com.tangzc.mybatisflex.annotation.FillData;
@@ -15,6 +17,8 @@ import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.cglib.core.ReflectUtils;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ReflectionUtils;
+import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.tree.Tree;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -37,6 +41,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static top.belovedyaoo.opencore.tree.Tree.TreeNode.isTree;
 
 /**
  * 实体操作基类
@@ -73,6 +79,39 @@ public class EntityOperate {
         baseTypeClassMap.put(Float.class, float.class);
         baseTypeClassMap.put(Character.class, char.class);
         baseTypeClassMap.put(Boolean.class, boolean.class);
+    }
+
+    /**
+     * 对实体进行操作
+     *
+     * @param fill 操作类型
+     * @param obj  实体对象
+     */
+    public void onOperate(FieldFill fill, Object obj) {
+        Class<?> clazz = obj.getClass();
+        List<Field> fieldList = getFieldList(clazz);
+
+        // 如果是树形数据
+        if (isTree(clazz)) {
+            String parentId = ((Tree) obj).treeNode().parentId();
+            // 如果父节点不为空，则更新父节点的 isLeaf 字段为 0
+            if (parentId != null && !parentId.isBlank()) {
+                String updaterId = StpUtil.getLoginId("");
+                boolean update = UpdateChain.of(clazz)
+                        .set(Tree.TreeNode.IS_LEAF, 0)
+                        // 更新审计信息
+                        .set(BaseFiled.UPDATE_TIME, new Date())
+                        .set(BaseFiled.UPDATER_ID, updaterId, !updaterId.isBlank())
+                        .where(BaseFiled.eqBaseId(parentId))
+                        .update();
+                if (!update) {
+                    throw new RuntimeException("更新父节点时失败");
+                }
+            }
+        }
+        if (!fieldList.isEmpty()) {
+            fill(fill, obj, clazz, fieldList);
+        }
     }
 
     /**
@@ -363,6 +402,5 @@ public class EntityOperate {
         }
 
     }
-
 
 }

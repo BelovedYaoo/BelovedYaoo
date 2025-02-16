@@ -24,7 +24,7 @@ public interface BaseQuery<T extends BaseFiled> extends BaseControllerMethod<T> 
     @GetMapping("/queryAll")
     default Result queryAll() {
         QueryWrapper queryWrapper = QueryWrapper.create().select().from(getOriginalClass()).orderBy(BaseFiled.ORDER_NUM, true);
-        List<T> queryList = baseMapper().selectListByQuery(queryWrapper);
+        List<T> queryList = list(queryWrapper);
         return Result.success().singleData(queryList);
     }
 

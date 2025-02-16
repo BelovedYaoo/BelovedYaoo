@@ -29,7 +29,7 @@ public class BaseRoleController extends DefaultController<BaseRole> {
                 .select(BASE_ROLE.DEFAULT_COLUMNS)
                 .from(BASE_ROLE)
                 .orderBy(BASE_ROLE.ORDER_NUM, true);
-        List<BaseRole> queryList = baseMapper().selectListWithRelationsByQuery(queryWrapper);
+        List<BaseRole> queryList = getMapper().selectListWithRelationsByQuery(queryWrapper);
         return Result.success().singleData(queryList);
     }
 }

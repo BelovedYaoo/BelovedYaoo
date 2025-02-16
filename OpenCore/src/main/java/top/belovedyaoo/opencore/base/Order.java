@@ -37,7 +37,7 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
         boolean isAsc = leftTarget > rightTarget;
         QueryWrapper queryWrapper = QueryWrapper.create().where(BaseFiled.ORDER_NUM + " BETWEEN " + Math.min(leftTarget, rightTarget) + " AND " + Math.max(leftTarget, rightTarget)).orderBy(BaseFiled.ORDER_NUM, true);
-        List<T> originalList = baseMapper().selectListByQuery(queryWrapper);
+        List<T> originalList = getMapper().selectListByQuery(queryWrapper);
         // 单独拆出 OrderNum 到一个List
         List<Integer> orderNumList = new ArrayList<>(originalList.stream().map(BaseFiled::orderNum).toList());
         // 平移 OrderNum 列表
@@ -45,7 +45,7 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
         for (int i = 0; i < originalList.size(); i++) {
             UpdateChain.of(getOriginalClass())
                     .set(BaseFiled.ORDER_NUM, orderNumList.get(i))
-                    .where(BaseFiled.BASE_ID + " = '" + originalList.get(i).baseId() + "'")
+                    .where(BaseFiled.eqBaseId(originalList.get(i).baseId()))
                     .update();
         }
         platformTransactionManager.commit(transactionStatus);
@@ -71,11 +71,11 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
         UpdateChain.of(getOriginalClass())
                 .set(BaseFiled.ORDER_NUM, rightTargetOrderNum)
-                .where(BaseFiled.BASE_ID + " = '" + leftTargetBaseId + "'")
+                .where(BaseFiled.eqBaseId(leftTargetBaseId))
                 .update();
         UpdateChain.of(getOriginalClass())
                 .set(BaseFiled.ORDER_NUM, leftTargetOrderNum)
-                .where(BaseFiled.BASE_ID + " = '" + rightTargetBaseId + "'")
+                .where(BaseFiled.eqBaseId(rightTargetBaseId))
                 .update();
         platformTransactionManager.commit(transactionStatus);
         return Result.success().message("顺序交换成功");

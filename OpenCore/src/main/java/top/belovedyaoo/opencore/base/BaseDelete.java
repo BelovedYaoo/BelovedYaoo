@@ -30,8 +30,8 @@ public interface BaseDelete<T extends BaseFiled> extends BaseControllerMethod<T>
     default Result delete(@RequestBody List<String> idList) {
         PlatformTransactionManager platformTransactionManager = getPlatformTransactionManager();
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
-        // List<T> entityList = baseMapper().selectListByIds(idList);
-        boolean deleteResult = baseMapper().deleteBatchByIds(idList) == idList.size();
+        // List<T> entityList = getMapper().selectListByIds(idList);
+        boolean deleteResult = getMapper().deleteBatchByIds(idList) == idList.size();
         if (!deleteResult) {
             platformTransactionManager.rollback(transactionStatus);
             return Result.failed().message("数据删除失败").description("存在未能删除的数据,操作已回滚");

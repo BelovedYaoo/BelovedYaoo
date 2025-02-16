@@ -19,8 +19,9 @@ import java.io.Serializable;
 
 /**
  * 域用户角色关系映射基类<br>
- * 该映射类的作用与 BaseMappingDomainRole 和 BaseMappingDomainUser 不同<br>
- * 该映射类用于存储某一个用户在某一个域中所拥有的角色信息，用于以下查询<br>
+ * 该映射类的作用与 BaseMappingDomainRole 不同<br>
+ * 该映射类用于存储 某一个域所拥有的用户信息 以及 某一个用户在某一个域中所拥有的角色信息<br>
+ * 输入：域ID，输出：用户ID<br>
  * 输入：用户ID、域ID，输出：角色ID
  *
  * @author BelovedYaoo

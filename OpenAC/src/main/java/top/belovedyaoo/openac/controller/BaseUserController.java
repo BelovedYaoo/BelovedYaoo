@@ -30,7 +30,7 @@ public class BaseUserController extends DefaultController<BaseUser> {
                 .select()
                 .from(BASE_USER)
                 .orderBy(BASE_USER.ORDER_NUM, true);
-        List<BaseUser> queryList = baseMapper().selectListWithRelationsByQuery(queryWrapper);
+        List<BaseUser> queryList = getMapper().selectListWithRelationsByQuery(queryWrapper);
         return Result.success().singleData(queryList);
     }
 

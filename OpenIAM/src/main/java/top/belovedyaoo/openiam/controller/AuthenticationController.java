@@ -8,10 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
 import top.belovedyaoo.openac.generateMapper.BaseUserMapper;
+import top.belovedyaoo.openac.model.BaseDomain;
 import top.belovedyaoo.openac.model.BaseUser;
 import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.opencore.tree.Tree;
+import top.belovedyaoo.opencore.tree.TreeService;
 import top.belovedyaoo.openiam.service.AuthenticationService;
 import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
+
+import java.util.List;
 
 import static top.belovedyaoo.openiam.service.AuthenticationService.VERIFY_CODE_PREFIX;
 
@@ -35,9 +40,11 @@ public class AuthenticationController {
 
     private final BaseUserMapper userMapper;
 
+    private final TreeService<BaseDomain> domainService;
+
     @PostMapping("/test")
-    public boolean test(String str) {
-        return userMapper.deleteById(str) > 0;
+    public List<? extends Tree> test(@RequestParam(value = "parentId") String parentId) {
+        return domainService.findAllNodeByBaseId(parentId);
     }
 
     @PostMapping("/test2")
