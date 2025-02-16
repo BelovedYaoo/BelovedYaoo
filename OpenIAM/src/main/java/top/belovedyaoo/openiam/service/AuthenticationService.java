@@ -2,8 +2,8 @@ package top.belovedyaoo.openiam.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import top.belovedyaoo.openac.model.BaseUser;
-import top.belovedyaoo.openac.service.BaseUserServiceImpl;
+import top.belovedyaoo.openac.model.User;
+import top.belovedyaoo.openac.service.UserServiceImpl;
 import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.opencore.toolkit.JedisOperateUtil;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
@@ -26,7 +26,7 @@ public class AuthenticationService {
      */
     public static final String VERIFY_CODE_PREFIX = "userRegister";
 
-    private final BaseUserServiceImpl userService;
+    private final UserServiceImpl userService;
 
     /**
      * 认证工具类
@@ -35,7 +35,7 @@ public class AuthenticationService {
 
     public Result getUser(String openId, String password) {
         Result result = userService.getUserInfo(openId, password);
-        if (result.data() instanceof BaseUser user) {
+        if (result.data() instanceof User user) {
             return Result.success().singleData(user);
         }
         return result;
@@ -50,7 +50,7 @@ public class AuthenticationService {
      *
      * @return 注册结果
      */
-    public Result register(BaseUser user, boolean usePhone, String verifyCode) {
+    public Result register(User user, boolean usePhone, String verifyCode) {
         String codeBind;
         if (usePhone) {
             user.email(null);

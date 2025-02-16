@@ -36,7 +36,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "domain", dataSource = "primary")
-public class BaseDomain extends BaseFiled implements Serializable, Tree {
+public class Domain extends BaseFiled implements Serializable, Tree {
 
     @ColumnNotNull
     @ColumnComment("域名称")
@@ -55,6 +55,6 @@ public class BaseDomain extends BaseFiled implements Serializable, Tree {
     @Ignore
     @RelationOneToMany(targetField = "parentId")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<BaseDomain> domains;
+    private List<Domain> domains;
 
 }

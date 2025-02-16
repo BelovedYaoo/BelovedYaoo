@@ -1,6 +1,6 @@
 package top.belovedyaoo.openac.controller.mapping;
 
-import top.belovedyaoo.openac.model.mapping.BaseMappingPermissionOperation;
+import top.belovedyaoo.openac.model.mapping.MappingPermissionOperation;
 import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
@@ -9,5 +9,5 @@ import top.belovedyaoo.opencore.base.DefaultController;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BaseMappingPermissionOperationController extends DefaultController<BaseMappingPermissionOperation> {
+public class MappingPermissionOperationController extends DefaultController<MappingPermissionOperation> {
 }

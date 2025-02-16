@@ -1,6 +1,6 @@
 package top.belovedyaoo.openac.controller;
 
-import top.belovedyaoo.openac.model.BaseOperation;
+import top.belovedyaoo.openac.model.Operation;
 import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
@@ -9,5 +9,5 @@ import top.belovedyaoo.opencore.base.DefaultController;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BaseOperationController extends DefaultController<BaseOperation> {
+public class OperationController extends DefaultController<Operation> {
 }

@@ -1,6 +1,6 @@
 package top.belovedyaoo.openac.controller;
 
-import top.belovedyaoo.openac.model.BasePermission;
+import top.belovedyaoo.openac.model.Permission;
 import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
@@ -9,5 +9,5 @@ import top.belovedyaoo.opencore.base.DefaultController;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BasePermissionController extends DefaultController<BasePermission> {
+public class PermissionController extends DefaultController<Permission> {
 }

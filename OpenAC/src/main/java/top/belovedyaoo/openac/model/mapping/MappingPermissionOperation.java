@@ -18,7 +18,7 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 角色路由关系映射基类
+ * 权限操作关系映射基类
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -30,17 +30,17 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "mapping_role_router", dataSource = "primary")
-public class BaseMappingRoleRouter extends BaseFiled implements Serializable {
+@Table(value = "mapping_permission_operation", dataSource = "primary")
+public class MappingPermissionOperation extends BaseFiled implements Serializable {
 
     @ColumnNotNull
-    @ColumnComment("角色的BaseID")
+    @ColumnComment("权限的BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    private String roleId;
+    private String permissionId;
 
     @ColumnNotNull
-    @ColumnComment("路由的BaseID")
+    @ColumnComment("操作的BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    private String routerId;
+    private String operationId;
 
 }

@@ -34,7 +34,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "permission", dataSource = "primary")
-public class BasePermission extends BaseFiled implements Serializable {
+public class Permission extends BaseFiled implements Serializable {
 
     @ColumnComment("权限名称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
@@ -55,7 +55,7 @@ public class BasePermission extends BaseFiled implements Serializable {
             joinTargetColumn = "router_id"
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<BaseRouter> routers;
+    private List<Router> routers;
 
     @Ignore
     @RelationManyToMany(
@@ -64,6 +64,6 @@ public class BasePermission extends BaseFiled implements Serializable {
             joinTargetColumn = "operation_id"
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<BaseOperation> operations;
+    private List<Operation> operations;
 
 }

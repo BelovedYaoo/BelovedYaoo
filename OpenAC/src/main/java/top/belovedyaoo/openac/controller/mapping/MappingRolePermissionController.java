@@ -1,6 +1,6 @@
 package top.belovedyaoo.openac.controller.mapping;
 
-import top.belovedyaoo.openac.model.mapping.BaseMappingRolePermission;
+import top.belovedyaoo.openac.model.mapping.MappingRolePermission;
 import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
@@ -9,5 +9,5 @@ import top.belovedyaoo.opencore.base.DefaultController;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BaseMappingRolePermissionController extends DefaultController<BaseMappingRolePermission> {
+public class MappingRolePermissionController extends DefaultController<MappingRolePermission> {
 }

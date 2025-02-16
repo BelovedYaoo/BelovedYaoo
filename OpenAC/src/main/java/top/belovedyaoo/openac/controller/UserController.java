@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.belovedyaoo.logs.annotation.InterfaceLog;
 import top.belovedyaoo.logs.enums.BusinessType;
-import top.belovedyaoo.openac.model.BaseUser;
+import top.belovedyaoo.openac.model.User;
 import top.belovedyaoo.opencore.base.DefaultController;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.List;
 
-import static top.belovedyaoo.openac.model.table.BaseUserTableDef.BASE_USER;
+import static top.belovedyaoo.openac.model.table.UserTableDef.USER;
 
 /**
  * 用户控制器基类
@@ -21,16 +21,16 @@ import static top.belovedyaoo.openac.model.table.BaseUserTableDef.BASE_USER;
  */
 @RestController
 @RequestMapping("/user")
-public class BaseUserController extends DefaultController<BaseUser> {
+public class UserController extends DefaultController<User> {
 
     @Override
     @InterfaceLog(persistence = false, print = true, businessType = BusinessType.SELECT, identifierCode = "baseId", interfaceName = "BaseController.queryAll", interfaceDesc = "查询")
     public Result queryAll() {
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .select()
-                .from(BASE_USER)
-                .orderBy(BASE_USER.ORDER_NUM, true);
-        List<BaseUser> queryList = getMapper().selectListWithRelationsByQuery(queryWrapper);
+                .from(USER)
+                .orderBy(USER.ORDER_NUM, true);
+        List<User> queryList = getMapper().selectListWithRelationsByQuery(queryWrapper);
         return Result.success().singleData(queryList);
     }
 

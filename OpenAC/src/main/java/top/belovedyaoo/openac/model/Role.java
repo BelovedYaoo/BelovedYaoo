@@ -50,7 +50,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "role", dataSource = "primary")
-public class BaseRole extends TenantFiled implements Serializable, Tree {
+public class Role extends TenantFiled implements Serializable, Tree {
 
     @ColumnComment("角色名称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
@@ -83,6 +83,6 @@ public class BaseRole extends TenantFiled implements Serializable, Tree {
             joinTargetColumn = "permission_id"
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<BasePermission> permissions;
+    private List<Permission> permissions;
 
 }

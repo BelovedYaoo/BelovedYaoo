@@ -1,8 +1,9 @@
-package top.belovedyaoo.openac.model;
+package top.belovedyaoo.openac.model.mapping;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Table;
 import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import lombok.Data;
@@ -17,7 +18,7 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 操作实体基类
+ * 角色权限关系映射基类
  *
  * @author BelovedYaoo
  * @version 1.0
@@ -29,19 +30,17 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "operation", dataSource = "primary")
-public class BaseOperation extends BaseFiled implements Serializable {
+@Table(value = "mapping_role_permission", dataSource = "primary")
+public class MappingRolePermission extends BaseFiled implements Serializable {
 
-    @ColumnComment("操作名称")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
-    private String operationName;
+    @ColumnNotNull
+    @ColumnComment("角色的BaseID")
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    private String roleId;
 
-    @ColumnComment("操作代码")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
-    private String operationCode;
-
-    @ColumnComment("操作描述")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
-    private String operationDesc;
+    @ColumnNotNull
+    @ColumnComment("权限的BaseID")
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    private String permissionId;
 
 }

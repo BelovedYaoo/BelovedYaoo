@@ -31,7 +31,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "router", dataSource = "primary")
-public class BaseRouter extends BaseFiled implements Serializable {
+public class Router extends BaseFiled implements Serializable {
 
     @ColumnNotNull
     @ColumnComment("路由名称")

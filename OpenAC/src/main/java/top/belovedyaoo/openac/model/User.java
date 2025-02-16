@@ -38,7 +38,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "user", dataSource = "primary")
-public class BaseUser extends BaseFiled implements Serializable {
+public class User extends BaseFiled implements Serializable {
 
     public static final String OPEN_ID = "open_id";
 
@@ -94,7 +94,7 @@ public class BaseUser extends BaseFiled implements Serializable {
             joinTargetColumn = "role_id"
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<BaseRole> roles;
+    private List<Role> roles;
 
 }
 

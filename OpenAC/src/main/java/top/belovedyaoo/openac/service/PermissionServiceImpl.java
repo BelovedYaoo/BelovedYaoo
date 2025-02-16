@@ -3,7 +3,7 @@ package top.belovedyaoo.openac.service;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.service.IService;
-import top.belovedyaoo.openac.model.BasePermission;
+import top.belovedyaoo.openac.model.Permission;
 
 /**
  * 权限服务类基类
@@ -11,11 +11,11 @@ import top.belovedyaoo.openac.model.BasePermission;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BasePermissionServiceImpl implements IService<BasePermission> {
+public class PermissionServiceImpl implements IService<Permission> {
 
     @Override
-    public BaseMapper<BasePermission> getMapper() {
-        return Mappers.ofEntityClass(BasePermission.class);
+    public BaseMapper<Permission> getMapper() {
+        return Mappers.ofEntityClass(Permission.class);
     }
 
 }

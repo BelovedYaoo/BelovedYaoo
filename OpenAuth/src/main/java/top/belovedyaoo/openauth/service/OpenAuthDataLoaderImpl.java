@@ -6,13 +6,11 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.ejlchina.okhttps.OkHttps;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Component;
-import top.belovedyaoo.openac.model.BaseUser;
+import top.belovedyaoo.openac.model.User;
 import top.belovedyaoo.openauth.data.loader.OpenAuthDataLoader;
 import top.belovedyaoo.openauth.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openauth.enums.OpenAuthResultEnum;
@@ -124,7 +122,7 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                     .set("phone", user.getString("phone"))
                     .set("email", user.getString("email"))
                     .set("nickname", user.getString("nickname"));
-            BaseUser user2 = user.getModel(BaseUser.class);
+            User user2 = user.getModel(User.class);
             // Sa-Token登录
             StpUtil.login(user2.baseId());
             return Result.success().message("登录成功")

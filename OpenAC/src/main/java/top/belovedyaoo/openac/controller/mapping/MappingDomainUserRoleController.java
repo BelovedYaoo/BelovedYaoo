@@ -1,6 +1,6 @@
 package top.belovedyaoo.openac.controller.mapping;
 
-import top.belovedyaoo.openac.model.mapping.BaseMappingDomainUserRole;
+import top.belovedyaoo.openac.model.mapping.MappingDomainUserRole;
 import top.belovedyaoo.opencore.base.DefaultController;
 
 /**
@@ -9,5 +9,5 @@ import top.belovedyaoo.opencore.base.DefaultController;
  * @author BelovedYaoo
  * @version 1.0
  */
-public class BaseMappingDomainUserRoleController extends DefaultController<BaseMappingDomainUserRole> {
+public class MappingDomainUserRoleController extends DefaultController<MappingDomainUserRole> {
 }
