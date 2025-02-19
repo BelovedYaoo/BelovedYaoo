@@ -18,24 +18,13 @@ import top.belovedyaoo.opencore.base.BaseFiled;
  * @author BelovedYaoo
  * @version 1.1
  */
-public interface Tree {
+public interface Tree<T extends BaseFiled> {
 
     String PARENT_ID = "parentId";
 
     String TREE_PATH = "treePath";
 
-    String IS_ROOT = "isRoot";
-
     String IS_LEAF = "isLeaf";
-
-    /**
-     * 获取BaseID
-     *
-     * @return BaseID
-     */
-    default String baseId() {
-        return BaseFiled.convertToBaseFiled(this).baseId();
-    }
 
     /**
      * 获取父节点ID
@@ -55,8 +44,10 @@ public interface Tree {
      * @return TreeNode
      */
     @JsonSetter(PARENT_ID)
-    default TreeNode parentId(String parentId) {
-        return treeNode().parentId(parentId);
+    @SuppressWarnings("unchecked")
+    default T parentId(String parentId) {
+        treeNode().parentId(parentId);
+        return (T) this;
     }
 
     /**
@@ -76,8 +67,10 @@ public interface Tree {
      *
      * @return TreeNode
      */
-    default TreeNode treePath(String treePath) {
-        return treeNode().treePath(treePath);
+    @SuppressWarnings("unchecked")
+    default T treePath(String treePath) {
+        treeNode().treePath(treePath);
+        return (T) this;
     }
 
     /**
@@ -85,20 +78,9 @@ public interface Tree {
      *
      * @return 是否为顶级节点
      */
-    @JsonGetter(IS_ROOT)
+    @JsonGetter("isRoot")
     default boolean isRoot() {
-        return treeNode().isRoot();
-    }
-
-    /**
-     * 设置是否为顶级节点
-     *
-     * @param isRoot 是否为顶级节点
-     *
-     * @return TreeNode
-     */
-    default TreeNode isRoot(boolean isRoot) {
-        return treeNode().isRoot(isRoot);
+        return treeNode().parentId() == null;
     }
 
     /**
@@ -118,8 +100,10 @@ public interface Tree {
      *
      * @return TreeNode
      */
-    default TreeNode isLeaf(boolean isLeaf) {
-        return treeNode().isLeaf(isLeaf);
+    @SuppressWarnings("unchecked")
+    default T isLeaf(boolean isLeaf) {
+        treeNode().isLeaf(isLeaf);
+        return (T) this;
     }
 
     /**
@@ -146,8 +130,6 @@ public interface Tree {
 
         public static final String TREE_PATH = "tree_path";
 
-        public static final String IS_ROOT = "is_root";
-
         public static final String IS_LEAF = "is_leaf";
 
         @ColumnComment("父节点ID,通常为父节点的BaseID")
@@ -157,10 +139,6 @@ public interface Tree {
         @ColumnComment("当前节点的完整路径信息")
         @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 1024)
         private String treePath;
-
-        @ColumnComment("当前节点是否为顶级节点")
-        @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
-        private boolean isRoot;
 
         @ColumnComment("当前节点是否为叶子节点")
         @ColumnType(value = MysqlTypeConstant.BIT, length = 1)

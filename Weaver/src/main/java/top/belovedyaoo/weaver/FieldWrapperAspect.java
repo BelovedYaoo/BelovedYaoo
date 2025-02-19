@@ -38,11 +38,9 @@ public class FieldWrapperAspect {
         try {
             GETTERS.put("parentId", Tree.class.getMethod("parentId"));
             GETTERS.put("treePath", Tree.class.getMethod("treePath"));
-            GETTERS.put("isRoot", Tree.class.getMethod("isRoot"));
             GETTERS.put("isLeaf", Tree.class.getMethod("isLeaf"));
             SETTERS.put("parentId", Tree.class.getMethod("parentId", String.class));
             SETTERS.put("treePath", Tree.class.getMethod("treePath", String.class));
-            SETTERS.put("isRoot", Tree.class.getMethod("isRoot", boolean.class));
             SETTERS.put("isLeaf", Tree.class.getMethod("isLeaf", boolean.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -71,7 +69,7 @@ public class FieldWrapperAspect {
 
             System.out.println(joinPoint.getArgs()[1]);
             switch (fieldName) {
-                case "isRoot", "isLeaf" -> {
+                case "isLeaf" -> {
                     fieldTypeField.set(fieldWrapper, boolean.class);
                 }
                 default -> {

@@ -34,15 +34,17 @@ public class ReflectorAspect {
         try {
             GETTERS.put("parentId", new MethodInvoker(Tree.class.getMethod("parentId")));
             GETTERS.put("treePath", new MethodInvoker(Tree.class.getMethod("treePath")));
-            GETTERS.put("isRoot", new MethodInvoker(Tree.class.getMethod("isRoot")));
             GETTERS.put("isLeaf", new MethodInvoker(Tree.class.getMethod("isLeaf")));
             SETTERS.put("parentId", new MethodInvoker(Tree.class.getMethod("parentId", String.class)));
             SETTERS.put("treePath", new MethodInvoker(Tree.class.getMethod("treePath", String.class)));
-            SETTERS.put("isRoot", new MethodInvoker(Tree.class.getMethod("isRoot", boolean.class)));
             SETTERS.put("isLeaf", new MethodInvoker(Tree.class.getMethod("isLeaf", boolean.class)));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static ReflectorAspect aspectOf() {
+        return new ReflectorAspect();
     }
 
     @Around("execution(* org.apache.ibatis.reflection.Reflector.getGetInvoker(..))")

@@ -6,6 +6,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import org.springframework.stereotype.Service;
 import top.belovedyaoo.opencore.base.BaseControllerMethod;
 import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import static com.mybatisflex.core.query.QueryMethods.select;
  * @version 1.0
  */
 @Service
-public interface TreeService<T extends Tree> extends BaseControllerMethod<T> {
+public interface TreeService<T extends BaseFiled & Tree<T>> extends BaseControllerMethod<T> {
 
     String CTE = "CTE";
 
@@ -37,7 +38,7 @@ public interface TreeService<T extends Tree> extends BaseControllerMethod<T> {
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .select()
                 .from(getOriginalClass())
-                .where(BaseFiled.eqBaseId(baseId));
+                .where(BaseIdFiled.eqBaseId(baseId));
         // 通过 WithRelations 来查询，详见 https://mybatis-flex.com/zh/base/relations-query.html
         return getMapper().selectOneWithRelationsByQuery(queryWrapper);
     }
@@ -63,7 +64,7 @@ public interface TreeService<T extends Tree> extends BaseControllerMethod<T> {
      */
     default int deleteNodeTreeByBaseId(String baseId) {
         // 先拿到该节点以及所有子节点的BaseID
-        List<String> ts = getMapper().selectListByQueryAs(buildTreeSelectQuery(baseId, BaseFiled.BASE_ID), String.class);
+        List<String> ts = getMapper().selectListByQueryAs(buildTreeSelectQuery(baseId, BaseIdFiled.BASE_ID), String.class);
         return getMapper().deleteBatchByIds(ts);
     }
 
@@ -85,10 +86,10 @@ public interface TreeService<T extends Tree> extends BaseControllerMethod<T> {
                                         .as(TABLE_ALIAS)
                                         .innerJoin(CTE)
                                         .on(
-                                                TABLE_ALIAS + SqlConsts.REFERENCE + Tree.TreeNode.PARENT_ID + SqlConsts.EQUALS + CTE + SqlConsts.REFERENCE + BaseFiled.BASE_ID
+                                                TABLE_ALIAS + SqlConsts.REFERENCE + Tree.TreeNode.PARENT_ID + SqlConsts.EQUALS + CTE + SqlConsts.REFERENCE + BaseIdFiled.BASE_ID
                                                         + SqlConsts.AND
                                                         + TABLE_ALIAS + SqlConsts.REFERENCE + BaseFiled.DELETED_AT + SqlConsts.IS_NULL)
-                        ).from(getOriginalClass()).where(BaseFiled.eqBaseId(baseId))
+                        ).from(getOriginalClass()).where(BaseIdFiled.eqBaseId(baseId))
                 )
                 .select(columns)
                 .from(CTE);

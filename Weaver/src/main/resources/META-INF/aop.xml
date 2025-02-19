@@ -10,6 +10,8 @@
         <include within="org.apache.ibatis.reflection.Reflector"/>
         <!-- 抽象关系 -->
         <include within="com.mybatisflex.core.relation.AbstractRelation"/>
+        <!-- StpUtil 鉴权工具 -->
+        <include within="cn.dev33.satoken.stp.StpUtil"/>
     </weaver>
     <aspects>
         <!-- 使用的切面 -->
@@ -21,5 +23,7 @@
         <aspect name="top.belovedyaoo.weaver.ReflectorAspect"/>
         <!-- 抽象关系切面类 -->
         <aspect name="top.belovedyaoo.weaver.AbstractRelationAspect"/>
+        <!-- StpUtil 鉴权工具切面类 -->
+        <aspect name="top.belovedyaoo.weaver.StpUtilAspect"/>
     </aspects>
 </aspectj>

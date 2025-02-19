@@ -13,7 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author BelovedYaoo
  * @version 1.0
  */
-public interface BaseControllerMethod<T> extends IService<T> {
+public interface BaseControllerMethod<T extends BaseFiled> extends IService<T> {
 
     /**
      * 获取泛型类型对应的Class对象

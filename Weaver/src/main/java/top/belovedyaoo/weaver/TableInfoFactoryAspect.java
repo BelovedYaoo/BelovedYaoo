@@ -11,7 +11,7 @@ import org.apache.ibatis.reflection.invoker.SetFieldInvoker;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 import top.belovedyaoo.opencore.tree.Tree;
 
 import java.lang.reflect.Field;
@@ -265,7 +265,7 @@ public class TableInfoFactoryAspect {
             newQueryColumn.setName(value.getName());
             newQueryColumn.setAlias(value.getAlias());
             // 通过 BaseID 获取左目标的表名，并设置到新的 QueryColumn 中
-            newQueryColumn.setTable(leftColumnQueryMapping.get(BaseFiled.BASE_ID).getTable());
+            newQueryColumn.setTable(leftColumnQueryMapping.get(BaseIdFiled.BASE_ID).getTable());
             // 将新的 QueryColumn 添加到合并后的 Map 中
             mergedColumnQueryMapping.put(key, newQueryColumn);
         });

@@ -4,25 +4,20 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
 import com.tangzc.mybatisflex.annotation.InsertFillTime;
 import com.tangzc.mybatisflex.annotation.InsertUpdateFillData;
 import com.tangzc.mybatisflex.annotation.InsertUpdateFillTime;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
-import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.Ignore;
-import org.dromara.autotable.annotation.Index;
-import org.dromara.autotable.annotation.PrimaryKey;
-import org.dromara.autotable.annotation.enums.IndexTypeEnum;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
-import top.belovedyaoo.opencore.processor.BaseIdAutoFillProcessor;
 import top.belovedyaoo.opencore.processor.CreatorIdAutoFillProcessor;
 import top.belovedyaoo.opencore.processor.UpdaterIdAutoFillProcessor;
 import top.belovedyaoo.opencore.tree.Tree;
@@ -45,10 +40,9 @@ import java.util.Date;
 @SuperBuilder
 @NoArgsConstructor
 @Getter(onMethod_ = @JsonGetter)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(fluent = true, chain = true)
-public abstract class BaseFiled implements Serializable {
-
-    public static final String BASE_ID = "base_id";
+public abstract class BaseFiled extends BaseIdFiled implements Serializable {
 
     public static final String ORDER_NUM = "order_num";
 
@@ -63,15 +57,6 @@ public abstract class BaseFiled implements Serializable {
     public static final String DISABLED_AT = "disabled_at";
 
     public static final String DELETED_AT = "deleted_at";
-
-    @Id
-    @ColumnNotNull
-    @PrimaryKey(autoIncrement = false)
-    @ColumnComment("基础ID,仅系统内部使用")
-    @Index(type = IndexTypeEnum.UNIQUE)
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    @InsertFillData(BaseIdAutoFillProcessor.class)
-    private String baseId;
 
     @ColumnComment("数据序号,用于数据排序")
     @ColumnType(value = MysqlTypeConstant.INT)
@@ -150,22 +135,11 @@ public abstract class BaseFiled implements Serializable {
      * @return 转换后的BaseFiled类型对象
      */
     public static BaseFiled convertToBaseFiled(Object object) {
-        if (object instanceof BaseFiled) {
-            return (BaseFiled) object;
+        if (object instanceof BaseFiled baseFiled) {
+            return baseFiled;
         } else {
-            throw new IllegalArgumentException("传入的参数类型不是BaseFiled的基类,请检查");
+            throw new IllegalArgumentException("传入的参数类型不是BaseFiled的派生类,请检查");
         }
-    }
-
-    /**
-     * 获取BaseFiled的BaseID字段的查询条件
-     *
-     * @param id BaseID字段
-     *
-     * @return BaseID字段的查询条件
-     */
-    public static String eqBaseId(String id) {
-        return BaseFiled.BASE_ID + " = '" + id + "'";
     }
 
     /**

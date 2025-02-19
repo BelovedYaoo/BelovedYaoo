@@ -45,7 +45,7 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
         for (int i = 0; i < originalList.size(); i++) {
             UpdateChain.of(getOriginalClass())
                     .set(BaseFiled.ORDER_NUM, orderNumList.get(i))
-                    .where(BaseFiled.eqBaseId(originalList.get(i).baseId()))
+                    .where(BaseIdFiled.eqBaseId(originalList.get(i).baseId()))
                     .update();
         }
         platformTransactionManager.commit(transactionStatus);
@@ -71,11 +71,11 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
         UpdateChain.of(getOriginalClass())
                 .set(BaseFiled.ORDER_NUM, rightTargetOrderNum)
-                .where(BaseFiled.eqBaseId(leftTargetBaseId))
+                .where(BaseIdFiled.eqBaseId(leftTargetBaseId))
                 .update();
         UpdateChain.of(getOriginalClass())
                 .set(BaseFiled.ORDER_NUM, leftTargetOrderNum)
-                .where(BaseFiled.eqBaseId(rightTargetBaseId))
+                .where(BaseIdFiled.eqBaseId(rightTargetBaseId))
                 .update();
         platformTransactionManager.commit(transactionStatus);
         return Result.success().message("顺序交换成功");

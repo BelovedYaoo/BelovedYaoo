@@ -14,7 +14,7 @@ import top.belovedyaoo.opencore.tree.TreeService;
  * @author BelovedYaoo
  * @version 1.0
  */
-public interface BaseTree<T extends Tree> extends TreeService<T> {
+public interface BaseTree<T extends BaseFiled & Tree<T>> extends TreeService<T> {
 
     /**
      * 根据父节点ID查询所有子节点<br>

@@ -18,6 +18,7 @@ import org.springframework.cglib.core.ReflectUtils;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ReflectionUtils;
 import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 import top.belovedyaoo.opencore.tree.Tree;
 
 import java.beans.IntrospectionException;
@@ -102,7 +103,7 @@ public class EntityOperate {
                         // 更新审计信息
                         .set(BaseFiled.UPDATE_TIME, new Date())
                         .set(BaseFiled.UPDATER_ID, updaterId, !updaterId.isBlank())
-                        .where(BaseFiled.eqBaseId(parentId))
+                        .where(BaseIdFiled.eqBaseId(parentId))
                         .update();
                 if (!update) {
                     throw new RuntimeException("更新父节点时失败");

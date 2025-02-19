@@ -3,25 +3,21 @@ package top.belovedyaoo.logs.model.po;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
 import com.tangzc.mybatisflex.annotation.InsertFillTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.dromara.autotable.annotation.ColumnComment;
-import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
-import org.dromara.autotable.annotation.Index;
-import org.dromara.autotable.annotation.PrimaryKey;
-import org.dromara.autotable.annotation.enums.IndexTypeEnum;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.logs.processor.OperatorIdAutoFillProcessor;
-import top.belovedyaoo.opencore.processor.BaseIdAutoFillProcessor;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,18 +33,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter(onMethod_ = @JsonGetter)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "log_interface", dataSource = "primary")
-public class InterfaceLogPO implements Serializable {
-
-    @Id
-    @ColumnNotNull
-    @PrimaryKey(autoIncrement = false)
-    @ColumnComment("基础ID,仅系统内部使用")
-    @Index(type = IndexTypeEnum.UNIQUE)
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    @InsertFillData(BaseIdAutoFillProcessor.class)
-    private String baseId;
+public class InterfaceLogPO extends BaseIdFiled implements Serializable {
 
     @ColumnComment("每条日志记录的操作者ID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)

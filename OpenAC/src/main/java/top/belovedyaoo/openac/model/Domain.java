@@ -36,7 +36,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "domain", dataSource = "primary")
-public class Domain extends BaseFiled implements Serializable, Tree {
+public class Domain extends BaseFiled implements Serializable, Tree<Domain> {
+
+    public static final String DOMAIN_ID = "domain_id";
 
     @ColumnNotNull
     @ColumnComment("域名称")

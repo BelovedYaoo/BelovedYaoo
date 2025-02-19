@@ -50,7 +50,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "role", dataSource = "primary")
-public class Role extends TenantFiled implements Serializable, Tree {
+public class Role extends TenantFiled implements Serializable, Tree<Role> {
 
     @ColumnComment("角色名称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)

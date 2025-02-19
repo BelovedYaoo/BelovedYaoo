@@ -3,6 +3,7 @@ package top.belovedyaoo.opencore.processor;
 import cn.hutool.core.util.IdUtil;
 import com.tangzc.mybatisflex.annotation.handler.AutoFillHandler;
 import org.springframework.stereotype.Component;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 
 import java.lang.reflect.Field;
 
@@ -27,7 +28,8 @@ public class BaseIdAutoFillProcessor implements AutoFillHandler<String> {
      */
     @Override
     public String getVal(Object object, Class clazz, Field field) {
-        return IdUtil.simpleUUID();
+        String baseId = BaseIdFiled.readBaseId(object);
+        return baseId != null ? baseId : IdUtil.simpleUUID();
     }
 
 }
