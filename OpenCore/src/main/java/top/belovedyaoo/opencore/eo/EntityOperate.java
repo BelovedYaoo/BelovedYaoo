@@ -94,7 +94,7 @@ public class EntityOperate {
 
         // 如果是树形数据
         if (isTree(clazz)) {
-            String parentId = ((Tree) obj).treeNode().parentId();
+            String parentId = ((Tree<?>) obj).treeNode().parentId();
             // 如果父节点不为空，则更新父节点的 isLeaf 字段为 0
             if (parentId != null && !parentId.isBlank()) {
                 String updaterId = StpUtil.getLoginId("");
@@ -205,7 +205,8 @@ public class EntityOperate {
 
     private void setDefaultVale(FieldFill fill, Object object, Class<?> clazz, Field field) {
         DefaultValue defaultValue = AnnotatedElementUtils.getMergedAnnotation(field, DefaultValue.class);
-        if (defaultValue == null || (defaultValue.fill() != fill && defaultValue.fill() != FieldFill.INSERT_UPDATE)) {
+        boolean dontSet = defaultValue == null || (defaultValue.fill() != fill && defaultValue.fill() != FieldFill.INSERT_UPDATE);
+        if (dontSet) {
             return;
         }
         PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
@@ -221,7 +222,8 @@ public class EntityOperate {
 
     private void setOptionDate(FieldFill fill, Object object, Class<?> clazz, Field field, Now now) {
         FillTime fillTime = AnnotatedElementUtils.getMergedAnnotation(field, FillTime.class);
-        if (fillTime == null || (fillTime.fill() != fill && fillTime.fill() != FieldFill.INSERT_UPDATE)) {
+        boolean dontSet = fillTime == null || (fillTime.fill() != fill && fillTime.fill() != FieldFill.INSERT_UPDATE);
+        if (dontSet) {
             return;
         }
         PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
@@ -238,27 +240,29 @@ public class EntityOperate {
 
     private void setOptionData(FieldFill fill, Object object, Class<?> clazz, Field field) {
         FillData fillData = AnnotatedElementUtils.getMergedAnnotation(field, FillData.class);
-        if (fillData == null || (fillData.fill() != fill && fillData.fill() != FieldFill.INSERT_UPDATE)) {
+        boolean dontSet = fillData == null || (fillData.fill() != fill && fillData.fill() != FieldFill.INSERT_UPDATE);
+        if (dontSet) {
             return;
         }
         PropertyDescriptor propertyDescriptor = getPropertyDescriptor(clazz, field);
         // 判断原来值为null,或者覆盖选项为true
         boolean canSet = fillData.override() || ReflectionUtils.invokeMethod(propertyDescriptor.getReadMethod(), object) == null;
         if (canSet) {
-            Object userInfo = null;
-            AutoFillHandler<?> instance = getAutoFillHandler(fillData.value());
+            Object dataInfo = null;
+            @SuppressWarnings("unchecked")
+            AutoFillHandler<?> instance = getAutoFillHandler((Class<? extends AutoFillHandler<?>>) fillData.value());
             if (instance != null) {
-                userInfo = instance.getVal(object, clazz, field);
+                dataInfo = instance.getVal(object, clazz, field);
             }
             // 如果当前未取到信息,不设置
-            if (userInfo != null) {
+            if (dataInfo != null) {
                 // 先校验类型是否一致
-                if (!this.checkTypeConsistency(userInfo.getClass(), field.getType())) {
-                    String errorMsg = clazz.getName() + "中的字段" + field.getName() + "的类型（" + field.getType() + "）与" + instance.getClass() + "返回值的类型（" + userInfo.getClass() + "）不一致";
+                if (!this.checkTypeConsistency(dataInfo.getClass(), field.getType())) {
+                    String errorMsg = clazz.getName() + "中的字段" + field.getName() + "的类型（" + field.getType() + "）与" + instance.getClass() + "返回值的类型（" + dataInfo.getClass() + "）不一致";
                     throw new RuntimeException(errorMsg);
                 }
                 // 赋值
-                ReflectionUtils.invokeMethod(propertyDescriptor.getWriteMethod(), object, userInfo);
+                ReflectionUtils.invokeMethod(propertyDescriptor.getWriteMethod(), object, dataInfo);
             }
         }
     }
@@ -275,7 +279,7 @@ public class EntityOperate {
     /**
      * 缓存AutoFillHandler,同时寻找
      */
-    private AutoFillHandler<?> getAutoFillHandler(Class<? extends AutoFillHandler> autoFillHandler) {
+    private AutoFillHandler<?> getAutoFillHandler(Class<? extends AutoFillHandler<?>> autoFillHandler) {
         try {
             return SpringContextUtil.getBeanOfType(autoFillHandler);
         } catch (NoUniqueBeanDefinitionException ignore) {
