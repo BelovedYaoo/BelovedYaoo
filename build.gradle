@@ -88,7 +88,7 @@ subprojects {
         annotationProcessor 'com.mybatis-flex:mybatis-flex-processor:1.10.1'
 
         // Auto Table, 官方文档: https://autotable.tangzc.com/
-        implementation 'org.dromara.autotable:auto-table:2.0.2'
+        implementation 'org.dromara.autotable:auto-table-spring-boot-starter:2.1.4'
 
         // MyBatis-Flex + Auto Table的拓展包, 仓库地址: https://gitee.com/tangzc/mybatis-flex-ext
         implementation 'com.tangzc:mybatis-flex-ext-spring-boot3-starter:1.10.2.100'

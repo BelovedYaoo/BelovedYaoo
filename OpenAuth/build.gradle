@@ -2,9 +2,9 @@ dependencies {
     implementation project(":OpenCore")
     implementation project(":OpenAC")
     // 保留核心包，用于兼容树形数据支持
-    implementation 'org.dromara.autotable:auto-table-core:2.0.1.1'
+    implementation 'org.dromara.autotable:auto-table-core:2.1.4'
     // 保留自动注入处理器
-    implementation 'com.tangzc:mybatis-flex-ext-annotation:1.10.1.054'
+    implementation 'com.tangzc:mybatis-flex-ext-annotation:1.10.2.100'
 }
 
 configurations.configureEach { it ->
