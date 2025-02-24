@@ -502,6 +502,20 @@ public class OcMap extends LinkedHashMap<String, Object> implements Serializable
     }
 
     /**
+     * 通过键名获取一个值并转为指定类型的对象返回
+     *
+     * @param key 键名
+     * @param cs  类型
+     * @param <T> 泛型类型
+     *
+     * @return 对象
+     */
+    public <T> T getValueByClass(String key, Class<T> cs) {
+        Object value = get(key);
+        return getValueByClass(value, cs);
+    }
+
+    /**
      * 将指定值转化为指定类型并返回
      *
      * @param obj 值
@@ -513,7 +527,7 @@ public class OcMap extends LinkedHashMap<String, Object> implements Serializable
      * @exception IllegalArgumentException 如果无法将值转换为目标类型
      */
     @SuppressWarnings("unchecked")
-    public static <T> T getValueByClass(Object obj, Class<T> cs) {
+    public <T> T getValueByClass(Object obj, Class<T> cs) {
         String obj2 = String.valueOf(obj);
         Object obj3;
         if (cs.equals(String.class)) {
@@ -559,7 +573,11 @@ public class OcMap extends LinkedHashMap<String, Object> implements Serializable
         } else if (cs.equals(Date.class)) {
             obj3 = new Date(Long.parseLong(obj2));
         } else {
-            throw new IllegalArgumentException("无法将 " + obj2 + " 转换为 " + cs.getName());
+            try {
+                return (T) get(obj2);
+            } catch (ClassCastException e) {
+                throw new IllegalArgumentException("无法将 " + obj2 + " 转换为 " + cs.getName(), e);
+            }
         }
         return (T) obj3;
     }
