@@ -14,9 +14,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.autotable.annotation.AutoIncrement;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.Ignore;
+import org.dromara.autotable.annotation.Index;
+import org.dromara.autotable.annotation.enums.IndexTypeEnum;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.processor.CreatorIdAutoFillProcessor;
 import top.belovedyaoo.opencore.processor.UpdaterIdAutoFillProcessor;
@@ -34,7 +37,7 @@ import java.util.Date;
  * Accessors用于去除Getter、Setter前缀并开启链式调用,使Getter、Setter返回当前对象
  *
  * @author BelovedYaoo
- * @version 2.1
+ * @version 2.2
  */
 @Data
 @SuperBuilder
@@ -58,43 +61,45 @@ public abstract class BaseFiled extends BaseIdFiled implements Serializable {
 
     public static final String DELETED_AT = "deleted_at";
 
+    @AutoIncrement
     @ColumnComment("数据序号,用于数据排序")
+    @Index(type = IndexTypeEnum.UNIQUE)
     @ColumnType(value = MysqlTypeConstant.INT)
     private Integer orderNum;
 
-    @ColumnComment("数据的创建时间")
-    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @InsertFillTime
+    @ColumnComment("数据的创建时间")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     private Date createTime;
 
-    @ColumnComment("数据最近一次的更新时间")
-    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @InsertUpdateFillTime
+    @ColumnComment("数据最近一次的更新时间")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     private Date updateTime;
 
     @ColumnComment("数据创建者的BaseID")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     @InsertFillData(CreatorIdAutoFillProcessor.class)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     private String creatorId;
 
     @ColumnComment("数据上一次更新者BaseID")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    @InsertUpdateFillData(UpdaterIdAutoFillProcessor.class)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @InsertUpdateFillData(UpdaterIdAutoFillProcessor.class)
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
     private String updaterId;
 
     @ColumnComment("不为NULL的情况表示数据的禁用时间")
-    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     private Date disabledAt;
 
     @Column(isLogicDelete = true)
     @ColumnComment("不为NULL的情况表示数据的删除时间")
-    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ColumnType(value = MysqlTypeConstant.DATETIME, length = 3)
     private Date deletedAt;
 
     /**

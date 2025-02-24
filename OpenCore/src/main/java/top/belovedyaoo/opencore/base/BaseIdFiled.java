@@ -2,6 +2,7 @@ package top.belovedyaoo.opencore.base;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Id;
+import com.mybatisflex.core.constant.SqlConsts;
 import com.tangzc.mybatisflex.annotation.InsertFillData;
 import lombok.Data;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import java.io.Serializable;
  * 基础ID字段
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @Data
 @SuperBuilder
@@ -51,7 +52,19 @@ public abstract class BaseIdFiled implements Serializable {
      * @return BaseID字段的查询条件
      */
     public static String eqBaseId(String id) {
-        return BaseIdFiled.BASE_ID + " = '" + id + "'";
+        return BaseIdFiled.BASE_ID + SqlConsts.EQUALS + "'" + id + "'";
+    }
+
+    /**
+     * 获取BaseIdFiled的BaseID字段的查询条件<p>
+     *
+     * @param left  BaseID字段
+     * @param right BaseID字段
+     *
+     * @return BaseID字段的查询条件
+     */
+    public static String inBaseId(String left, String right) {
+        return BaseIdFiled.BASE_ID + SqlConsts.IN + "('" + left + "','" + right + "')";
     }
 
     /**
