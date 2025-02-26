@@ -11,12 +11,13 @@ import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 
 /**
  * 树形数据接口
  *
  * @author BelovedYaoo
- * @version 1.1
+ * @version 1.2
  */
 public interface Tree<T extends BaseFiled> {
 
@@ -25,6 +26,15 @@ public interface Tree<T extends BaseFiled> {
     String TREE_PATH = "treePath";
 
     String IS_LEAF = "isLeaf";
+
+    /**
+     * 获取BaseID
+     *
+     * @return BaseID
+     */
+    default String readBaseId() {
+        return BaseIdFiled.readBaseId(this);
+    }
 
     /**
      * 获取父节点ID
@@ -80,7 +90,8 @@ public interface Tree<T extends BaseFiled> {
      */
     @JsonGetter("isRoot")
     default boolean isRoot() {
-        return treeNode().parentId() == null;
+        String parentId = treeNode().parentId();
+        return parentId == null || parentId.isBlank();
     }
 
     /**

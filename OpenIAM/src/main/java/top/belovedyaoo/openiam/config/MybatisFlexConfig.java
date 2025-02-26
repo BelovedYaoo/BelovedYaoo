@@ -9,12 +9,14 @@ import top.belovedyaoo.opencore.processor.LogicDeleteProcessor;
 import top.belovedyaoo.opencore.common.SqlCollector;
 import top.belovedyaoo.opencore.eo.EntityInsertListener;
 import top.belovedyaoo.opencore.eo.EntityUpdateListener;
+import top.belovedyaoo.opencore.tree.Tree;
+import top.belovedyaoo.opencore.tree.TreeOperateListener;
 
 /**
  * Mybatis-Flex 框架的配置类
  *
  * @author BelovedYaoo
- * @version 1.2
+ * @version 1.3
  */
 @Configuration
 public class MybatisFlexConfig {
@@ -34,6 +36,8 @@ public class MybatisFlexConfig {
         // 注册插入监听器、更新监听器
         globalConfig.registerInsertListener(new EntityInsertListener(), Object.class);
         globalConfig.registerUpdateListener(new EntityUpdateListener(), Object.class);
+        globalConfig.registerInsertListener(new TreeOperateListener(), Tree.class);
+        globalConfig.registerUpdateListener(new TreeOperateListener(), Tree.class);
     }
 
 }
