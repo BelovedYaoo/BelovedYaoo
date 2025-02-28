@@ -2,6 +2,7 @@ package top.belovedyaoo.opencore.tree;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.mybatisflex.core.constant.SqlConsts;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -154,6 +155,17 @@ public interface Tree<T extends BaseFiled> {
         @ColumnComment("当前节点是否为叶子节点")
         @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
         private boolean isLeaf;
+
+        /**
+         * 获取ParentID字段的查询条件
+         *
+         * @param id ParentID字段
+         *
+         * @return ParentID字段的查询条件
+         */
+        public static String eqParentId(String id) {
+            return PARENT_ID + SqlConsts.EQUALS + "'" + id + "'";
+        }
 
         /**
          * 判断是否为树形结构
