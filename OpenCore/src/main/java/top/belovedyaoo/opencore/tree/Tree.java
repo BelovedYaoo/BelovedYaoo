@@ -1,7 +1,9 @@
 package top.belovedyaoo.opencore.tree;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.core.constant.SqlConsts;
 import lombok.Data;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
+import org.dromara.autotable.annotation.Ignore;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.base.BaseFiled;
 import top.belovedyaoo.opencore.base.BaseIdFiled;
@@ -155,6 +158,14 @@ public interface Tree<T extends BaseFiled> {
         @ColumnComment("当前节点是否为叶子节点")
         @ColumnType(value = MysqlTypeConstant.BIT, length = 1)
         private boolean isLeaf;
+
+        /**
+         * 树形节点状态的临时定义
+         */
+        @Ignore
+        @Column(ignore = true)
+        @Getter(onMethod_ = @JsonIgnore)
+        private boolean state;
 
         /**
          * 获取ParentID字段的查询条件

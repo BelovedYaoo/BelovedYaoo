@@ -66,7 +66,13 @@ public class TreeOperateListener implements InsertListener, UpdateListener {
         if (isUpdate) {
             treePath.append(tree.readBaseId());
         } else {
-            String treeBaseId = IdUtil.simpleUUID();
+            String id = tree.readBaseId();
+            String treeBaseId;
+            if (id != null && !id.isBlank()) {
+                treeBaseId = id;
+            } else {
+                treeBaseId = IdUtil.simpleUUID();
+            }
             treePath.append(treeBaseId);
         }
         tree.treePath(treePath.toString());
@@ -79,14 +85,24 @@ public class TreeOperateListener implements InsertListener, UpdateListener {
      * @param isUpdate 是否属于更新操作
      * @param <T>      树节点类型
      */
+    @SuppressWarnings("unchecked")
     public <T extends Tree<? extends BaseFiled>> void operateIsLeaf(T tree, boolean isUpdate) {
+        // 自身判断
         if (isUpdate) {
-            @SuppressWarnings("rawtypes")
-            BaseMapper<? extends Tree> treeMapper = Mappers.ofEntityClass(tree.getClass());
+            BaseMapper<T> treeMapper = (BaseMapper<T>) Mappers.ofEntityClass(tree.getClass());
             boolean existChild = treeMapper.selectCountByQuery(QueryWrapper.create().where(Tree.TreeNode.eqParentId(tree.readBaseId()))) > 0;
-            tree.isLeaf(!existChild);
+            tree.isLeaf(!tree.treeNode().state() && !existChild);
         } else {
             tree.isLeaf(true);
+        }
+        // 父节点判断
+        if (tree.parentId() != null) {
+            BaseMapper<T> treeMapper = (BaseMapper<T>) Mappers.ofEntityClass(tree.getClass());
+            T tree1 = treeMapper.selectOneByQuery(QueryWrapper.create().where(BaseIdFiled.eqBaseId(tree.parentId())));
+            if (tree1 != null) {
+                tree1.treeNode().state(true);
+                treeMapper.update(tree1);
+            }
         }
     }
 
