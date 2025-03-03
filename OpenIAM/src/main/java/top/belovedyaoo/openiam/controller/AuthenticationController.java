@@ -6,17 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.logs.annotation.InterfaceLog;
-import top.belovedyaoo.openac.generateMapper.UserMapper;
-import top.belovedyaoo.openac.model.Domain;
 import top.belovedyaoo.openac.model.User;
-import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.opencore.tree.Tree;
-import top.belovedyaoo.opencore.tree.TreeService;
 import top.belovedyaoo.openiam.service.AuthenticationService;
 import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
-
-import java.util.List;
+import top.belovedyaoo.opencore.result.Result;
 
 import static top.belovedyaoo.openiam.service.AuthenticationService.VERIFY_CODE_PREFIX;
 
@@ -37,41 +30,6 @@ public class AuthenticationController {
     private final AuthenticationUtil authenticationUtil;
 
     private final AuthenticationService authenticationService;
-
-    private final UserMapper userMapper;
-
-    private final TreeService<Domain> domainService;
-
-    @PostMapping("/test")
-    public List<? extends Tree> test(@RequestParam(value = "parentId") String parentId) {
-        return domainService.findAllNodeByBaseId(parentId);
-    }
-
-    @PostMapping("/test2")
-    @InterfaceLog(identifierCode = "abc", interfaceDesc = "测试接口日志注解", interfaceName = "test2")
-    public User test2() {
-        User account = User.builder()
-                .baseId("111")
-                .openId("222")
-                .password("YTY2NWE0NTkyMDQyMmY5ZDQxN2U0ODY3ZWZkYzRmYjhhMDRhMWYzZmZmMWZhMDdlOTk4ZTg2ZjdmN2EyN2FlMw==")
-                .build();
-        // System.out.println(account);
-        userMapper.insert(account);
-        // userMapper.insert(User.builder()
-        //         .openId("123")
-        //         .password("YTY2NWE0NTkyMDQyMmY5ZDQxN2U0ODY3ZWZkYzRmYjhhMDRhMWYzZmZmMWZhMDdlOTk4ZTg2ZjdmN2EyN2FlMw==")
-        //         .email("belovedyaoo@qq.com")
-        //         .build());
-        return account;
-    }
-
-    @PostMapping("/test3")
-    @InterfaceLog(identifierCode = "abc333", interfaceDesc = "测试接口日志注解3", interfaceName = "test3")
-    public Result test3(@RequestBody User user) {
-        // System.out.println(user);
-        userMapper.insert(user);
-        return Result.success().singleData(user);
-    }
 
     /**
      * 账号注册方法

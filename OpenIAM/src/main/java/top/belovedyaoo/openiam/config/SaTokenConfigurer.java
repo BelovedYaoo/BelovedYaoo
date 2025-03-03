@@ -12,10 +12,11 @@ import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import top.belovedyaoo.logs.toolkit.LogUtil;
+import top.belovedyaoo.openiam.consts.OpenAuthConst;
 import top.belovedyaoo.opencore.enums.exception.SaTokenExceptionEnum;
 import top.belovedyaoo.opencore.enums.result.AuthEnum;
 import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.logs.toolkit.LogUtil;
 
 /**
  * Sa-Token 配置类
@@ -44,9 +45,8 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
         return new SaServletFilter()
                 // 指定 [拦截路由] 与 [放行路由]
                 .addInclude("/**")
-                .addExclude("/oauth2/**")
-                .addExclude("/openAuth/**")
-                .addExclude("/auth/**")
+                .addExclude(OpenAuthConst.Api.doLogin)
+                .addExclude(OpenAuthConst.Api.token)
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> {
                     StpUtil.checkLogin();
@@ -55,7 +55,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                 .setError(e -> {
                     if (e instanceof NotLoginException nle) {
                         String message = SaTokenExceptionEnum.getDescByType(nle.getType());
-                        LogUtil.error("Sa-Token登录异常处理：" + message);
+                        LogUtil.error("Sa-Token登录异常处理："+ message);
                         return Result.failed().resultType(AuthEnum.SESSION_INVALID).message(message);
                     }
                     return Result.failed().message(e.getMessage());
@@ -68,7 +68,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                             .setHeader("Access-Control-Allow-Origin", "*")
                             // 允许所有请求方式
                             .setHeader("Access-Control-Allow-Methods", "*")
-                            // 允许携带 Cookie
+                            // 不允许携带 Cookie
                             .setHeader("Access-Control-Allow-Credentials", "false")
                             // 允许的 Header 参数
                             .setHeader("Access-Control-Allow-Headers", SaManager.getConfig().getTokenName().toLowerCase() + ",Content-Type")

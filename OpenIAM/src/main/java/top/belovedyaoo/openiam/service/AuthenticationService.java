@@ -4,15 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import top.belovedyaoo.openac.model.User;
 import top.belovedyaoo.openac.service.UserServiceImpl;
-import top.belovedyaoo.opencore.result.Result;
-import top.belovedyaoo.opencore.toolkit.JedisOperateUtil;
 import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 import top.belovedyaoo.openiam.toolkit.AuthenticationUtil;
+import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.opencore.toolkit.JedisOperateUtil;
 
 import static cn.hutool.core.util.ObjectUtil.isNull;
 
 /**
- * 认证服务实现类
+ * 认证服务类
  *
  * @author BelovedYaoo
  * @version 1.4

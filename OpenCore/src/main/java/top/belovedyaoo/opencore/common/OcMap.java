@@ -962,14 +962,25 @@ public class OcMap extends LinkedHashMap<String, Object> implements Serializable
     // ============================ 有效性判断函数 ============================ //
 
     /**
-     * 通过一个键名判断一个值是否为有效值
+     * 通过一个键名判断一个键是否为有效键
      *
      * @param key 键名
      *
-     * @return 是否为有效值
+     * @return 是否为有效键
      */
     public boolean isValidKey(String key) {
         return isValidValue(get(key));
+    }
+
+    /**
+     * 通过一个键名判断一个键是否为无效键
+     *
+     * @param key 键名
+     *
+     * @return 是否为无效键
+     */
+    public boolean isNotValidKey(String key) {
+        return !isValidKey(key);
     }
 
     /**

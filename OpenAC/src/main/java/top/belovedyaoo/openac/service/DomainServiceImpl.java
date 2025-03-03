@@ -1,21 +1,19 @@
 package top.belovedyaoo.openac.service;
 
-import com.mybatisflex.core.BaseMapper;
-import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.service.IService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import top.belovedyaoo.openac.model.Domain;
+import top.belovedyaoo.opencore.base.BaseController;
 
 /**
- * 域服务类类
+ * 域服务类
  *
  * @author BelovedYaoo
  * @version 1.0
  */
-public class DomainServiceImpl implements IService<Domain> {
-
-    @Override
-    public BaseMapper<Domain> getMapper() {
-        return Mappers.ofEntityClass(Domain.class);
-    }
+@Service
+@RequiredArgsConstructor
+public class DomainServiceImpl extends BaseController<Domain> implements IService<Domain> {
 
 }

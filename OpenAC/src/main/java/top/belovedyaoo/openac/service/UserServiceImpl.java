@@ -7,23 +7,20 @@ import com.mybatisflex.core.service.IService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import top.belovedyaoo.openac.enums.UserOperationEnum;
+import top.belovedyaoo.openac.model.Domain;
 import top.belovedyaoo.openac.model.User;
+import top.belovedyaoo.opencore.base.BaseController;
 import top.belovedyaoo.opencore.result.Result;
 
 /**
- * 用户服务类类
+ * 用户服务类
  *
  * @author BelovedYaoo
- * @version 1.1
+ * @version 1.2
  */
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements IService<User> {
-
-    @Override
-    public BaseMapper<User> getMapper() {
-        return Mappers.ofEntityClass(User.class);
-    }
+public class UserServiceImpl extends BaseController<User> implements IService<User> {
 
     /**
      * 根据OpenID获取用户信息

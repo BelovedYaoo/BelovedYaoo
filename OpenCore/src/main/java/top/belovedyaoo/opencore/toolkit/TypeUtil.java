@@ -1,5 +1,8 @@
 package top.belovedyaoo.opencore.toolkit;
 
+import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.mybatis.Mappers;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -11,6 +14,10 @@ import java.lang.reflect.Type;
  * @version 1.0
  */
 public class TypeUtil<T> {
+
+    public BaseMapper<T> getMapper() {
+        return Mappers.ofEntityClass(getOriginalClass());
+    }
 
     /**
      * 快速获取泛型的类型的方法

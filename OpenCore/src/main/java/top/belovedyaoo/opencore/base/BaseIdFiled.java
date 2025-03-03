@@ -37,7 +37,7 @@ public abstract class BaseIdFiled implements Serializable {
 
     @Id
     @ColumnNotNull
-    @PrimaryKey(autoIncrement = false)
+    @PrimaryKey
     @ColumnComment("基础ID,仅系统内部使用")
     @Index(type = IndexTypeEnum.UNIQUE)
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)

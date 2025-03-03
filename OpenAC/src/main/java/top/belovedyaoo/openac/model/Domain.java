@@ -50,6 +50,11 @@ public class Domain extends BaseFiled implements Serializable, Tree<Domain> {
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
     private String domainCode;
 
+    @ColumnNotNull
+    @ColumnComment("域类型")
+    @ColumnType(value = MysqlTypeConstant.ENUM)
+    private DomainType domainType;
+
     @ColumnComment("域描述")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 128)
     private String domainDesc;
@@ -58,5 +63,13 @@ public class Domain extends BaseFiled implements Serializable, Tree<Domain> {
     @RelationOneToMany(targetField = "parentId")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Domain> domains;
+
+    public enum DomainType {
+        /**
+         * 域类型
+         */
+        NORMAL,
+        APP
+    }
 
 }

@@ -52,6 +52,8 @@ public class User extends BaseFiled implements Serializable {
 
     public static final String AVATAR_ADDRESS = "avatar_address";
 
+    public static final String USER_ID = "user_id";
+
     /**
      * 该ID为用户登录使用
      */
@@ -89,7 +91,7 @@ public class User extends BaseFiled implements Serializable {
 
     @Ignore
     @RelationManyToMany(
-            joinTable = "mapping_user_role",
+            joinTable = "mapping_domain_user_role",
             joinSelfColumn = "user_id",
             joinTargetColumn = "role_id"
     )

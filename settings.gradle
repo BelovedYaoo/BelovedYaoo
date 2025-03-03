@@ -5,7 +5,6 @@ include(
         'WxApp',
         'OpenIAM',
         'ACS',
-        'OpenAuth',
         'OpenAC',
         'OpenLogs',
         'Weaver',

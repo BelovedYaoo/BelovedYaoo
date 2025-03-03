@@ -3,10 +3,10 @@ package top.belovedyaoo.openiam.toolkit;
 import cn.hutool.core.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.opencore.toolkit.JedisOperateUtil;
 import top.belovedyaoo.logs.toolkit.LogUtil;
-import top.belovedyaoo.openiam.enums.AuthenticationResultEnum;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

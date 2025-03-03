@@ -12,9 +12,11 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnNotNull;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.Ignore;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
+import top.belovedyaoo.opencore.base.BaseFiled;
 import top.belovedyaoo.opencore.tenant.TenantFiled;
 import top.belovedyaoo.opencore.tree.Tree;
 
@@ -50,7 +52,12 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
 @Table(value = "role", dataSource = "primary")
-public class Role extends TenantFiled implements Serializable, Tree<Role> {
+public class Role extends BaseFiled implements Serializable, Tree<Role> {
+
+    @ColumnNotNull
+    @ColumnComment("所指向的域的BaseID")
+    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
+    private String domainId;
 
     @ColumnComment("角色名称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
