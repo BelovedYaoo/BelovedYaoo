@@ -16,8 +16,8 @@ import lombok.experimental.Accessors;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
-import top.belovedyaoo.logs.processor.OperatorIdAutoFillProcessor;
 import top.belovedyaoo.opencore.base.BaseIdFiled;
+import top.belovedyaoo.opencore.processor.CreatorIdAutoFillProcessor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -40,7 +40,7 @@ public class InterfaceLogPO extends BaseIdFiled implements Serializable {
 
     @ColumnComment("每条日志记录的操作者ID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    @InsertFillData(OperatorIdAutoFillProcessor.class)
+    @InsertFillData(CreatorIdAutoFillProcessor.class)
     private String operatorId;
 
     @ColumnComment("每条日志记录的业务类型")

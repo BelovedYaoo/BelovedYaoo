@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 接口日志切面类<br>
+ * 接口日志切面类<p>
  * 切面注解得到请求数据 -> 发布监听事件 -> 异步监听日志入库
  *
  * @author BelovedYaoo
@@ -44,7 +44,7 @@ import java.util.Objects;
 public class InterfaceLogAspect {
 
     /**
-     * 事件发布是由ApplicationContext对象管控的<br>
+     * 事件发布是由ApplicationContext对象管控的<p>
      * 发布事件前需要注入ApplicationContext对象调用publishEvent方法完成事件发布
      **/
     private final ApplicationContext applicationContext;
