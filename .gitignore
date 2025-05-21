@@ -1,5 +1,6 @@
-/**/out/*
+/**/out/**
 /**/src/main/generated/*
 /logs/
 .xcodemap/*
 /jrebel-classpath-29680.jar
+/**/bin/**
