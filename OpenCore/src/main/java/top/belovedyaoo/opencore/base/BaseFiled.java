@@ -103,9 +103,9 @@ public abstract class BaseFiled extends BaseIdFiled implements Serializable {
     private Date deletedAt;
 
     /**
-     * 树节点数据<br>
-     * Ignore注解用于忽略AutoTable的表结构自动维护<br>
-     * Column注解用于忽略MyBatis-Flex的列定义<br>
+     * 树节点数据<p>
+     * Ignore注解用于忽略AutoTable的表结构自动维护<p>
+     * Column注解用于忽略MyBatis-Flex的列定义<p>
      * Getter注解用于忽略Jackson的序列化与反序列化
      */
     @Ignore
@@ -148,7 +148,7 @@ public abstract class BaseFiled extends BaseIdFiled implements Serializable {
     }
 
     /**
-     * 判断是否禁用<br>
+     * 判断是否禁用<p>
      * 由于命名刚好是标准Bean规范，需要加上Jackson的注解忽略序列化与反序列化
      *
      * @return 数据的禁用状态

@@ -21,7 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * (AuthAPP)表持久化对象<br>
+ * (AuthAPP)表持久化对象<p>
  * 用于存储授权应用信息
  *
  * @author BelovedYaoo

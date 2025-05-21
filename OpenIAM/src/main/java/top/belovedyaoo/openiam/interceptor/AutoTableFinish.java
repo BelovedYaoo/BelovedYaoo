@@ -25,7 +25,7 @@ import java.util.Set;
 import static top.belovedyaoo.openiam.interceptor.CreateTableFinish.TABLE_METADATA_MAP;
 
 /**
- * AutoTable 表结构自动维护完成后的回调<br>
+ * AutoTable 表结构自动维护完成后的回调<p>
  * 用于初始化数据
  *
  * @author BelovedYaoo

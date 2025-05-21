@@ -40,7 +40,7 @@ public class TableInfoFactoryAspect {
     private static TableInfo treeTableInfo;
 
     /**
-     * 类与表定义缓存<br>
+     * 类与表定义缓存<p>
      * 树形数据类每合并一次表定义都需要大量的反射操作，因此有必要弄一个缓存
      */
     private static final Map<Class<?>, TableInfo> CACHE = Collections.synchronizedMap(new HashMap<>());

@@ -26,8 +26,8 @@ public interface TreeService<T extends BaseFiled & Tree<T>> extends BaseControll
     String TABLE_ALIAS = "m";
 
     /**
-     * 根据BaseID查询该节点以及所有子节点<br>
-     * 返回该节点以及所有子节点组成的树形结构<br>
+     * 根据BaseID查询该节点以及所有子节点<p>
+     * 返回该节点以及所有子节点组成的树形结构<p>
      * 节点类中需要有类型为节点List的字段，且使用@Relation注解进行关联
      *
      * @param baseId 节点ID
@@ -44,7 +44,7 @@ public interface TreeService<T extends BaseFiled & Tree<T>> extends BaseControll
     }
 
     /**
-     * 根据BaseID查询该节点以及所有子节点<br>
+     * 根据BaseID查询该节点以及所有子节点<p>
      * 返回该节点以及所有子节点组成的列表
      *
      * @param baseId 节点ID
@@ -56,7 +56,7 @@ public interface TreeService<T extends BaseFiled & Tree<T>> extends BaseControll
     }
 
     /**
-     * 根据BaseID删除该节点以及所有子节点<br>
+     * 根据BaseID删除该节点以及所有子节点<p>
      *
      * @param baseId 节点ID
      *

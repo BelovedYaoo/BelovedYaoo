@@ -17,28 +17,27 @@ import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.Ignore;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.base.BaseFiled;
-import top.belovedyaoo.opencore.tenant.TenantFiled;
 import top.belovedyaoo.opencore.tree.Tree;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 角色实体类<br>
- * 角色必须有一个明确的归属域，通过TenantID来定义<br>
- * 上级域的角色可以被下级域继承与使用<br>
- * 比如我的顶级域有管理员这个角色<br>
- * 那么下级域虽然本身没有管理员，但是也可以使用管理员<br>
- * 但是管理员这个角色是归属于顶级域的，而不是下级域<br>
- * 因此不同域的角色信息都只有一份，不会冗余定义<br>
- * 但是这样会引入一个问题，那就是不同域的权限是不一样的<br>
- * 比如A域和B域的管理员具有的权限不同<br>
- * 那么此时B域就可以选择重写顶级域的管理员<br>
- * 赋予或删除某些具体权限<br>
- * 重写后的角色会在自己的域中多出一个角色数据<br>
- * 这个多出来的角色也叫管理员<br>
- * 但是是归属B域，继承自顶级域<br>
- * 也就是通过ParentID指向顶级域的管理员角色<br>
+ * 角色实体类<p>
+ * 角色必须有一个明确的归属域，通过TenantID来定义<p>
+ * 上级域的角色可以被下级域继承与使用<p>
+ * 比如我的顶级域有管理员这个角色<p>
+ * 那么下级域虽然本身没有管理员，但是也可以使用管理员<p>
+ * 但是管理员这个角色是归属于顶级域的，而不是下级域<p>
+ * 因此不同域的角色信息都只有一份，不会冗余定义<p>
+ * 但是这样会引入一个问题，那就是不同域的权限是不一样的<p>
+ * 比如A域和B域的管理员具有的权限不同<p>
+ * 那么此时B域就可以选择重写顶级域的管理员<p>
+ * 赋予或删除某些具体权限<p>
+ * 重写后的角色会在自己的域中多出一个角色数据<p>
+ * 这个多出来的角色也叫管理员<p>
+ * 但是是归属B域，继承自顶级域<p>
+ * 也就是通过ParentID指向顶级域的管理员角色<p>
  * 通过TenantID指向B域
  *
  * @author BelovedYaoo

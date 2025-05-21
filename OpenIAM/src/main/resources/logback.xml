@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds">
-    <contextName>OpenAuth</contextName>
+    <contextName>OpenIAM</contextName>
     <property name="log.path" value="OpenAuth"/>
 
     <!--自定义颜色配置-->

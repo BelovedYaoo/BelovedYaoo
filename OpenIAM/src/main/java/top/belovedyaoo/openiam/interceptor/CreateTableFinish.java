@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import top.belovedyaoo.opencore.common.OcMap;
 
 /**
- * 建表操作完成的回调<br>
+ * 建表操作完成的回调<p>
  * 用于记录建表的元数据
  *
  * @author BelovedYaoo

@@ -17,7 +17,7 @@ import top.belovedyaoo.opencore.tree.TreeService;
 public interface BaseTree<T extends BaseFiled & Tree<T>> extends TreeService<T> {
 
     /**
-     * 根据父节点ID查询所有子节点<br>
+     * 根据父节点ID查询所有子节点<p>
      * 返回树形结构
      *
      * @param baseId 父节点ID
@@ -30,7 +30,7 @@ public interface BaseTree<T extends BaseFiled & Tree<T>> extends TreeService<T> 
     }
 
     /**
-     * 根据父节点ID查询所有子节点<br>
+     * 根据父节点ID查询所有子节点<p>
      * 返回平铺结构
      *
      * @param baseId 父节点ID

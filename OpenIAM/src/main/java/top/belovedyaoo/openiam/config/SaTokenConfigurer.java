@@ -60,7 +60,7 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                     }
                     return Result.failed().message(e.getMessage());
                 })
-                // 前置函数：在每次认证函数之前执行
+                // 前置函数：在每次认证函数之前执行，且不受 [拦截路由] 与 [放行路由] 的限制，所有路由的请求都会进入前置函数
                 .setBeforeAuth(obj -> {
                     SaHolder.getResponse()
                             // 设置跨域响应头

@@ -18,10 +18,10 @@ import top.belovedyaoo.opencore.base.BaseFiled;
 import java.io.Serializable;
 
 /**
- * 域用户角色关系映射类<br>
- * 该映射类的作用与 BaseMappingDomainRole 不同<br>
- * 该映射类用于存储 某一个域所拥有的用户信息 以及 某一个用户在某一个域中所拥有的角色信息<br>
- * 输入：域ID，输出：用户ID<br>
+ * 域用户角色关系映射类<p>
+ * 用于存储 某一个域所拥有的用户信息 以及 某一个用户在某一个域中所拥有的角色信息<p>
+ * 若要查询某域具有哪些角色，则直接通过Role表中的 domainID 查询<p>
+ * 输入：域ID，输出：用户ID<p>
  * 输入：用户ID、域ID，输出：角色ID
  *
  * @author BelovedYaoo
