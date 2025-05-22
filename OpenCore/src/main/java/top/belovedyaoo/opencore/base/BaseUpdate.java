@@ -2,6 +2,7 @@ package top.belovedyaoo.opencore.base;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import top.belovedyaoo.opencore.common.OperationMark;
 import top.belovedyaoo.opencore.result.Result;
 
 /**
@@ -21,6 +22,7 @@ public interface BaseUpdate<T extends BaseFiled> extends BaseControllerMethod<T>
      *
      * @return 操作结果
      */
+    @OperationMark(name = "更新一条数据", desc = "由 OpenCore 自动生成的方法")
     @PostMapping("/update")
     default Result update(@RequestBody T entity) {
         String baseId = entity.baseId();

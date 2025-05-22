@@ -5,6 +5,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import top.belovedyaoo.opencore.common.OperationMark;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public interface BaseDelete<T extends BaseFiled> extends BaseControllerMethod<T>
      *
      * @return 操作结果
      */
+    @OperationMark(name = "按ID列表删除数据", desc = "由 OpenCore 自动生成的方法")
     @PostMapping("/delete")
     default Result delete(@RequestBody List<String> idList) {
         PlatformTransactionManager platformTransactionManager = getPlatformTransactionManager();

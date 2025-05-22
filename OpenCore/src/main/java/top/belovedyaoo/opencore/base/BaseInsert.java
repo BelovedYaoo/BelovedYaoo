@@ -2,6 +2,7 @@ package top.belovedyaoo.opencore.base;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import top.belovedyaoo.opencore.common.OperationMark;
 import top.belovedyaoo.opencore.result.Result;
 
 /**
@@ -21,6 +22,7 @@ public interface BaseInsert<T extends BaseFiled> extends BaseControllerMethod<T>
      *
      * @return 操作结果
      */
+    @OperationMark(name = "新增一条数据", desc = "由 OpenCore 自动生成的方法")
     @PostMapping("/add")
     default Result add(@RequestBody T entity) {
         // 防止注入

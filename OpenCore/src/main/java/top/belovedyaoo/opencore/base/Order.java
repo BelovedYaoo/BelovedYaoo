@@ -8,6 +8,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import top.belovedyaoo.opencore.common.OperationMark;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
      *
      * @return 排序结果
      */
+    @OperationMark(name = "数据排序", desc = "由 OpenCore 自动生成的方法")
     @PostMapping("/reorder")
     default Result reorder(@RequestParam(value = "leftTarget") int leftTarget, @RequestParam(value = "rightTarget") int rightTarget) {
         // 开启事务
@@ -121,6 +123,7 @@ public interface Order<T extends BaseFiled> extends BaseControllerMethod<T> {
      *
      * @return 交换结果
      */
+    @OperationMark(name = "数据交换顺序", desc = "由 OpenCore 自动生成的方法")
     @PostMapping("/orderSwap")
     default Result orderSwap(@RequestParam(value = "leftTargetBaseId") String leftTargetBaseId,
                              @RequestParam(value = "leftTargetOrderNum") int leftTargetOrderNum,
