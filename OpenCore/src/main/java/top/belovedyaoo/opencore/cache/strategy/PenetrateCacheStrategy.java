@@ -15,22 +15,22 @@ public class PenetrateCacheStrategy<K, V> implements ICacheStrategy<K, V> {
     public V execute(CacheAccess<K, V> access) {
         if (access.isWrite()) {
             // 写入缓存
-            access.getCacheWrite().accept(access.getKey(), access.getValue());
+            access.cacheWrite().accept(access.key(), access.value());
             // 写入数据库
-            access.getDbWrite().accept(access.getValue());
+            access.dbWrite().accept(access.value());
             return null;
         } else {
             // 尝试获取缓存
-            V v = access.getCacheRead().apply(access.getKey());
+            V v = access.cacheRead().apply(access.key());
             // 命中则直接返回缓存
             if (v != null) {
                 return v;
             }
             // 从数据库读取
-            v = access.getDbRead().get();
+            v = access.dbRead().get();
             // 写入缓存
             if (v != null) {
-                access.getCacheWrite().accept(access.getKey(), v);
+                access.cacheWrite().accept(access.key(), v);
             }
             return v;
         }
