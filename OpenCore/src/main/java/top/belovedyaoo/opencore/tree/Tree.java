@@ -17,6 +17,8 @@ import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.base.BaseFiled;
 import top.belovedyaoo.opencore.base.BaseIdFiled;
 
+import java.io.Serializable;
+
 /**
  * 树形数据接口
  *
@@ -139,7 +141,7 @@ public interface Tree<T extends BaseFiled> {
     @NoArgsConstructor
     @Getter(onMethod_ = @JsonGetter)
     @Accessors(fluent = true, chain = true)
-    class TreeNode {
+    class TreeNode implements Serializable {
 
         public static final String PARENT_ID = "parent_id";
 

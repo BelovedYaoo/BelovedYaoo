@@ -800,7 +800,6 @@ public class JedisOperateUtil {
         Jedis jedis = null;
         try {
             jedis = getJedis();
-
             byte[] data = jedis.get(key.getBytes());
             return deSeri(data, clazz);
         } finally {
@@ -1245,7 +1244,8 @@ public class JedisOperateUtil {
     }
 
     /**
-     * 序列化一个对象，将其转换为字节数组。
+     * 序列化一个对象，将其转换为字节数组。<p>
+     * 注意！！！对象必须完全实现Serializable接口，父类也必须实现，否则任一父类没有实现，则整个对象都将序列化失败！！！
      *
      * @param obj 需要被序列化的对象。该对象必须实现Serializable接口。
      * @param <T> 被序列化对象的类型。
