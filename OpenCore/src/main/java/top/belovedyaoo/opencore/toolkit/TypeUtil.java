@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @param <T> 泛型类型
  *
  * @author BelovedYaoo
- * @version 1.2
+ * @version 1.3
  */
 public class TypeUtil<T> {
     
@@ -224,22 +224,61 @@ public class TypeUtil<T> {
                         throw new TypeResolutionException(
                             String.format("类型变量 %s 没有边界", typeVariable.getName()));
                     }
-                    if (bounds[0] instanceof Class<?> boundClass) {
-                        yield (Class<T>) boundClass;
+                    // 遍历所有边界，寻找最具体的类型
+                    for (Type bound : bounds) {
+                        if (bound instanceof Class<?> boundClass) {
+                            // 找到第一个具体的类类型边界
+                            yield (Class<T>) boundClass;
+                        }
+                    }
+                    // 如果没有找到具体的类类型边界，尝试使用第一个边界
+                    Type firstBound = bounds[0];
+                    if (firstBound instanceof ParameterizedType parameterizedType) {
+                        Type rawType = parameterizedType.getRawType();
+                        if (rawType instanceof Class<?> rawClass) {
+                            yield (Class<T>) rawClass;
+                        }
                     }
                     throw new TypeResolutionException(
-                        String.format("无法解析类型变量 %s 的边界类型", typeVariable.getName()));
+                        String.format("无法解析类型变量 %s 的边界类型，所有边界都是接口或通配符类型", 
+                            typeVariable.getName()));
                 }
                 case WildcardType wildcardType -> {
+                    // 处理上界
                     Type[] upperBounds = wildcardType.getUpperBounds();
                     if (upperBounds.length == 0) {
                         throw new TypeResolutionException("通配符类型没有上界");
                     }
-                    if (upperBounds[0] instanceof Class<?> upperClass) {
-                        yield (Class<T>) upperClass;
+                    // 优先使用上界
+                    for (Type upperBound : upperBounds) {
+                        if (upperBound instanceof Class<?> upperClass) {
+                            // 找到第一个具体的类类型上界
+                            yield (Class<T>) upperClass;
+                        }
+                    }
+                    // 如果没有找到具体的类类型上界，尝试处理参数化类型
+                    Type firstUpperBound = upperBounds[0];
+                    if (firstUpperBound instanceof ParameterizedType parameterizedType) {
+                        Type rawType = parameterizedType.getRawType();
+                        if (rawType instanceof Class<?> rawClass) {
+                            yield (Class<T>) rawClass;
+                        }
+                    }
+                    // 处理下界（通常下界更具体）
+                    Type[] lowerBounds = wildcardType.getLowerBounds();
+                    if (lowerBounds.length > 0) {
+                        Type firstLowerBound = lowerBounds[0];
+                        if (firstLowerBound instanceof Class<?> lowerClass) {
+                            yield (Class<T>) lowerClass;
+                        } else if (firstLowerBound instanceof ParameterizedType parameterizedType) {
+                            Type rawType = parameterizedType.getRawType();
+                            if (rawType instanceof Class<?> rawClass) {
+                                yield (Class<T>) rawClass;
+                            }
+                        }
                     }
                     throw new TypeResolutionException(
-                        String.format("无法解析通配符类型 %s 的上界", type));
+                        String.format("无法解析通配符类型 %s 的边界类型，所有边界都是接口或通配符类型", type));
                 }
                 case GenericArrayType genericArrayType -> {
                     Type componentType = genericArrayType.getGenericComponentType();
