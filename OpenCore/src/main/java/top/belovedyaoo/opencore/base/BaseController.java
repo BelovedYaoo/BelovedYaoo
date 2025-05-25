@@ -1,5 +1,7 @@
 package top.belovedyaoo.opencore.base;
 
+import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.mybatis.Mappers;
 import jakarta.annotation.Resource;
 import lombok.Getter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -19,5 +21,9 @@ public abstract class BaseController<T extends BaseFiled> extends TypeUtil<T> {
      */
     @Resource
     public PlatformTransactionManager platformTransactionManager;
+
+    public BaseMapper<T> getMapper() {
+        return Mappers.ofEntityClass(getOriginalClass());
+    }
 
 }

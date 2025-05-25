@@ -1,5 +1,7 @@
 package top.belovedyaoo.opencore.ac;
 
+import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.service.IService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AcServiceImpl<T extends BaseFiled> extends TypeUtil<T> implements IService<T> {
+
+    @Override
+    public BaseMapper<T> getMapper() {
+        return Mappers.ofEntityClass(getOriginalClass());
+    }
 
     @Override
     public List<T> list() {
