@@ -1,6 +1,6 @@
 package top.belovedyaoo.opencore.ac;
 
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * 函数式接口：OpenAC 权限控制器函数
@@ -12,6 +12,6 @@ import java.util.function.Function;
  * @version 1.0
  */
 @FunctionalInterface
-public interface AcHandlerFunction<T> extends Function<T, Boolean> {
+public interface AcHandlerFunction<T> extends Predicate<T> {
 
 }

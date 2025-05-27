@@ -36,6 +36,14 @@ import java.util.List;
 @Table(value = "permission", dataSource = "primary")
 public class Permission extends BaseFiled implements Serializable {
 
+    public static final String PERMISSION_ID = "permission_id";
+
+    public static final String PERMISSION_NAME = "permission_name";
+
+    public static final String PERMISSION_CODE = "permission_code";
+
+    public static final String PERMISSION_DESC = "permission_desc";
+
     @ColumnComment("权限名称")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
     private String permissionName;

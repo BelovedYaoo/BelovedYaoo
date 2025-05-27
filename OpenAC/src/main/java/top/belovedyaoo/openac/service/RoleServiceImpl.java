@@ -2,14 +2,20 @@ package top.belovedyaoo.openac.service;
 
 import cn.hutool.core.util.IdUtil;
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.query.QueryColumn;
+import com.mybatisflex.core.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import top.belovedyaoo.openac.model.Role;
+import top.belovedyaoo.openac.model.mapping.MappingDomainUserRole;
 import top.belovedyaoo.openac.model.mapping.MappingRolePermission;
 import top.belovedyaoo.opencore.ac.AcServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 角色服务类
@@ -74,6 +80,28 @@ public class RoleServiceImpl extends AcServiceImpl<Role> {
         } catch (NullPointerException e) {
             return false;
         }
+    }
+
+    /**
+     * 根据用户和域查询角色列表
+     * @param userId 用户id
+     * @param domainId 域id
+     * @return 角色列表
+     */
+    public List<Role> queryRoleListByUserAndDomain(String userId, String domainId) {
+        // SELECT r.*
+        // FROM mapping_domain_user_role m
+        // INNER JOIN role r ON m.role_id = r.base_id
+        // WHERE m.domain_id = ?          -- 替换为传入的 domainId
+        //   AND m.user_id = ?
+        String roleAlias = "r";
+        String mappingAlias = "m";
+        QueryWrapper.create()
+                .select()
+                .from(MappingDomainUserRole.class).as(mappingAlias)
+                .innerJoin(Role.class).as(roleAlias)
+                .on(new QueryColumn(mappingAlias,Role.ROLE_ID).eq(new QueryColumn(roleAlias,Role.BASE_ID)));
+        return new ArrayList<>();
     }
 
 }

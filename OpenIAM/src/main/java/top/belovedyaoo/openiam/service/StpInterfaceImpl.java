@@ -1,7 +1,10 @@
 package top.belovedyaoo.openiam.service;
 
 import cn.dev33.satoken.stp.StpInterface;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import top.belovedyaoo.openac.model.Permission;
+import top.belovedyaoo.openac.model.Role;
 
 import java.util.List;
 
@@ -12,7 +15,10 @@ import java.util.List;
  * @version 1.0
  */
 @Component
+@RequiredArgsConstructor
 public class StpInterfaceImpl implements StpInterface {
+
+    private final PermissionLoaderImpl permissionLoader;
 
     /**
      * 返回指定账号id所拥有的权限码集合
@@ -24,7 +30,7 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return List.of();
+        return permissionLoader.getPermissionListByUserId(loginId.toString()).stream().map(Permission::permissionCode).toList();
     }
 
     /**
@@ -37,7 +43,7 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return List.of();
+        return permissionLoader.getRoleListByUserId(loginId.toString()).stream().map(Role::roleCode).toList();
     }
 
 }

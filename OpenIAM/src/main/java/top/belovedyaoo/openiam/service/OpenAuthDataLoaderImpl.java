@@ -11,14 +11,13 @@ import top.belovedyaoo.openac.model.User;
 import top.belovedyaoo.openac.model.mapping.MappingDomainUserRole;
 import top.belovedyaoo.openiam.data.loader.OpenAuthDataLoader;
 import top.belovedyaoo.openiam.data.model.loader.OpenAuthClientModel;
-import top.belovedyaoo.openiam.entity.po.AuthApp;
+import top.belovedyaoo.openiam.model.AuthApp;
 import top.belovedyaoo.openiam.enums.OpenAuthResultEnum;
 import top.belovedyaoo.openiam.function.ConfirmFunction;
 import top.belovedyaoo.openiam.function.DoLoginFunction;
 import top.belovedyaoo.openiam.function.NotLoginFunction;
-import top.belovedyaoo.openiam.generateMapper.AuthAppMapper;
-import top.belovedyaoo.opencore.common.OcMap;
 import top.belovedyaoo.opencore.result.Result;
+import top.belovedyaoo.openiam.generateMapper.AuthAppMapper;
 
 import static com.mybatisflex.core.query.QueryMethods.count;
 
@@ -51,6 +50,9 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
                 .selectOneByQuery(
                         new QueryWrapper()
                                 .where("client_id = '" + clientId + "'"));
+        if (authorizedApplication == null) {
+            return null;
+        }
         return new OpenAuthClientModel()
                 .setClientId(authorizedApplication.clientId())
                 .setClientSecret(authorizedApplication.clientSecret())
@@ -87,9 +89,10 @@ public class OpenAuthDataLoaderImpl implements OpenAuthDataLoader {
             User user = (User) authenticationService.getUser(username, password).data();
             // Sa-Token登录
             StpUtil.login(user.baseId());
-            return Result.success().message("登录成功")
-                    .description("欢迎您，" + user.nickname())
-                    .data(OcMap.build(user))
+            // 获取用户在 OpenIAM 具有的角色ID
+            // 获取用户在 OpenIAM 具有的权限ID
+            return Result.success()
+                    .data("user",user)
                     .data("tokenValue", StpUtil.getTokenValue());
         };
     }

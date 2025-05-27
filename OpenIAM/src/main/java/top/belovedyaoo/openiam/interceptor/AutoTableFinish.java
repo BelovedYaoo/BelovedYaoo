@@ -5,6 +5,7 @@ import com.mybatisflex.core.BaseMapper;
 import lombok.RequiredArgsConstructor;
 import org.dromara.autotable.core.callback.AutoTableFinishCallback;
 import org.dromara.autotable.core.utils.TableBeanUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import top.belovedyaoo.openac.model.Domain;
 import top.belovedyaoo.openac.model.Permission;
@@ -16,7 +17,8 @@ import top.belovedyaoo.openac.service.DomainServiceImpl;
 import top.belovedyaoo.openac.service.PermissionServiceImpl;
 import top.belovedyaoo.openac.service.RoleServiceImpl;
 import top.belovedyaoo.openac.service.UserServiceImpl;
-import top.belovedyaoo.openiam.entity.po.AuthApp;
+import top.belovedyaoo.opencore.events.AutoTableFinishEvent;
+import top.belovedyaoo.openiam.model.AuthApp;
 import top.belovedyaoo.openiam.service.AuthAppService;
 
 import java.util.List;
@@ -49,6 +51,8 @@ public class AutoTableFinish implements AutoTableFinishCallback {
 
     private final BaseMapper<MappingDomainUserRole> mdurMapper;
 
+    private final ApplicationEventPublisher aep;
+
     String topDomainId;
 
     String userId;
@@ -59,49 +63,52 @@ public class AutoTableFinish implements AutoTableFinishCallback {
                 || TABLE_METADATA_MAP.isNotValidKey(TableBeanUtils.getTableName(Domain.class))
                 || TABLE_METADATA_MAP.isNotValidKey(TableBeanUtils.getTableName(Role.class))
                 || TABLE_METADATA_MAP.isNotValidKey(TableBeanUtils.getTableName(AuthApp.class))) {
-            return;
+        } else {
+            // 提取分配ID，方便写入关系表
+            topDomainId = IdUtil.simpleUUID();
+            userId = IdUtil.simpleUUID();
+            userId = "0b2d398202aa79c77798d0108ce8fc5d";
+            String authAppId = IdUtil.simpleUUID();
+            // 域初始化
+            Domain topDomain = Domain.builder()
+                    .baseId(topDomainId)
+                    .domainName("BelovedYaoo")
+                    .domainCode("0")
+                    .domainType(Domain.DomainType.NORMAL)
+                    .domainDesc("系统默认的顶级域，其他所有域均为该域的子域")
+                    .build();
+            domainService.save(topDomain);
+            // 用户初始化
+            User user = User.builder()
+                    .baseId(userId)
+                    .openId("ovo")
+                    .password("ZjZlMGExZTJhYzQxOTQ1YTlhYTdmZjhhOGFhYTBjZWJjMTJhM2JjYzk4MWE5MjlhZDVjZjgxMGEwOTBlMTFhZQ==")
+                    .nickname("BelovedYaoo")
+                    .build();
+            userService.save(user);
+            // 授予用户访问权限
+            authAppService.grantUserAccess(userId, authAppId);
+            // 角色初始化
+            initRole();
+            // 创建上帝
+            String godRoleId = createGod();
+            AuthApp app = AuthApp.builder()
+                    .baseId(authAppId)
+                    .clientName("OpenIAM")
+                    .clientId("1000")
+                    .clientSecret("openiam")
+                    .contractScopes(List.of("oidc"))
+                    .allowRedirectUris(List.of("*"))
+                    .allowGrantTypes(List.of("authorization_code"))
+                    .build();
+            String authAppDomainId = authAppService.createAuthApp(app, false);
+            mdurMapper.insert(MappingDomainUserRole.builder()
+                    .domainId(authAppDomainId)
+                    .userId(userId)
+                    .roleId(godRoleId)
+                    .build());
         }
-        // 提取分配ID，方便写入关系表
-        topDomainId = IdUtil.simpleUUID();
-        userId = IdUtil.simpleUUID();
-        userId = "0b2d398202aa79c77798d0108ce8fc5d";
-        String authAppId = IdUtil.simpleUUID();
-        // 域初始化
-        Domain topDomain = Domain.builder()
-                .baseId(topDomainId)
-                .domainName("BelovedYaoo")
-                .domainCode("0")
-                .domainType(Domain.DomainType.NORMAL)
-                .domainDesc("系统默认的顶级域，其他所有域均为该域的子域")
-                .build();
-        domainService.save(topDomain);
-        // 用户初始化
-        User user = User.builder()
-                .baseId(userId)
-                .openId("ovo")
-                .password("ZjZlMGExZTJhYzQxOTQ1YTlhYTdmZjhhOGFhYTBjZWJjMTJhM2JjYzk4MWE5MjlhZDVjZjgxMGEwOTBlMTFhZQ==")
-                .nickname("BelovedYaoo")
-                .build();
-        userService.save(user);
-        // 角色初始化
-        initRole();
-        // 创建上帝
-        String godRoleId = createGod();
-        AuthApp app = AuthApp.builder()
-                .baseId(authAppId)
-                .clientName("OpenIAM")
-                .clientId("1000")
-                .clientSecret("openiam")
-                .contractScopes(List.of("oidc"))
-                .allowRedirectUris(List.of("*"))
-                .allowGrantTypes(List.of("authorization_code"))
-                .build();
-        String authAppDomainId = authAppService.createAuthApp(app, false);
-        mdurMapper.insert(MappingDomainUserRole.builder()
-                .domainId(authAppDomainId)
-                .userId(userId)
-                .roleId(godRoleId)
-                .build());
+        aep.publishEvent(new AutoTableFinishEvent(this));
     }
 
     /**

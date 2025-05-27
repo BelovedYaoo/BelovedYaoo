@@ -3,7 +3,6 @@ package top.belovedyaoo.openac.service;
 import cn.hutool.core.util.IdUtil;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.service.IService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -12,7 +11,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import top.belovedyaoo.openac.model.Permission;
 import top.belovedyaoo.openac.model.Role;
 import top.belovedyaoo.openac.model.mapping.MappingRolePermission;
-import top.belovedyaoo.opencore.base.BaseController;
+import top.belovedyaoo.opencore.ac.AcServiceImpl;
 import top.belovedyaoo.opencore.base.BaseIdFiled;
 
 import static top.belovedyaoo.openac.model.table.PermissionTableDef.PERMISSION;
@@ -25,9 +24,11 @@ import static top.belovedyaoo.openac.model.table.PermissionTableDef.PERMISSION;
  */
 @Service
 @RequiredArgsConstructor
-public class PermissionServiceImpl extends BaseController<Permission> implements IService<Permission> {
+public class PermissionServiceImpl extends AcServiceImpl<Permission> {
 
     private final BaseMapper<MappingRolePermission> mrpMapper;
+
+    private final PlatformTransactionManager platformTransactionManager;
 
     /**
      * 为角色创建读写权限
@@ -37,7 +38,6 @@ public class PermissionServiceImpl extends BaseController<Permission> implements
      * @return 是否创建成功
      */
     public boolean createPermissionForRole(Role role) {
-        PlatformTransactionManager platformTransactionManager = getPlatformTransactionManager();
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(new DefaultTransactionDefinition());
         // 创建角色的读写权限
         String readId = IdUtil.simpleUUID();

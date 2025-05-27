@@ -34,10 +34,10 @@ public @interface InterfaceLog {
 
     /**
      * 接口唯一标识符<p>
-     * 每一个接口都应有一串随机的唯一ID<p>
+     * 每一个接口都建议有一串随机的唯一ID<p>
      * 即使接口重构、重命名,也不会导致日志无法关联
      */
-    String identifierCode();
+    String identifierCode() default "";
 
     /**
      * 接口名称

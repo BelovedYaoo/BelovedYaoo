@@ -14,25 +14,28 @@ import java.util.List;
  * @author BelovedYaoo
  * @version 1.0
  */
-@Getter
-@Setter
 @Accessors(chain = true, fluent = true)
 public class OpenException extends RuntimeException {
 
     /**
      * 异常码
      */
+    @Getter
+    @Setter
     private Integer code;
 
     /**
      * 异常描述
      */
+    @Getter
+    @Setter
     private String description;
 
     /**
      * 异常数据
      */
-    private List<Object> data = new ArrayList<>();
+    @Getter
+    private final List<Object> data = new ArrayList<>();
 
     /**
      * 构造函数：仅包含根异常
@@ -50,6 +53,16 @@ public class OpenException extends RuntimeException {
      */
     public OpenException(String message) {
         super(message);
+    }
+
+    /**
+     * 构造函数：包含异常消息和根异常
+     *
+     * @param message 异常内容
+     * @param cause   根异常
+     */
+    public OpenException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**

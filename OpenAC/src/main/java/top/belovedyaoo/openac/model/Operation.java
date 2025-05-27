@@ -1,10 +1,6 @@
 package top.belovedyaoo.openac.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.mybatisflex.annotation.Table;
-import org.dromara.autotable.annotation.ColumnComment;
-import org.dromara.autotable.annotation.ColumnType;
-import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.belovedyaoo.opencore.base.BaseFiled;
+import top.belovedyaoo.opencore.base.BaseIdFiled;
 
 import java.io.Serializable;
 
@@ -29,19 +25,43 @@ import java.io.Serializable;
 @Getter(onMethod_ = @JsonGetter)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true, fluent = true)
-@Table(value = "operation", dataSource = "primary")
-public class Operation extends BaseFiled implements Serializable {
+public class Operation extends BaseIdFiled implements Serializable {
 
-    @ColumnComment("操作名称")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
+    public static final String OPERATION_ID = "operation_id";
+
+    /**
+     * 操作名称
+     */
     private String operationName;
 
-    @ColumnComment("操作代码")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
+    /**
+     * 请求路径
+     */
+    private String requestUrl;
+
+    /**
+     * 请求方法
+     */
+    private String requestMethod;
+
+    /**
+     * 控制器类
+     */
+    private String className;
+
+    /**
+     * 操作方法名称
+     */
+    private String operationMethodName;
+
+    /**
+     * 操作代码
+     */
     private String operationCode;
 
-    @ColumnComment("操作描述")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 15)
+    /**
+     * 操作描述
+     */
     private String operationDesc;
 
 }

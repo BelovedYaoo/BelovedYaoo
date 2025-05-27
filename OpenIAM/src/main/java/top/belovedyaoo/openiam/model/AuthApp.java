@@ -1,4 +1,4 @@
-package top.belovedyaoo.openiam.entity.po;
+package top.belovedyaoo.openiam.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.mybatisflex.annotation.Column;
@@ -38,11 +38,6 @@ import java.util.List;
 public class AuthApp extends BaseFiled implements Serializable {
 
     public static final String CLIENT_ID = "client_id";
-
-    @ColumnNotNull
-    @ColumnComment("所指向的应用域的BaseID")
-    @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)
-    private String domainId;
 
     /**
      * 应用名称

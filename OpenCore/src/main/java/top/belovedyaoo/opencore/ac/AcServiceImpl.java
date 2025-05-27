@@ -31,7 +31,7 @@ public class AcServiceImpl<T extends BaseFiled> extends TypeUtil<T> implements I
     @Override
     public List<T> list() {
         return IService.super.list().stream()
-                .filter(entity -> AcServiceStrategy.INSTANCE.getHandler(entity.getClass(),true).apply(entity))
+                .filter(entity -> AcServiceStrategy.INSTANCE.getHandler(entity.getClass(),true).test(entity))
                 .sorted(Comparator.comparingInt(BaseFiled::orderNum))
                 .toList();
     }

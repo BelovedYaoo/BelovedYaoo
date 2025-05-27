@@ -53,6 +53,8 @@ import java.util.List;
 @Table(value = "role", dataSource = "primary")
 public class Role extends BaseFiled implements Serializable, Tree<Role> {
 
+    public static final String ROLE_ID = "role_id";
+
     @ColumnNotNull
     @ColumnComment("所指向的域的BaseID")
     @ColumnType(value = MysqlTypeConstant.VARCHAR, length = 32)

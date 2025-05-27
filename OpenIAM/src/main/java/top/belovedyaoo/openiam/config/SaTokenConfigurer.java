@@ -4,15 +4,20 @@ import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.filter.SaServletFilter;
+import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.belovedyaoo.logs.toolkit.LogUtil;
+import top.belovedyaoo.openac.interceptor.OperationInterceptor;
 import top.belovedyaoo.openiam.consts.OpenAuthConst;
 import top.belovedyaoo.opencore.enums.exception.SaTokenExceptionEnum;
 import top.belovedyaoo.opencore.enums.result.AuthEnum;
@@ -25,7 +30,10 @@ import top.belovedyaoo.opencore.result.Result;
  * @version 1.2
  */
 @Configuration
+@RequiredArgsConstructor
 public class SaTokenConfigurer implements WebMvcConfigurer {
+
+    private final OperationInterceptor operationInterceptor;
 
     /**
      * Sa-Token 整合 jwt (Simple 简单模式)
@@ -81,6 +89,14 @@ public class SaTokenConfigurer implements WebMvcConfigurer {
                             })
                             .back();
                 });
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new SaInterceptor(operationInterceptor.auth()))
+                .addPathPatterns("/**")
+                .excludePathPatterns(OpenAuthConst.Api.doLogin)
+                .excludePathPatterns(OpenAuthConst.Api.token);
     }
 
 }

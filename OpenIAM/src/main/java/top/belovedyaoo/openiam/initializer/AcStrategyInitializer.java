@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 import top.belovedyaoo.openac.function.AcHandler;
 import top.belovedyaoo.openac.model.Role;
+import top.belovedyaoo.openac.model.Permission;
 import top.belovedyaoo.opencore.ac.AcServiceStrategy;
 
 /**
@@ -19,6 +20,7 @@ public class AcStrategyInitializer {
     public void acStrategyInit() {
         AcHandler acHandler = new AcHandler();
         AcServiceStrategy.INSTANCE.registerHandler(Role.class, acHandler.getReadRoleHandler(), true);
+        AcServiceStrategy.INSTANCE.registerHandler(Permission.class, acHandler.getReadPerMissionHandler(), true);
     }
 
 }

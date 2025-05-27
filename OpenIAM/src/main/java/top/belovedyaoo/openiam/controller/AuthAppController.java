@@ -3,7 +3,9 @@ package top.belovedyaoo.openiam.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.belovedyaoo.openiam.entity.po.AuthApp;
+import top.belovedyaoo.logs.annotation.InterfaceLog;
+import top.belovedyaoo.openac.initializer.AcDataCacheLoader;
+import top.belovedyaoo.openiam.model.AuthApp;
 import top.belovedyaoo.openiam.service.AuthAppService;
 import top.belovedyaoo.opencore.base.DefaultController;
 import top.belovedyaoo.opencore.result.Result;
@@ -23,6 +25,8 @@ public class AuthAppController extends DefaultController<AuthApp> {
 
     private final AuthAppService authAppService;
 
+    private final AcDataCacheLoader acDataCacheLoader;
+
     /**
      * 新增数据
      *
@@ -39,4 +43,11 @@ public class AuthAppController extends DefaultController<AuthApp> {
         authAppService.createAuthApp(entity, false);
         return Result.success();
     }
+
+    @RequestMapping("/test")
+    @InterfaceLog(identifierCode = "test", interfaceName = "测试接口", interfaceDesc = "测试接口描述")
+    public Result test() {
+        return Result.success().singleData(acDataCacheLoader.getMappingOperationPermissionMap());
+    }
+
 }

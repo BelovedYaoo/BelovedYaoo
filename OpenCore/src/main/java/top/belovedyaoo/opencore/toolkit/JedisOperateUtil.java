@@ -1273,6 +1273,9 @@ public class JedisOperateUtil {
      * @return 反序列化后的对象，如果反序列化过程中出现异常则返回null。
      */
     public static <T> T deSeri(byte[] data, Class<T> cls) {
+        if (data == null) {
+            return null;
+        }
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
              ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
             return cls.cast(objectInputStream.readObject());
