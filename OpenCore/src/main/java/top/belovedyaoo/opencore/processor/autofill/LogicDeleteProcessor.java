@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.processor;
+package top.belovedyaoo.opencore.processor.autofill;
 
 import com.mybatisflex.core.logicdelete.NullableColumnLogicDeleteProcessor;
 

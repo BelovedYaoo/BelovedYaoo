@@ -16,7 +16,7 @@ import org.dromara.autotable.annotation.Index;
 import org.dromara.autotable.annotation.PrimaryKey;
 import org.dromara.autotable.annotation.enums.IndexTypeEnum;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
-import top.belovedyaoo.opencore.processor.BaseIdAutoFillProcessor;
+import top.belovedyaoo.opencore.processor.autofill.BaseIdAutoFillProcessor;
 
 import java.io.Serializable;
 

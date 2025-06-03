@@ -2,7 +2,7 @@ package top.belovedyaoo.opencore.toolkit;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;

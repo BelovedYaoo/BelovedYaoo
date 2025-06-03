@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.common;
+package top.belovedyaoo.opencore.advice.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

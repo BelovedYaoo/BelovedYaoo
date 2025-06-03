@@ -12,7 +12,7 @@ import top.belovedyaoo.openiam.data.model.ClientTokenModel;
 import top.belovedyaoo.openiam.data.model.request.ClientIdAndSecretModel;
 import top.belovedyaoo.openiam.data.model.request.RequestAuthModel;
 import top.belovedyaoo.openiam.enums.OpenAuthExceptionEnum;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

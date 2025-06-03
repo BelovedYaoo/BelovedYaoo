@@ -9,7 +9,7 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import top.belovedyaoo.openac.core.OperationInfo;
 import top.belovedyaoo.openac.model.Operation;
-import top.belovedyaoo.opencore.common.OperationMark;
+import top.belovedyaoo.opencore.advice.annotation.OperationMark;
 
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;

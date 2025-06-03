@@ -3,7 +3,7 @@ package top.belovedyaoo.openiam.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import top.belovedyaoo.opencore.exception.ExceptionType;
+import top.belovedyaoo.opencore.advice.exception.ExceptionType;
 
 /**
  * OIDC协议 异常枚举

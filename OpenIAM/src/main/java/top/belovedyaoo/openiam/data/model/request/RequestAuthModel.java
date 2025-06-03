@@ -4,7 +4,7 @@ import cn.dev33.satoken.util.SaFoxUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import top.belovedyaoo.openiam.enums.OidcExceptionEnum;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.io.Serializable;
 import java.util.List;

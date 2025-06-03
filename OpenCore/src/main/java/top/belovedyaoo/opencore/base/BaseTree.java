@@ -2,7 +2,7 @@ package top.belovedyaoo.opencore.base;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import top.belovedyaoo.opencore.common.OperationMark;
+import top.belovedyaoo.opencore.advice.annotation.OperationMark;
 import top.belovedyaoo.opencore.result.Result;
 import top.belovedyaoo.opencore.tree.Tree;
 import top.belovedyaoo.opencore.tree.TreeService;

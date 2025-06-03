@@ -4,7 +4,7 @@ import cn.dev33.satoken.secure.SaSecureUtil;
 import top.belovedyaoo.openiam.core.OpenAuthManager;
 import top.belovedyaoo.openiam.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openiam.enums.OidcExceptionEnum;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 /**
  * OpenAuth 数据加载器

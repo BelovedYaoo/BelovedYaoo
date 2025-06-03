@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.enums.result;
+package top.belovedyaoo.opencore.constants.enums.result;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,18 +7,20 @@ import top.belovedyaoo.opencore.result.ResultCode;
 import top.belovedyaoo.opencore.result.ResultMessage;
 
 /**
- * 认证与授权状态码
+ * 通用结果枚举类
  *
  * @author BelovedYaoo
- * @version 1.0
+ * @version 1.1
  */
 @Getter
 @Accessors(fluent = true)
 @RequiredArgsConstructor
-public enum AuthEnum implements ResultCode, ResultMessage {
+public enum ResultEnum implements ResultCode, ResultMessage {
 
-    // 认证与授权状态码
-    SESSION_INVALID(700, "会话失效");
+    // 通用结果状态码与HTTP状态码保持一致
+    SUCCESS(200, "操作成功"),
+
+    FAILED(400, "操作失败");
 
     private final Integer code;
 

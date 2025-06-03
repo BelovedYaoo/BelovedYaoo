@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import oshi.hardware.HWDiskStore;
 import oshi.software.os.OSFileStore;
 import top.belovedyaoo.opencore.common.OcMap;
-import top.belovedyaoo.opencore.constants.SystemConst;
+import top.belovedyaoo.opencore.constants.consist.SystemConst;
 
 import java.text.DecimalFormat;
 import java.util.List;

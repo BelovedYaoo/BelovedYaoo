@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.exception;
+package top.belovedyaoo.opencore.advice.exception;
 
 /**
  * 异常信息类型接口

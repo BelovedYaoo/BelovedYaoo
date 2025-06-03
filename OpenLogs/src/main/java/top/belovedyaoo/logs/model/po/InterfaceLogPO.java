@@ -17,7 +17,7 @@ import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.autotable.annotation.ColumnType;
 import org.dromara.autotable.annotation.mysql.MysqlTypeConstant;
 import top.belovedyaoo.opencore.base.BaseIdFiled;
-import top.belovedyaoo.opencore.processor.CreatorIdAutoFillProcessor;
+import top.belovedyaoo.opencore.processor.autofill.CreatorIdAutoFillProcessor;
 
 import java.io.Serializable;
 import java.util.Date;

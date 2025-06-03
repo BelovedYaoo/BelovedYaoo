@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import top.belovedyaoo.opencore.enums.result.ResultEnum;
+import top.belovedyaoo.opencore.constants.enums.result.ResultEnum;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.processor;
+package top.belovedyaoo.opencore.processor.autofill;
 
 import cn.hutool.core.util.IdUtil;
 import com.tangzc.mybatisflex.annotation.handler.AutoFillHandler;

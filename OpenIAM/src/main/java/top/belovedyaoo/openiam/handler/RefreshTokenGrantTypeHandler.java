@@ -7,7 +7,7 @@ import top.belovedyaoo.openiam.consts.OpenAuthConst;
 import top.belovedyaoo.openiam.data.model.AccessTokenModel;
 import top.belovedyaoo.openiam.data.model.RefreshTokenModel;
 import top.belovedyaoo.openiam.enums.OidcExceptionEnum;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.util.List;
 

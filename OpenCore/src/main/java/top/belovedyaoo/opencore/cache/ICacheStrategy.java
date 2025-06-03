@@ -20,4 +20,4 @@ public interface ICacheStrategy<K, V> {
      */
     V execute(CacheAccess<K, V> access);
 
-} 
+}

@@ -24,7 +24,7 @@ import top.belovedyaoo.openiam.enums.OidcExceptionEnum;
 import top.belovedyaoo.openiam.enums.OpenAuthExceptionEnum;
 import top.belovedyaoo.openiam.enums.OpenAuthResultEnum;
 import top.belovedyaoo.openiam.strategy.OpenAuthStrategy;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.List;

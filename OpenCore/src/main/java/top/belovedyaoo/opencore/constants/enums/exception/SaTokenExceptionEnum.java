@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.enums.exception;
+package top.belovedyaoo.opencore.constants.enums.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

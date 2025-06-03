@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.constants;
+package top.belovedyaoo.opencore.constants.consist;
 
 import top.belovedyaoo.opencore.common.OcMap;
 

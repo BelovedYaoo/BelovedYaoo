@@ -14,7 +14,7 @@ import top.belovedyaoo.openiam.data.model.oidc.IdTokenModel;
 import top.belovedyaoo.openiam.data.model.request.ClientIdAndSecretModel;
 import top.belovedyaoo.openiam.scope.CommonScope;
 import cn.dev33.satoken.util.SaFoxUtil;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.net.MalformedURLException;
 import java.net.URL;

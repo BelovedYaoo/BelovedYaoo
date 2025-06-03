@@ -13,7 +13,7 @@ import top.belovedyaoo.openiam.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openiam.data.model.request.RequestAuthModel;
 import top.belovedyaoo.openiam.enums.OidcExceptionEnum;
 import top.belovedyaoo.openiam.strategy.OpenAuthStrategy;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.util.LinkedHashMap;
 import java.util.List;

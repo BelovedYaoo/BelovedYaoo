@@ -2,7 +2,7 @@ package top.belovedyaoo.opencore.base;
 
 import com.mybatisflex.core.query.QueryWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
-import top.belovedyaoo.opencore.common.OperationMark;
+import top.belovedyaoo.opencore.advice.annotation.OperationMark;
 import top.belovedyaoo.opencore.result.Result;
 
 import java.util.List;

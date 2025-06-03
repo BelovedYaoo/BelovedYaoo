@@ -1,4 +1,4 @@
-package top.belovedyaoo.opencore.exception;
+package top.belovedyaoo.opencore.advice.exception;
 
 import lombok.Getter;
 import lombok.Setter;

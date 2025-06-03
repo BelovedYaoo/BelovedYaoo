@@ -3,7 +3,7 @@ package top.belovedyaoo.opencore.cache;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

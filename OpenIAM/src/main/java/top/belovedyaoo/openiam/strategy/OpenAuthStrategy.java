@@ -26,7 +26,7 @@ import top.belovedyaoo.openiam.scope.handler.OpenIdScopeHandler;
 import top.belovedyaoo.openiam.scope.handler.OpenAuthScopeHandlerInterface;
 import top.belovedyaoo.openiam.scope.handler.UserIdScopeHandler;
 import cn.dev33.satoken.util.SaFoxUtil;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.util.LinkedHashMap;
 import java.util.List;

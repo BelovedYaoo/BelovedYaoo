@@ -10,7 +10,7 @@ import top.belovedyaoo.openiam.data.model.RefreshTokenModel;
 import top.belovedyaoo.openiam.data.model.loader.OpenAuthClientModel;
 import top.belovedyaoo.openiam.enums.OidcExceptionEnum;
 import top.belovedyaoo.openiam.enums.OpenAuthExceptionEnum;
-import top.belovedyaoo.opencore.exception.OpenException;
+import top.belovedyaoo.opencore.advice.exception.OpenException;
 
 import java.util.List;
 

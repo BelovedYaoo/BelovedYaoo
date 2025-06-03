@@ -7,7 +7,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 import top.belovedyaoo.opencore.ac.EntitySetListener;
 import top.belovedyaoo.opencore.base.BaseIdFiled;
-import top.belovedyaoo.opencore.processor.LogicDeleteProcessor;
+import top.belovedyaoo.opencore.processor.autofill.LogicDeleteProcessor;
 import top.belovedyaoo.opencore.common.SqlCollector;
 import top.belovedyaoo.opencore.eo.EntityInsertListener;
 import top.belovedyaoo.opencore.eo.EntityUpdateListener;
