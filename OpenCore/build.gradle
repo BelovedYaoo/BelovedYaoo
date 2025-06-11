@@ -1,2 +1,27 @@
 dependencies {
 }
+
+// 创建源代码 jar 任务
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+java {
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'top.belovedyaoo'
+            artifactId = 'OpenCore'
+            version = '1.0.0'
+
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}

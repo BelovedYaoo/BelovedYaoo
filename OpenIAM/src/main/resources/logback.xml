@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds">
     <contextName>OpenIAM</contextName>
-    <property name="log.path" value="OpenAuth"/>
+    <property name="log.path" value="OpenIAM"/>
 
     <!--自定义颜色配置-->
     <conversionRule conversionWord="levelColor" class="top.belovedyaoo.opencore.common.LogbackLevelColorful"/>
